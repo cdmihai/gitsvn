@@ -1,3 +1,6 @@
 [submodule "jgit"]
 	path = jgit
 	url = git://github.com/eclipse/jgit.git
+[submodule "svnkit"]
+	path = svnkit
+	url = git@github.com:caiusb/SVNKit.git
