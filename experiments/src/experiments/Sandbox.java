@@ -9,30 +9,50 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.InvalidRemoteException;
+import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepository;
 
 public class Sandbox {
 	private static final String parentDir = "/tmp/test";
 	private static final String localRepo = "repo";
+	private static final String remoteRepo = "https://github.com/caiusb/tomighty.git";
 
-	private static Path parentDirPath;
-	private static Path localRepoPath;
+	private static final Path parentDirPath = Paths.get(parentDir);
+	private static final Path localRepoPath = Paths.get(parentDir, localRepo);
+	
 	private static Git git;
 
 	public static void main(String args[]) throws IOException {
+		destroy();
 		init();
 		run();
-		destroy();
 	}
 
 	private static void run() throws IOException {
-		Repository rep = GitHelper.create(localRepoPath);
+		Repository rep = new FileRepository(localRepoPath.toString());
+		git = new Git(rep);
+		
+		try {
+			git.cloneRepository().setURI(remoteRepo).setDirectory(localRepoPath.toFile()).call();
+		} catch (InvalidRemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransportException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (GitAPIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("finished");
+
 	}
 
 	private static void init() throws IOException {
-		parentDirPath = Paths.get(parentDir);
-		localRepoPath = Paths.get(parentDir, localRepo);
 		
 		Files.createDirectories(localRepoPath);
 		assert Files.exists(localRepoPath) : "Should exist" + localRepoPath;
@@ -62,7 +82,6 @@ public class Sandbox {
 
 				return FileVisitResult.CONTINUE;
 			}
-
 		});
 	}
 
