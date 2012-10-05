@@ -16,7 +16,7 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepository;
 
 public class Sandbox {
-	private static final String parentDir = "/tmp/test";
+	private static final String parentDir = "./tmp/test";
 	private static final String localRepo = "repo";
 	private static final String remoteRepo = "https://github.com/caiusb/tomighty.git";
 
