@@ -4,3 +4,6 @@
 [submodule "svnkit"]
 	path = svnkit
 	url = git@github.com:caiusb/SVNKit.git
+[submodule "gitective"]
+	path = gitective
+	url = https://github.com/kevinsawicki/gitective.git
