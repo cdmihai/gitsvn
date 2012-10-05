@@ -13,10 +13,10 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepository;
 
 public class Sandbox {
-	private static final String offset = "/tmp/test";
+	private static final String parentDir = "/tmp/test";
 	private static final String localRepo = "repo";
 
-	private static Path offsetPath;
+	private static Path parentDirPath;
 	private static Path localRepoPath;
 	private static Git git;
 
@@ -31,8 +31,8 @@ public class Sandbox {
 	}
 
 	private static void init() throws IOException {
-		offsetPath = Paths.get(offset);
-		localRepoPath = Paths.get(offset, localRepo);
+		parentDirPath = Paths.get(parentDir);
+		localRepoPath = Paths.get(parentDir, localRepo);
 		
 		Files.createDirectories(localRepoPath);
 		assert Files.exists(localRepoPath) : "Should exist" + localRepoPath;
@@ -44,7 +44,7 @@ public class Sandbox {
 	}
 
 	private static void destroy() throws IOException {
-		Files.walkFileTree(offsetPath, new SimpleFileVisitor<Path>() {
+		Files.walkFileTree(parentDirPath, new SimpleFileVisitor<Path>() {
 			@Override
 			public FileVisitResult visitFile(Path file,
 					BasicFileAttributes attrs) throws IOException {
