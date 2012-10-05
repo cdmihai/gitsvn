@@ -8,8 +8,8 @@ import org.eclipse.jgit.storage.file.FileRepository;
 
 public class GitHelper {
 
-	public static Repository create(Path path) throws IOException {
-		Repository newRepo = new FileRepository(path.toString());
+	public static Repository create(Path repoPath) throws IOException {
+		Repository newRepo = new FileRepository(repoPath.toString());
 		newRepo.create();
 
 		return newRepo;
