@@ -7,12 +7,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Iterator;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRemoteException;
 import org.eclipse.jgit.api.errors.TransportException;
+import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.ObjectDatabase;
+import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.storage.file.FileRepository;
 
 public class Sandbox {
@@ -32,11 +39,14 @@ public class Sandbox {
 	}
 
 	private static void run() throws IOException {
-		Repository rep = new FileRepository(localRepoPath.toString());
-		git = new Git(rep);
 		
 		try {
-			git.cloneRepository().setURI(remoteRepo).setDirectory(localRepoPath.toFile()).call();
+			git = Git.cloneRepository().setURI(remoteRepo).setDirectory(localRepoPath.toFile()).call();
+			Repository repository = git.getRepository();
+			ObjectId head = repository.resolve(Constants.HEAD);
+			RevWalk revWalk = new RevWalk(repository);
+			String fullMessage = revWalk.parseCommit(head).getFullMessage();
+			System.out.println(fullMessage);
 		} catch (InvalidRemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
