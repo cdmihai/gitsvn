@@ -42,6 +42,10 @@ public class CompositeCommitFilter extends CommitFilter {
 		filters.remove(filter);
 	}
 
+	public List<CommitFilter> getFilters() {
+		return filters;
+	}
+
 	/**
 	 * Applies this filter to the given commit. It always returns true, because
 	 * we never want to stop the walk.
