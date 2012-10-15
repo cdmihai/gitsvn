@@ -42,11 +42,19 @@ public class CompositeCommitFilter extends CommitFilter {
 		filters.remove(filter);
 	}
 
+	/**
+	 * Applies this filter to the given commit. It always returns true, because
+	 * we never want to stop the walk.
+	 */
 	@Override
 	public boolean include(RevWalk walker, RevCommit cmit)
 			throws StopWalkException, MissingObjectException,
 			IncorrectObjectTypeException, IOException {
-		return false;
-	}
 
+		for (CommitFilter filter : filters) {
+			filter.include(walker, cmit);
+		}
+
+		return true;
+	}
 }
