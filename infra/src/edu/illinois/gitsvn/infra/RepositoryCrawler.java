@@ -1,10 +1,6 @@
 package edu.illinois.gitsvn.infra;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,13 +27,14 @@ public class RepositoryCrawler {
 		filterClasses.remove(filterClass);
 	}
 	
-	public List<CommitFilter> crawlRepo(String repoLoc) throws GitAPIException,
+	public List<CommitFilter> crawlRepo(String remoteRepoLoc) throws GitAPIException,
 			InvalidRemoteException, TransportException {
 		
 		String cloneDirName = "repos/clone" + System.nanoTime();
 		File cloneDir = new File(cloneDirName);
 		cloneDir.deleteOnExit();
-		Git repo = Git.cloneRepository().setURI(repoLoc)
+		
+		Git repo = Git.cloneRepository().setURI(remoteRepoLoc)
 				.setDirectory(cloneDir).call();
 		
 		CommitFinder finder = new CommitFinder(repo.getRepository());
@@ -48,10 +45,10 @@ public class RepositoryCrawler {
 		} catch (InstantiationException | IllegalAccessException e) {
 			System.out.println("Error creating filter:" + e.getMessage());
 		}
+		
 		finder.setFilter(filter);
 		finder.find();
 		
-
 		return filter.getFilters();
 	}
 

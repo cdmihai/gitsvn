@@ -12,8 +12,17 @@ public class Main {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
-		for (String repoLoc : args) {
+		RepositoryCrawler crawler = new RepositoryCrawler();
+		
+		addFilters(crawler);
+		
+		for (String remoteRepoLoc : args) {
+			crawler.crawlRepo(remoteRepoLoc);
 		}
+	}
+
+	private static void addFilters(RepositoryCrawler crawler) {
+		// TODO Auto-generated method stub
 	}
 
 }
