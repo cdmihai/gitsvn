@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.StopWalkException;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.gitective.core.filter.commit.CommitFilter;
@@ -18,9 +19,10 @@ import org.gitective.core.filter.commit.CommitFilter;
  * @author caius
  * 
  */
-public class CompositeCommitFilter extends CommitFilter {
+public class AnalysisCompositeFilter extends AnalysisFilter implements
+		AnalysisLifecycle {
 
-	private List<CommitFilter> filters = new ArrayList<CommitFilter>();
+	private List<AnalysisFilter> filters = new ArrayList<AnalysisFilter>();
 
 	/**
 	 * Adds a filter to the list.
@@ -28,7 +30,7 @@ public class CompositeCommitFilter extends CommitFilter {
 	 * @param filter
 	 *            the filter to be added
 	 */
-	public void addFilter(CommitFilter filter) {
+	public void addFilter(AnalysisFilter filter) {
 		filters.add(filter);
 	}
 
@@ -42,7 +44,7 @@ public class CompositeCommitFilter extends CommitFilter {
 		filters.remove(filter);
 	}
 
-	public List<CommitFilter> getFilters() {
+	public List<AnalysisFilter> getFilters() {
 		return filters;
 	}
 
@@ -51,14 +53,39 @@ public class CompositeCommitFilter extends CommitFilter {
 	 * we never want to stop the walk.
 	 */
 	@Override
-	public boolean include(RevWalk walker, RevCommit cmit)
-			throws StopWalkException, MissingObjectException,
-			IncorrectObjectTypeException, IOException {
+	public boolean include(RevWalk walker, RevCommit cmit) throws StopWalkException, MissingObjectException, IncorrectObjectTypeException, IOException {
 
 		for (CommitFilter filter : filters) {
 			filter.include(walker, cmit);
 		}
 
 		return true;
+	}
+
+	@Override
+	public CommitFilter setRepository(final Repository repository) {
+		for (AnalysisFilter filter : filters)
+			if (filter instanceof CommitFilter)
+				filter.setRepository(repository);
+		return super.setRepository(repository);
+	}
+
+	@Override
+	public CommitFilter reset() {
+		for (AnalysisFilter filter : filters)
+			if (filter instanceof CommitFilter)
+				filter.reset();
+		return super.reset();
+	}
+
+	@Override
+	public void begin() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void end() {
+
 	}
 }
