@@ -11,7 +11,7 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.gitective.core.filter.commit.CommitFilter;
 
-public class DateFilter extends CommitFilter{
+public class GeneralCommitData extends CommitFilter{
 
 	private List<Integer> dates = new LinkedList<Integer>();
 	

@@ -2,7 +2,6 @@ package edu.illinois.gitsvn.infra;
 
 import java.util.List;
 
-import org.gitective.core.CommitFinder;
 import org.gitective.core.filter.commit.CommitCountFilter;
 import org.gitective.core.filter.commit.CommitFilter;
 import org.gitective.tests.GitTestCase;
