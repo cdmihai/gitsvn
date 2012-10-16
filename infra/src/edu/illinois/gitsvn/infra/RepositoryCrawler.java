@@ -11,6 +11,8 @@ import org.eclipse.jgit.api.errors.TransportException;
 import org.gitective.core.CommitFinder;
 import org.gitective.core.filter.commit.CommitFilter;
 
+import edu.illinois.gitsvn.infra.filters.CompositeCommitFilter;
+
 public class RepositoryCrawler {
 	
 	private List<Class<? extends CommitFilter>> filterClasses;

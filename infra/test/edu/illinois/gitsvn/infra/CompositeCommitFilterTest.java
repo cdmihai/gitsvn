@@ -5,6 +5,8 @@ import org.gitective.core.filter.commit.CommitCountFilter;
 import org.gitective.tests.GitTestCase;
 import org.junit.Test;
 
+import edu.illinois.gitsvn.infra.filters.CompositeCommitFilter;
+
 public class CompositeCommitFilterTest extends GitTestCase {	
 
 	@Test

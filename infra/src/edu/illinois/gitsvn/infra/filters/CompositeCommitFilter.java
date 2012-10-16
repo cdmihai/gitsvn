@@ -1,4 +1,4 @@
-package edu.illinois.gitsvn.infra;
+package edu.illinois.gitsvn.infra.filters;
 
 import java.io.IOException;
 import java.util.ArrayList;
