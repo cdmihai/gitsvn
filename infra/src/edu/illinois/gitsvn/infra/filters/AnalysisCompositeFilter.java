@@ -80,12 +80,15 @@ public class AnalysisCompositeFilter extends AnalysisFilter implements
 
 	@Override
 	public void begin() {
-		// TODO Auto-generated method stub
-
+		for (AnalysisFilter filter : filters) {
+			filter.begin();
+		}
 	}
 
 	@Override
 	public void end() {
-
+		for (AnalysisFilter filter : filters) {
+			filter.end();
+		}
 	}
 }
