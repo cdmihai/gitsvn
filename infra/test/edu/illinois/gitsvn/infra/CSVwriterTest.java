@@ -39,7 +39,7 @@ public class CSVwriterTest {
 	public void testHeader() {
 		csv.addHeader(Arrays.asList(headers));
 
-		List<List<String>> rows = csv.getHeader();
+		List<String> rows = csv.getHeader();
 
 		assertNotNull(rows);
 		assertEquals(1, rows.size());
@@ -52,7 +52,7 @@ public class CSVwriterTest {
 		csv.addRow(Arrays.asList(row1));
 		csv.addRow(Arrays.asList(row2));
 
-		List<List<String>> rows = csv.getHeader();
+		List<List<String>> rows = csv.getRows();
 
 		assertNotNull(rows);
 		assertEquals(3, rows.size());
