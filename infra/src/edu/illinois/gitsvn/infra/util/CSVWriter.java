@@ -17,11 +17,11 @@ import java.util.List;
  * @author mihai
  *
  */
-public class CSVwriter {
+public class CSVWriter {
 	private List<List<String>> rows;
 	private List<String> headers;
 
-	public CSVwriter() {
+	public CSVWriter() {
 		rows = new ArrayList<>();
 		headers = new LinkedList<>();
 	}
@@ -59,6 +59,10 @@ public class CSVwriter {
 		String content = constructCSV();
 
 		Files.write(path, content.toString().getBytes());
+	}
+	
+	public String getCSVString(){
+		return constructCSV();
 	}
 
 	private String constructCSV() {

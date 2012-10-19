@@ -14,11 +14,11 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.illinois.gitsvn.infra.util.CSVwriter;
+import edu.illinois.gitsvn.infra.util.CSVWriter;
 
 public class CSVwriterTest {
 
-	private CSVwriter csv;
+	private CSVWriter csv;
 	private String[] headers;
 	private String[] row1;
 	private String[] row2;
@@ -27,7 +27,7 @@ public class CSVwriterTest {
 
 	@Before
 	public void setUp() {
-		csv = new CSVwriter();
+		csv = new CSVWriter();
 		headers = new String[] { "a", "b", "c" };
 		row1 = new String[]{"1", "2", "3"};
 		row2 = new String[]{"11", "22", "22"};
