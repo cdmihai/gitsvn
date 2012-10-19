@@ -48,7 +48,11 @@ public class RepositoryCrawler {
 		}
 
 		finder.setFilter(filter);
+		
+		filter.begin();
+		filter.setRepository(repo.getRepository());
 		finder.find();
+		filter.end();
 
 		return filter.getFilters();
 	}
