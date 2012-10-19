@@ -32,7 +32,7 @@ public class CSVwriterTest {
 		row1 = new String[]{"1", "2", "3"};
 		row2 = new String[]{"11", "22", "22"};
 		
-		fileContent = headers + "\n" + row1 + "\n" + row2;
+		fileContent = "a,b,c\n1,2,3\n11,22,22";
 	}
 
 	@Test
