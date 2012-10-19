@@ -39,11 +39,13 @@ public class CSVwriterTest {
 	public void testHeader() {
 		csv.addHeader(Arrays.asList(headers));
 
-		List<String> rows = csv.getHeader();
-
-		assertNotNull(rows);
-		assertEquals(1, rows.size());
-		assertEquals(headers, rows.get(0));
+		List<String> header = csv.getHeader();
+		List<List<String>> rows = csv.getRows();
+		
+		assertNotNull(header);
+		assertTrue(rows.isEmpty());
+		assertEquals(3, header.size());
+		assertEquals(headers, header.toArray(new String[0]));
 	}
 	
 	@Test
@@ -55,10 +57,10 @@ public class CSVwriterTest {
 		List<List<String>> rows = csv.getRows();
 
 		assertNotNull(rows);
-		assertEquals(3, rows.size());
-		assertEquals(headers, rows.get(0));
-		assertEquals(row1, rows.get(1));
-		assertEquals(row2, rows.get(2));
+		assertEquals(2, rows.size());
+		assertEquals(headers, csv.getHeader().toArray());
+		assertEquals(row1, rows.get(0).toArray());
+		assertEquals(row2, rows.get(1).toArray());
 	}
 	
 	@Test
