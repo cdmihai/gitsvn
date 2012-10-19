@@ -15,11 +15,12 @@ import edu.illinois.gitsvn.infra.util.CSVWriter;
 public class CSVCommitPrinter extends AnalysisFilter {
 	
 	private CSVWriter csv;
+	private LineNumberFilter lineFilter = new LineNumberFilter();
 
 	@Override
 	public void begin() {
 		csv = new CSVWriter();
-		csv.addHeader(Arrays.asList(new String[]{"id", "time"}));
+		csv.addHeader(Arrays.asList(new String[]{"id", "time", "lines"}));
 	}
 
 	@Override
@@ -36,7 +37,9 @@ public class CSVCommitPrinter extends AnalysisFilter {
 		ObjectId id = cmit.getId();
 		Integer commitTime = cmit.getCommitTime();
 		
-		csv.addRow(Arrays.asList(new String[]{id.getName(), commitTime.toString()}));
+		lineFilter.include(walker, cmit);
+		
+		csv.addRow(Arrays.asList(new String[]{id.getName(), commitTime.toString(), lineFilter.getCount() + ""}));
 		
 		return true;
 	}

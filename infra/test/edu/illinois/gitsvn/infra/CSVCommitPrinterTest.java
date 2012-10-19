@@ -15,7 +15,7 @@ public class CSVCommitPrinterTest extends GitTestCase {
 	@Test
 	public void testSimpleRepo() throws Exception {
 		add("a1", "c1");
-		add("a2", "c2");
+		add("a2", "c2\nmumu");
 		add("a3", "c3");
 		add("a4", "c4");
 		
@@ -28,7 +28,7 @@ public class CSVCommitPrinterTest extends GitTestCase {
 		
 		CSVWriter csvWriter = csvfilter.getCSVWriter();
 		
-		assertEquals(Arrays.asList(new String[]{"id", "time"}), csvWriter.getHeader());
+		assertEquals(Arrays.asList(new String[]{"id", "time", "lines"}), csvWriter.getHeader());
 		
 		List<List<String>> rows = csvWriter.getRows();
 		
