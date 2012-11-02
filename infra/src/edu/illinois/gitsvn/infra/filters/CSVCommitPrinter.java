@@ -10,6 +10,7 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.gitective.core.filter.commit.ShortestCommitterNameFilter;
 
 import edu.illinois.gitsvn.infra.util.CSVWriter;
 
@@ -17,11 +18,12 @@ public class CSVCommitPrinter extends AnalysisFilter {
 	
 	private CSVWriter csv;
 	private LineNumberFilter lineFilter = new LineNumberFilter();
+	private SVNCommitDetectorFilter svnDetector = new SVNCommitDetectorFilter();
 
 	@Override
 	public void begin() {
 		csv = new CSVWriter();
-		csv.addHeader(Arrays.asList(new String[]{"id", "author", "time", "lines"}));
+		csv.addHeader(Arrays.asList(new String[]{"id", "SCM", "author", "time", "lines"}));
 	}
 
 	@Override
@@ -40,8 +42,9 @@ public class CSVCommitPrinter extends AnalysisFilter {
 		PersonIdent author = cmit.getAuthorIdent();
 		
 		lineFilter.include(walker, cmit);
+		svnDetector.include(walker, cmit);
 		
-		csv.addRow(Arrays.asList(new String[]{id.getName(), author.getName(), commitTime.toString(), lineFilter.getCount() + ""}));
+		csv.addRow(Arrays.asList(new String[]{id.getName(),svnDetector.getMode(), author.getName(), commitTime.toString(), lineFilter.getCount() + ""}));
 		
 		return true;
 	}
