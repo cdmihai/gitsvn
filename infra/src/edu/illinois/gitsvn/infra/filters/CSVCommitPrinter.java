@@ -7,6 +7,7 @@ import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.StopWalkException;
 import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 
@@ -20,7 +21,7 @@ public class CSVCommitPrinter extends AnalysisFilter {
 	@Override
 	public void begin() {
 		csv = new CSVWriter();
-		csv.addHeader(Arrays.asList(new String[]{"id", "time", "lines"}));
+		csv.addHeader(Arrays.asList(new String[]{"id", "author", "time", "lines"}));
 	}
 
 	@Override
@@ -36,10 +37,11 @@ public class CSVCommitPrinter extends AnalysisFilter {
 		
 		ObjectId id = cmit.getId();
 		Integer commitTime = cmit.getCommitTime();
+		PersonIdent author = cmit.getAuthorIdent();
 		
 		lineFilter.include(walker, cmit);
 		
-		csv.addRow(Arrays.asList(new String[]{id.getName(), commitTime.toString(), lineFilter.getCount() + ""}));
+		csv.addRow(Arrays.asList(new String[]{id.getName(), author.getName(), commitTime.toString(), lineFilter.getCount() + ""}));
 		
 		return true;
 	}
