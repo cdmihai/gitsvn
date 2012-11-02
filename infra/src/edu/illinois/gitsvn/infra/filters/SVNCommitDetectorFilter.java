@@ -19,6 +19,7 @@ public class SVNCommitDetectorFilter extends CommitMessageFindFilter{
 	public static String SVN = "SVN";
 	public static String GIT = "GIT";
 	
+	//TODO add correct marker
 	private static String pattern = "SVN";
 	
 	private String mode;
