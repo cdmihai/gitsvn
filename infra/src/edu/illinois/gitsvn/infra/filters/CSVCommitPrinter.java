@@ -10,7 +10,6 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
-import org.gitective.core.filter.commit.ShortestCommitterNameFilter;
 
 import edu.illinois.gitsvn.infra.util.CSVWriter;
 
@@ -18,7 +17,7 @@ public class CSVCommitPrinter extends AnalysisFilter {
 	
 	private CSVWriter csv;
 	private LineNumberFilter lineFilter = new LineNumberFilter();
-	private SVNCommitDetectorFilter svnDetector = new SVNCommitDetectorFilter();
+	private CutofDetectorFilter svnDetector = new CutofDetectorFilter();
 
 	@Override
 	public void begin() {
