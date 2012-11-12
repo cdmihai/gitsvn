@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.revwalk.filter.RevFilter;
+import org.gitective.core.filter.commit.CommitMessageFindFilter;
 
 /**
  * Detects whether a commit was imported from a previous SCM such as SVN
@@ -13,15 +14,13 @@ import org.eclipse.jgit.revwalk.filter.RevFilter;
  *
  */
 
-public class SVNCommitDetectorFilter extends AbstractSVNDetector{
+public class SVNCommitDetectorFilter extends CommitMessageFindFilter implements AbstractSVNDetector {
 
 	private static String pattern = "git-svn-id";
 	
 	private String mode;
 	
-	
 	public SVNCommitDetectorFilter() {
-		
 		super(pattern, Pattern.MULTILINE);
 	}
 	
