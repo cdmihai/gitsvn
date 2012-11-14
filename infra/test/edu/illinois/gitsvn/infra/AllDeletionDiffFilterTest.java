@@ -40,7 +40,7 @@ public class AllDeletionDiffFilterTest extends GitTestCase {
 			expectedCommitCount = 4;
 		}
 
-		AllDeletionDiffFilter deleteFilter = new AllDeletionDiffFilter();
+		AllDeletionDiffFilter deleteFilter = AllDeletionDiffFilter.getDeleteDiffFilter();
 		CommitCountFilter countFilter = new CommitCountFilter();
 
 		AndCommitFilter andFilter = new AndCommitFilter();
