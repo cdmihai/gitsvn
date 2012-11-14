@@ -18,30 +18,45 @@ import edu.illinois.gitsvn.infra.filters.blacklister.AllDeletionDiffFilter;
 public class AllDeletionDiffFilterTest extends GitTestCase {
 
 	@Test
-	public void testIgnoreCommitsThatOnlyDelete() throws Exception {
+	public void testFilterEffect() throws Exception {
+		runTest(true);
+	}
+	
+	@Test
+	public void testnoFilterInterference() throws Exception {
+		runTest(false);
+	}
+
+	public void runTest(boolean includeDelete) throws Exception {
+		int expectedCommitCount = 3;
+		int expectedFilteredCommitCount = 3;
+		
 		add("file/a.txt", "mumu", "c1");
 		add("file/a1.txt", "mumu", "c2");
 		add("file/a2.txt", "mumu", "c3");
 
-		delete("file");
+		if (includeDelete) {
+			delete("file");
+			expectedCommitCount = 4;
+		}
 
-		AllDeletionDiffFilter filter = new AllDeletionDiffFilter();
-		CommitCountFilter count = new CommitCountFilter();
+		AllDeletionDiffFilter deleteFilter = new AllDeletionDiffFilter();
+		CommitCountFilter countFilter = new CommitCountFilter();
 
-		AndCommitFilter all = new AndCommitFilter();
-		all.add(filter, count);
+		AndCommitFilter andFilter = new AndCommitFilter();
+		andFilter.add(deleteFilter, countFilter);
 
 		CommitFinder finder = new CommitFinder(testRepo);
 
-		finder.setFilter(count);
+		finder.setFilter(countFilter);
 		finder.find();
-		assertEquals(4, count.getCount());
+		assertEquals(expectedCommitCount, countFilter.getCount());
 
-		count.reset();
+		countFilter.reset();
 
-		finder.setFilter(all);
+		finder.setFilter(andFilter);
 		finder.find();
-		assertEquals(3, count.getCount());
+		assertEquals(expectedFilteredCommitCount, countFilter.getCount());
 	}
 
 	private void printRepo() throws IOException {
