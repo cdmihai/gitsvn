@@ -9,6 +9,7 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRemoteException;
 import org.eclipse.jgit.api.errors.TransportException;
 import org.gitective.core.CommitFinder;
+import org.gitective.core.filter.commit.AndCommitFilter;
 import org.gitective.core.filter.commit.CommitFilter;
 
 import edu.illinois.gitsvn.infra.filters.AnalysisCompositeFilter;
@@ -39,25 +40,39 @@ public class RepositoryCrawler {
 		Git repo = Git.cloneRepository().setURI(remoteRepoLoc).setDirectory(cloneDir).call();
 
 		CommitFinder finder = new CommitFinder(repo.getRepository());
+		AnalysisCompositeFilter analysisFilter = createAndAttachFilters(finder);
 
-		AnalysisCompositeFilter filter = null;
+		analysisFilter.setRepository(repo.getRepository());
+		analysisFilter.begin();
+		finder.find();
+		analysisFilter.end();
+
+		return analysisFilter.getFilters();
+	}
+
+	private AnalysisCompositeFilter createAndAttachFilters(CommitFinder finder) {
+		AnalysisCompositeFilter analysisFilter = null;
 		try {
-			filter = createFilter();
+			analysisFilter = createAnalysisFilter();
 		} catch (InstantiationException | IllegalAccessException e) {
 			System.out.println("Error creating filter:" + e.getMessage());
 		}
 
-		finder.setFilter(filter);
-		
-		filter.setRepository(repo.getRepository());
-		filter.begin();
-		finder.find();
-		filter.end();
+		AndCommitFilter aggregate = new AndCommitFilter();
 
-		return filter.getFilters();
+		addCommitBlacklisters(aggregate);
+		aggregate.add(analysisFilter);
+
+		finder.setFilter(aggregate);
+		
+		return analysisFilter;
 	}
 
-	private AnalysisCompositeFilter createFilter() throws InstantiationException, IllegalAccessException {
+	private void addCommitBlacklisters(AndCommitFilter andCommitFilter) {
+		// TODO Auto-generated method stub
+	}
+
+	private AnalysisCompositeFilter createAnalysisFilter() throws InstantiationException, IllegalAccessException {
 		AnalysisCompositeFilter compositeFilter = new AnalysisCompositeFilter();
 
 		for (Class<? extends CommitFilter> filterClass : filterClasses) {
