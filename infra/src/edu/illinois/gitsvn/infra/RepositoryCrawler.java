@@ -49,8 +49,8 @@ public class RepositoryCrawler {
 
 		finder.setFilter(filter);
 		
-		filter.begin();
 		filter.setRepository(repo.getRepository());
+		filter.begin();
 		finder.find();
 		filter.end();
 
@@ -72,5 +72,4 @@ public class RepositoryCrawler {
 
 		return compositeFilter;
 	}
-
 }
