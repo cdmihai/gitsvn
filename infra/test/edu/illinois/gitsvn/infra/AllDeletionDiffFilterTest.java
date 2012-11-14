@@ -8,7 +8,7 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
 import org.gitective.core.CommitFinder;
-import org.gitective.core.filter.commit.AllCommitFilter;
+import org.gitective.core.filter.commit.AndCommitFilter;
 import org.gitective.core.filter.commit.CommitCountFilter;
 import org.gitective.tests.GitTestCase;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class AllDeletionDiffFilterTest extends GitTestCase {
 		AllDeletionDiffFilter filter = new AllDeletionDiffFilter();
 		CommitCountFilter count = new CommitCountFilter();
 
-		AllCommitFilter all = new AllCommitFilter();
+		AndCommitFilter all = new AndCommitFilter();
 		all.add(filter, count);
 
 		CommitFinder finder = new CommitFinder(testRepo);
@@ -39,7 +39,7 @@ public class AllDeletionDiffFilterTest extends GitTestCase {
 
 		count.reset();
 
-		finder.setFilter(count);
+		finder.setFilter(all);
 		finder.find();
 		assertEquals(3, count.getCount());
 	}
