@@ -1,5 +1,6 @@
 package edu.illinois.gitsvn.infra;
 
+import org.eclipse.jgit.api.Git;
 import org.gitective.core.CommitFinder;
 import org.gitective.core.filter.commit.AllCommitFilter;
 import org.gitective.tests.GitTestCase;
@@ -8,6 +9,7 @@ import org.junit.Test;
 
 import edu.illinois.gitsvn.infra.filters.CSVCommitPrinter;
 import edu.illinois.gitsvn.infra.filters.LineNumberFilter;
+
 
 public class LineCountFilterTest extends GitTestCase {
 	
@@ -21,6 +23,8 @@ public class LineCountFilterTest extends GitTestCase {
 		super.setUp();
 		countFilter = new LineNumberFilter();
 		csvCommitPrinter = new CSVCommitPrinter();
+		
+		csvCommitPrinter.setRepository(Git.open(testRepo).getRepository());
 		csvCommitPrinter.begin();
 		
 		allCommitFilter = new AllCommitFilter(countFilter, csvCommitPrinter);
