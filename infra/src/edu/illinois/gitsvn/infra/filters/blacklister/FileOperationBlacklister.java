@@ -19,10 +19,12 @@ public class FileOperationBlacklister extends CommitDiffFilter {
 	private ChangeType changeType;
 	
 	private FileOperationBlacklister(ChangeType ct){
+		this();
 		this.changeType = ct;
 	}
 	
 	private FileOperationBlacklister(){
+		super(true);
 	}
 	
 	public static FileOperationBlacklister getDeleteDiffFilter(){
