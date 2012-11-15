@@ -15,7 +15,7 @@ import org.gitective.tests.GitTestCase;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.illinois.gitsvn.infra.filters.blacklister.AllDeletionDiffFilter;
+import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
 
 public class AllDeletionDiffFilterTest extends GitTestCase {
 
@@ -23,17 +23,17 @@ public class AllDeletionDiffFilterTest extends GitTestCase {
 	private static final int DELETE = 1;
 	private static final int RENAME = 2;
 
-	private AllDeletionDiffFilter deleteFilter;
+	private FileOperationBlacklister deleteFilter;
 	private CommitCountFilter countFilter;
 	private AndCommitFilter deleteCountAndFilter;
 	private CommitFinder finder;
 	private AndCommitFilter renameCountAndFilter;
-	private AllDeletionDiffFilter renameFilter;
+	private FileOperationBlacklister renameFilter;
 
 	@Before
 	public void setup() {
-		deleteFilter = AllDeletionDiffFilter.getDeleteDiffFilter();
-		renameFilter = AllDeletionDiffFilter.getRenameDiffFilter();
+		deleteFilter = FileOperationBlacklister.getDeleteDiffFilter();
+		renameFilter = FileOperationBlacklister.getRenameDiffFilter();
 		countFilter = new CommitCountFilter();
 
 		deleteCountAndFilter = new AndCommitFilter();

@@ -9,28 +9,28 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.gitective.core.filter.commit.CommitDiffFilter;
 
 /**
- * Excludes a commit for which all Diffs are of change type DELETE.
+ * Excludes a commit for which all Diffs are of change type DELETE or RENAME.
  * 
  * @author mihai
  *
  */
-public class AllDeletionDiffFilter extends CommitDiffFilter {
+public class FileOperationBlacklister extends CommitDiffFilter {
 	
 	private ChangeType changeType;
 	
-	private AllDeletionDiffFilter(ChangeType ct){
+	private FileOperationBlacklister(ChangeType ct){
 		this.changeType = ct;
 	}
 	
-	private AllDeletionDiffFilter(){
+	private FileOperationBlacklister(){
 	}
 	
-	public static AllDeletionDiffFilter getDeleteDiffFilter(){
-		return new AllDeletionDiffFilter(ChangeType.DELETE);
+	public static FileOperationBlacklister getDeleteDiffFilter(){
+		return new FileOperationBlacklister(ChangeType.DELETE);
 	}
 	
-	public static AllDeletionDiffFilter getRenameDiffFilter(){
-		return new AllDeletionDiffFilter(ChangeType.RENAME);
+	public static FileOperationBlacklister getRenameDiffFilter(){
+		return new FileOperationBlacklister(ChangeType.RENAME);
 	}
 
 	@Override
