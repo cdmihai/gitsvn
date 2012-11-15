@@ -8,9 +8,10 @@ import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.StopWalkException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.PersonIdent;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
-import org.gitective.core.filter.commit.ShortestCommitterNameFilter;
+import org.gitective.core.filter.commit.CommitFilter;
 
 import edu.illinois.gitsvn.infra.util.CSVWriter;
 
@@ -47,5 +48,16 @@ public class CSVCommitPrinter extends AnalysisFilter {
 		csv.addRow(Arrays.asList(new String[]{id.getName(),svnDetector.getMode(), author.getName(), commitTime.toString(), lineFilter.getCount() + ""}));
 		
 		return true;
+	}
+	
+	@Override
+	public CommitFilter setRepository(Repository repository) {
+		 CommitFilter ret = super.setRepository(repository);
+		 
+		 lineFilter.setRepository(repository);
+		 svnDetector.setRepository(repository);
+		 
+		 return ret;
+		 
 	}
 }
