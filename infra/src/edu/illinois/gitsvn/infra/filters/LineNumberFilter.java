@@ -10,6 +10,8 @@ import org.eclipse.jgit.treewalk.filter.AndTreeFilter;
 import org.eclipse.jgit.treewalk.filter.TreeFilter;
 import org.gitective.core.filter.commit.DiffCountFilter;
 
+import edu.illinois.gitsvn.infra.filters.blacklister.FileExtensionBlacklister;
+
 public class LineNumberFilter extends DiffCountFilter {
 
 	private int count;
