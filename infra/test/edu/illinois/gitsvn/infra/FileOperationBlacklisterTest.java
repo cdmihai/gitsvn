@@ -17,7 +17,7 @@ import org.junit.Test;
 
 import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
 
-public class AllDeletionDiffFilterTest extends GitTestCase {
+public class FileOperationBlacklisterTest extends GitTestCase {
 
 	private static final int NOTHING = 0;
 	private static final int DELETE = 1;
