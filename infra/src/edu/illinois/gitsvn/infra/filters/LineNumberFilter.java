@@ -10,6 +10,10 @@ public class LineNumberFilter extends DiffCountFilter{
 	
 	private int count;
 	
+	public LineNumberFilter(){
+		super(true);
+	}
+	
 	@Override
 	protected boolean include(RevCommit commit, Collection<DiffEntry> diffs, int diffCount) {
 		count = diffCount;
