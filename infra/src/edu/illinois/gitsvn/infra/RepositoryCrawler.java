@@ -14,6 +14,7 @@ import org.gitective.core.filter.commit.CommitFilter;
 
 import edu.illinois.gitsvn.infra.filters.AnalysisCompositeFilter;
 import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
+import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
 
 public class RepositoryCrawler {
 
@@ -69,7 +70,8 @@ public class RepositoryCrawler {
 	}
 
 	private void addCommitBlacklisters(AndCommitFilter andCommitFilter) {
-		// TODO Auto-generated method stub
+		andCommitFilter.add(FileOperationBlacklister.getDeleteDiffFilter());
+		andCommitFilter.add(FileOperationBlacklister.getRenameDiffFilter());
 	}
 
 	private AnalysisCompositeFilter createAnalysisFilter() throws InstantiationException, IllegalAccessException {
