@@ -1,6 +1,8 @@
 package edu.illinois.gitsvn.infra;
 
 import java.io.IOException;
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
@@ -11,16 +13,19 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.gitective.core.filter.commit.CommitFilter;
 
 public class PipelineCommitFilter extends CommitFilter {
-	
+
 	public List<CommitFilter> filters;
 	public List<CommitFilter> collectors;
 	public CommitFilter dataAgregator;
-	
+
 	public void addFilter(CommitFilter filter) {
 		filters.add(filter);
 	}
-	
+
 	public void addDataCollector(CommitFilter collector) {
+		if (!(collector instanceof DataCollector))
+			throw new InvalidParameterException("The collector should be a DataCollector");
+		
 		collectors.add(collector);
 	}
 
@@ -41,19 +46,19 @@ public class PipelineCommitFilter extends CommitFilter {
 	public boolean include(RevWalk walker, RevCommit cmit)
 			throws StopWalkException, MissingObjectException,
 			IncorrectObjectTypeException, IOException {
-		
+
 		for (CommitFilter filter : filters) {
 			boolean result = filter.include(walker, cmit);
 			if (result == false)
 				return true;
 		}
-		
+
 		for (CommitFilter collector : collectors) {
 			collector.include(walker, cmit);
 		}
-		
+
 		dataAgregator.include(walker, cmit);
-		
+
 		return true;
 	}
 }
