@@ -28,9 +28,6 @@ public class LineNumberFilter extends DiffCountFilter {
 		this.ignoreNonSourceCode = ignoreNonSourceCode;
 	}
 
-	private LineNumberFilter() {
-	}
-
 	@Override
 	protected TreeWalk createTreeWalk(RevWalk walker, RevCommit commit) {
 		TreeWalk walk = super.createTreeWalk(walker, commit);
