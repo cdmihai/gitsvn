@@ -24,31 +24,17 @@ public class RepositoryCrawlerTest extends GitTestCase{
 	
 	@Test
 	public void testOneFilter() throws Exception {
-		crawler.addFilter(CommitCountFilter.class);
-		List<AnalysisFilter> filters = crawler.crawlRepo(testRepo.getAbsolutePath());
-		assertEquals(1,filters.size());
-		CommitCountFilter filter = (CommitCountFilter) ((AnalysisFilterAdapter) filters.get(0)).getAdaptee();
-		assertEquals(2, filter.getCount());
+		
 	}
 	
 	@Test
 	public void testTwoFilters() throws Exception {
-		crawler.addFilter(CommitCountFilter.class);
-		crawler.addFilter(CommitCountFilter.class);
 		
-		List<AnalysisFilter> filters = crawler.crawlRepo(testRepo.getAbsolutePath());
-		assertEquals(2,filters.size());
-		CommitCountFilter filter1 = (CommitCountFilter) ((AnalysisFilterAdapter) filters.get(0)).getAdaptee();;
-		CommitCountFilter filter2 = (CommitCountFilter) ((AnalysisFilterAdapter) filters.get(1)).getAdaptee();;
-
-		assertEquals(2,filter1.getCount());
-		assertEquals(2,filter2.getCount());
 	}
 	
 	@Test
 	public void testNoFilters() throws Exception {
-		List<AnalysisFilter> filters = crawler.crawlRepo(testRepo.getAbsolutePath());
-		assertEquals(0,filters.size());
+		
 	}
 
 }
