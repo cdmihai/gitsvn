@@ -31,12 +31,6 @@ public class CSVCommitPrinter extends AnalysisFilter {
 
 	@Override
 	public void end() {
-		try {
-			csv.dumpToFile("mumu.csv");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public CSVWriter getCSVWriter() {
