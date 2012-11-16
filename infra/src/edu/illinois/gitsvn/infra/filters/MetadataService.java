@@ -21,5 +21,12 @@ public class MetadataService {
 		
 		return service;
 	}
-
+	
+	public void pushInfo(String name, String value) {
+		
+	}
+	
+	public String getInfo(String name) {
+		return null;
+	}
 }
