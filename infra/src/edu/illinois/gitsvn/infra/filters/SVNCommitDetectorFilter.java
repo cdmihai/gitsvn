@@ -8,6 +8,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.revwalk.filter.RevFilter;
 import org.gitective.core.filter.commit.CommitMessageFindFilter;
 
+
 /**
  * Detects whether a commit was imported from a previous SCM such as SVN
  * @author mihai
@@ -41,14 +42,24 @@ public class SVNCommitDetectorFilter extends CommitMessageFindFilter implements 
 		return lastStatus;
 	}
 	
+	@Override
+	public String name() {
+		return "SCM";
+	}
+
 	/**
 	 * Returns SVN if this commit was from SVN.
 	 * Returns GIT otherwise. 
 	 * @return
 	 */
 	@Override
-	public String getMode(){
+	public String getDataForCommit() {
 		return mode;
+	}
+
+	@Override
+	public String getMode() {
+		return getDataForCommit();
 	}
 
 }

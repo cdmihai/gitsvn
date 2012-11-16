@@ -9,13 +9,19 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.gitective.core.filter.commit.CommitFilter;
 
+
 public class CutofDetectorFilter extends CommitFilter implements AbstractSVNDetector {
 	
 	private String mode = "";
 	private int cutofTime = 1295380000;
 	
 	@Override
-	public String getMode() {
+	public String name() {
+		return "SCM";
+	}
+	
+	@Override
+	public String getDataForCommit() {
 		return mode;
 	}
 
@@ -31,6 +37,11 @@ public class CutofDetectorFilter extends CommitFilter implements AbstractSVNDete
 			mode = GIT;
 		
 		return true;
+	}
+
+	@Override
+	public String getMode() {
+		return getDataForCommit();
 	}
 
 }
