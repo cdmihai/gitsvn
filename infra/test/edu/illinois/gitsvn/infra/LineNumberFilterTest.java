@@ -27,7 +27,7 @@ public class LineNumberFilterTest extends GitTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 		countFilter = new LineNumberFilter(true);
-		csvCommitPrinter = new CSVCommitPrinter();
+		csvCommitPrinter = null;//new CSVCommitPrinter();
 
 		allCommitFilter = new AllCommitFilter(countFilter, csvCommitPrinter);
 		allCommitFilter.setRepository(Git.open(testRepo).getRepository());
