@@ -23,7 +23,16 @@ public class PipelineCommitFilter extends CommitFilter {
 	public void addDataCollector(CommitFilter collector) {
 		collectors.add(collector);
 	}
-	
+
+	public List<DataCollector> getAllCollectors() {
+		List<DataCollector> returnedCollectors = new ArrayList<DataCollector>();
+		for (CommitFilter collector : collectors) {
+			returnedCollectors.add((DataCollector) collector);
+		}
+
+		return returnedCollectors;
+	}
+
 	public void setDataAgregator(CommitFilter agregator) {
 		this.dataAgregator = agregator;
 	}
