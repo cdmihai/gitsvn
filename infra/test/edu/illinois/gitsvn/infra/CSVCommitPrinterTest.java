@@ -14,27 +14,6 @@ public class CSVCommitPrinterTest extends GitTestCase {
 
 	@Test
 	public void testSimpleRepo() throws Exception {
-		add("a1", "test\ntest\ntest");
-
-		add("a1", "test\ntest1\ntest1");
-
-		add("a1", "test\ntest1\ntest2");
-
-		RepositoryCrawler c = new RepositoryCrawler();
-
-		c.addFilter(CSVCommitPrinter.class);
-		List<AnalysisFilter> filters = c.crawlRepo(testRepo.getAbsolutePath());
-
-		CSVCommitPrinter csvfilter = (CSVCommitPrinter) filters.get(0);
-
-		CSVWriter csvWriter = csvfilter.getCSVWriter();
-
-		assertEquals(Arrays.asList(new String[] { "id", "SCM", "author", "time", "lines" , "sourceLines"}), csvWriter.getHeader());
-
-		List<List<String>> rows = csvWriter.getRows();
-
-		assertEquals(3, rows.size());
-
-		System.out.println(csvWriter.getCSVString());
+		
 	}
 }
