@@ -1,5 +1,8 @@
 package edu.illinois.gitsvn.infra.filters;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This is a service for filters to get their required info. You
  * push an information here, and then the filters pull it a the
@@ -12,6 +15,8 @@ public class MetadataService {
 	
 	private static MetadataService service = null;
 	
+	private Map<String, String> infoMap = new HashMap<String, String>();
+	
 	private MetadataService() {
 	}
 	
@@ -23,10 +28,10 @@ public class MetadataService {
 	}
 	
 	public void pushInfo(String name, String value) {
-		
+		infoMap.put(name, value);
 	}
 	
 	public String getInfo(String name) {
-		return null;
+		return infoMap.get(name);
 	}
 }
