@@ -1,5 +1,7 @@
 package edu.illinois.gitsvn.infra;
 
+import edu.illinois.gitsvn.infra.filters.CSVCommitPrinter;
+
 
 
 public class Main {
@@ -22,7 +24,7 @@ public class Main {
 	}
 
 	private static void addFilters(RepositoryCrawler crawler) {
-		// TODO Auto-generated method stub
+		crawler.addFilter(CSVCommitPrinter.class);
 	}
 
 }
