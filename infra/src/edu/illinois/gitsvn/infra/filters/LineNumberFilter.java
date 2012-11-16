@@ -16,8 +16,12 @@ public class LineNumberFilter extends DiffCountFilter {
 
 	private int count;
 
-	public LineNumberFilter() {
+	public LineNumberFilter(boolean ignoreNonSourceCode) {
 		super(true);
+	}
+	
+	private LineNumberFilter(){
+		
 	}
 
 	@Override
@@ -35,7 +39,7 @@ public class LineNumberFilter extends DiffCountFilter {
 	@Override
 	protected boolean include(RevCommit commit, Collection<DiffEntry> diffs, int diffCount) {
 		count = diffCount;
-
+		
 		return true;
 	}
 
