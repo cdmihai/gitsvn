@@ -29,7 +29,7 @@ public class CSVCommitPrinterTest extends GitTestCase {
 
 		CSVWriter csvWriter = csvfilter.getCSVWriter();
 
-		assertEquals(Arrays.asList(new String[] { "id", "SCM", "author", "time", "lines" }), csvWriter.getHeader());
+		assertEquals(Arrays.asList(new String[] { "id", "msg", "SCM", "author", "time", "lines" , "sourceLines"}), csvWriter.getHeader());
 
 		List<List<String>> rows = csvWriter.getRows();
 
