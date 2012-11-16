@@ -70,7 +70,7 @@ public class LineNumberFilterTest extends GitTestCase {
 		add("test.java", "first line\nsecond line2\nthird line\nfourth line2", "c2");
 		finder.find();
 
-		String lines = csvCommitPrinter.getCSVWriter().getRows().get(0).get(6);
+		String lines = csvCommitPrinter.getCSVWriter().getRows().get(0).get(5);
 
 		assertEquals(2, Integer.parseInt(lines));
 
@@ -89,7 +89,7 @@ public class LineNumberFilterTest extends GitTestCase {
 		finder.find();
 
 		List<List<String>> rows = csvCommitPrinter.getCSVWriter().getRows();
-		String lines = rows.get(0).get(6);
+		String lines = rows.get(0).get(5);
 
 		assertEquals(4, Integer.parseInt(lines));
 

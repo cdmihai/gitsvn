@@ -25,11 +25,17 @@ public class CSVCommitPrinter extends AnalysisFilter {
 	@Override
 	public void begin() {
 		csv = new CSVWriter();
-		csv.addHeader(Arrays.asList(new String[] { "id", "msg", "SCM", "author", "time", "lines", "sourceLines" }));
+		csv.addHeader(Arrays.asList(new String[] { "id", "SCM", "author", "time", "lines", "sourceLines" }));
 	}
 
 	@Override
 	public void end() {
+		try {
+			csv.dumpToFile("mumu.csv");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public CSVWriter getCSVWriter() {
@@ -55,7 +61,7 @@ public class CSVCommitPrinter extends AnalysisFilter {
 		svnDetector.include(walker, cmit);
 		String mode = svnDetector.getMode();
 
-		csv.addRow(Arrays.asList(new String[] { id, msg, mode, authorName, commitTime.toString(), allLineCount + "", sourceLineCount + "" }));
+		csv.addRow(Arrays.asList(new String[] { id, mode, authorName, commitTime.toString(), allLineCount + "", sourceLineCount + "" }));
 
 		return true;
 	}
