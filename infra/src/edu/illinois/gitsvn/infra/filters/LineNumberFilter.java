@@ -15,31 +15,39 @@ import edu.illinois.gitsvn.infra.filters.blacklister.FileExtensionBlacklister;
 public class LineNumberFilter extends DiffCountFilter {
 
 	private int count;
+	private boolean ignoreNonSourceCode;
 
+	/**
+	 * 
+	 * @param ignoreNonSourceCode
+	 *            - if true, filter ignores files that do not have source code
+	 *            extensions
+	 */
 	public LineNumberFilter(boolean ignoreNonSourceCode) {
 		super(true);
+		this.ignoreNonSourceCode = ignoreNonSourceCode;
 	}
-	
-	private LineNumberFilter(){
-		
+
+	private LineNumberFilter() {
 	}
 
 	@Override
 	protected TreeWalk createTreeWalk(RevWalk walker, RevCommit commit) {
 		TreeWalk walk = super.createTreeWalk(walker, commit);
-		TreeFilter previousFilter = walk.getFilter();
-		
-		TreeFilter newFilter = AndTreeFilter.create(new FileExtensionBlacklister(), previousFilter);
-		
-		walk.setFilter(newFilter);
-		
+
+		if (ignoreNonSourceCode) {
+			TreeFilter previousFilter = walk.getFilter();
+			TreeFilter newFilter = AndTreeFilter.create(new FileExtensionBlacklister(), previousFilter);
+			walk.setFilter(newFilter);
+		}
+
 		return walk;
 	}
 
 	@Override
 	protected boolean include(RevCommit commit, Collection<DiffEntry> diffs, int diffCount) {
 		count = diffCount;
-		
+
 		return true;
 	}
 

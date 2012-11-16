@@ -29,10 +29,10 @@ public class LineNumberFilterTest extends GitTestCase {
 		countFilter = new LineNumberFilter(true);
 		csvCommitPrinter = new CSVCommitPrinter();
 
-		csvCommitPrinter.setRepository(Git.open(testRepo).getRepository());
-		csvCommitPrinter.begin();
-
 		allCommitFilter = new AllCommitFilter(countFilter, csvCommitPrinter);
+		allCommitFilter.setRepository(Git.open(testRepo).getRepository());
+		
+		csvCommitPrinter.begin();
 
 		finder = new CommitFinder(testRepo);
 		finder.setFilter(allCommitFilter);
@@ -70,7 +70,7 @@ public class LineNumberFilterTest extends GitTestCase {
 		add("test.java", "first line\nsecond line2\nthird line\nfourth line2", "c2");
 		finder.find();
 
-		String lines = csvCommitPrinter.getCSVWriter().getRows().get(0).get(5);
+		String lines = csvCommitPrinter.getCSVWriter().getRows().get(0).get(6);
 
 		assertEquals(2, Integer.parseInt(lines));
 
@@ -78,18 +78,18 @@ public class LineNumberFilterTest extends GitTestCase {
 
 	@Test
 	public void testMultipleFilesChange() throws Exception {
-		List<String> paths = Arrays.asList("t1.java", "t2.java", "t3.xml");
+		List<String> paths = Arrays.asList("a/b/c/t1.java", "t2.java", "t3.xml");
 		List<String> content = Arrays.asList("first line\nsecond line\nthird line\nfourth line", "first line\nsecond line\nthird line\nfourth line", "first line\nsecond line\nthird line\nfourth line");
 		add(testRepo, paths, content, "c1");
 
-		paths = Arrays.asList("t1.java", "t2.java", "t3.xml");
+		paths = Arrays.asList("a/b/c/t1.java", "t2.java", "t3.xml");
 		content = Arrays.asList("first line\nsecond2 line\nthird line\nfourth2 line", "first line\nsecond2 line\nthird line\nfourth2 line", "first line\nsecond2 line\nthird line\nfourth2 line");
 		add(testRepo, paths, content, "c2");
 
 		finder.find();
 
 		List<List<String>> rows = csvCommitPrinter.getCSVWriter().getRows();
-		String lines = rows.get(0).get(5);
+		String lines = rows.get(0).get(6);
 
 		assertEquals(4, Integer.parseInt(lines));
 
