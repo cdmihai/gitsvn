@@ -15,6 +15,18 @@ public class PipelineCommitFilter extends CommitFilter {
 	public List<CommitFilter> filters;
 	public List<CommitFilter> collectors;
 	public CommitFilter dataAgregator;
+	
+	public void addFilter(CommitFilter filter) {
+		filters.add(filter);
+	}
+	
+	public void addDataCollector(CommitFilter collector) {
+		collectors.add(collector);
+	}
+	
+	public void setDataAgregator(CommitFilter agregator) {
+		this.dataAgregator = agregator;
+	}
 
 	@Override
 	public boolean include(RevWalk walker, RevCommit cmit)
