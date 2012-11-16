@@ -53,8 +53,11 @@ public class CSVCommitPrinter extends AnalysisFilter {
 		sourceLineCounter.include(walker, cmit);
 		int sourceLineCount = sourceLineCounter.getCount();
 
-		svnDetector.include(walker, cmit);
-		String mode = svnDetector.getMode();
+//		svnDetector.include(walker, cmit);
+//		String mode = svnDetector.getMode();
+		
+		cuttofSvnDetector.include(walker, cmit);
+		String mode = cuttofSvnDetector.getMode();
 
 		csv.addRow(Arrays.asList(new String[] { id, mode, authorName, commitTime.toString(), allLineCount + "", sourceLineCount + "" }));
 
