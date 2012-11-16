@@ -9,11 +9,11 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRemoteException;
 import org.eclipse.jgit.api.errors.TransportException;
 import org.gitective.core.CommitFinder;
-import org.gitective.core.filter.commit.AndCommitFilter;
 import org.gitective.core.filter.commit.CommitFilter;
 
-import edu.illinois.gitsvn.infra.filters.AnalysisCompositeFilter;
-import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
+import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
+import edu.illinois.gitsvn.infra.collectors.CutofDetectorFilter;
+import edu.illinois.gitsvn.infra.collectors.LineNumberFilter;
 import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
 
 public class RepositoryCrawler {
@@ -32,7 +32,7 @@ public class RepositoryCrawler {
 		filterClasses.remove(filterClass);
 	}
 
-	public List<AnalysisFilter> crawlRepo(String remoteRepoLoc) throws GitAPIException, InvalidRemoteException, TransportException {
+	public void crawlRepo(String remoteRepoLoc) throws GitAPIException, InvalidRemoteException, TransportException {
 
 		String cloneDirName = "repos/clone" + System.nanoTime();
 		File cloneDir = new File(cloneDirName);
@@ -41,52 +41,22 @@ public class RepositoryCrawler {
 		Git repo = Git.cloneRepository().setURI(remoteRepoLoc).setDirectory(cloneDir).call();
 
 		CommitFinder finder = new CommitFinder(repo.getRepository());
-		AnalysisCompositeFilter analysisFilter = createAndAttachFilters(finder);
-
-		analysisFilter.setRepository(repo.getRepository());
-		analysisFilter.begin();
-		finder.find();
-		analysisFilter.end();
-
-		return analysisFilter.getFilters();
-	}
-
-	private AnalysisCompositeFilter createAndAttachFilters(CommitFinder finder) {
-		AnalysisCompositeFilter analysisFilter = null;
-		try {
-			analysisFilter = createAnalysisFilter();
-		} catch (InstantiationException | IllegalAccessException e) {
-			System.out.println("Error creating filter:" + e.getMessage());
-		}
-
-		AndCommitFilter aggregate = new AndCommitFilter();
-
-		addCommitBlacklisters(aggregate);
-		aggregate.add(analysisFilter);
-
-		finder.setFilter(aggregate);
 		
-		return analysisFilter;
-	}
-
-	private void addCommitBlacklisters(AndCommitFilter andCommitFilter) {
-		andCommitFilter.add(FileOperationBlacklister.getDeleteDiffFilter());
-		andCommitFilter.add(FileOperationBlacklister.getRenameDiffFilter());
-	}
-
-	private AnalysisCompositeFilter createAnalysisFilter() throws InstantiationException, IllegalAccessException {
-		AnalysisCompositeFilter compositeFilter = new AnalysisCompositeFilter();
-
-		for (Class<? extends CommitFilter> filterClass : filterClasses) {
-			final CommitFilter filterInstance = filterClass.newInstance();
-
-			if (filterInstance instanceof AnalysisFilter)
-				compositeFilter.addFilter((AnalysisFilter) filterInstance);
-			else {
-				compositeFilter.addFilter(new AnalysisFilterAdapter(filterInstance));
-			}
-		}
-
-		return compositeFilter;
+		PipelineCommitFilter analysisFilter = new PipelineCommitFilter();
+		
+		analysisFilter.addFilter(FileOperationBlacklister.getDeleteDiffFilter());
+		analysisFilter.addFilter(FileOperationBlacklister.getRenameDiffFilter());
+		
+		analysisFilter.addDataCollector(new LineNumberFilter(true));
+		analysisFilter.addDataCollector(new LineNumberFilter(false));
+		analysisFilter.addDataCollector(new CutofDetectorFilter());
+		
+		CSVCommitPrinter agregator = new CSVCommitPrinter();
+		analysisFilter.setDataAgregator(agregator);
+		
+		finder.setFilter(analysisFilter);
+		agregator.begin();
+		finder.find();
+		agregator.end();
 	}
 }
