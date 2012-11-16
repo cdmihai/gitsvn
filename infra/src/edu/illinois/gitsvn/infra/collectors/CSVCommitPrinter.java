@@ -1,7 +1,9 @@
 package edu.illinois.gitsvn.infra.collectors;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
@@ -12,6 +14,7 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.gitective.core.filter.commit.CommitFilter;
 
+import edu.illinois.gitsvn.infra.DataCollector;
 import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 import edu.illinois.gitsvn.infra.util.CSVWriter;
 
@@ -19,15 +22,21 @@ import edu.illinois.gitsvn.infra.util.CSVWriter;
 public class CSVCommitPrinter extends AnalysisFilter {
 
 	private CSVWriter csv;
-	private CutofDetectorFilter cuttofSvnDetector = new CutofDetectorFilter();
-	private LineNumberFilter allLineCounter = new LineNumberFilter(false);
-	private LineNumberFilter sourceLineCounter = new LineNumberFilter(true);
-	private SVNCommitDetectorFilter svnDetector = new SVNCommitDetectorFilter();
+	private List<DataCollector> collectors;
+	
+	public CSVCommitPrinter(List<DataCollector> collectors) {
+		this.collectors = collectors;
+	}
 	
 	@Override
 	public void begin() {
 		csv = new CSVWriter();
-		csv.addHeader(Arrays.asList(new String[] { "id", "SCM", "author", "time", "lines", "sourceLines" }));
+		List<String> headerData = new ArrayList<>();
+		
+		for (DataCollector collector : collectors)
+			headerData.add(collector.name());
+		
+		csv.addHeader(headerData);
 	}
 
 	@Override
@@ -46,25 +55,13 @@ public class CSVCommitPrinter extends AnalysisFilter {
 
 	@Override
 	public boolean include(RevWalk walker, RevCommit cmit) throws StopWalkException, MissingObjectException, IncorrectObjectTypeException, IOException {
-
-		Integer commitTime = cmit.getCommitTime();
-		PersonIdent author = cmit.getAuthorIdent();
-
-		String id = cmit.getId().getName();
-		String msg = cmit.getShortMessage();
-		String authorName = author.getName();
-
-		allLineCounter.include(walker, cmit);
-		int allLineCount = allLineCounter.getCount();
-
-		sourceLineCounter.include(walker, cmit);
-		int sourceLineCount = sourceLineCounter.getCount();
-
-		svnDetector.include(walker, cmit);
-		String mode = svnDetector.getMode();
-
-		csv.addRow(Arrays.asList(new String[] { id, mode, authorName, commitTime.toString(), allLineCount + "", sourceLineCount + "" }));
-
+		List<String> data = new ArrayList<String>();
+		
+		for (DataCollector collector : collectors)
+			data.add(collector.getDataForCommit());
+		
+		csv.addRow(data);
+		
 		return true;
 	}
 
@@ -72,11 +69,6 @@ public class CSVCommitPrinter extends AnalysisFilter {
 	public CommitFilter setRepository(Repository repository) {
 		CommitFilter ret = super.setRepository(repository);
 
-		allLineCounter.setRepository(repository);
-		sourceLineCounter.setRepository(repository);
-		svnDetector.setRepository(repository);
-
 		return ret;
-
 	}
 }

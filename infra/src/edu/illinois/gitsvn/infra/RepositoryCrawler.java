@@ -51,7 +51,7 @@ public class RepositoryCrawler {
 		analysisFilter.addDataCollector(new LineNumberFilter(false));
 		analysisFilter.addDataCollector(new CutofDetectorFilter());
 		
-		CSVCommitPrinter agregator = new CSVCommitPrinter();
+		CSVCommitPrinter agregator = new CSVCommitPrinter(analysisFilter.getAllCollectors());
 		analysisFilter.setDataAgregator(agregator);
 		
 		finder.setFilter(analysisFilter);
