@@ -21,6 +21,7 @@ public class FileOperationBlacklister extends CommitDiffFilter {
 	private FileOperationBlacklister(ChangeType ct){
 		this();
 		this.changeType = ct;
+		System.out.println("File Operation Blacklister active for: " + changeType);
 	}
 	
 	private FileOperationBlacklister(){
