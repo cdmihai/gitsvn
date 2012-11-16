@@ -1,6 +1,6 @@
 package edu.illinois.gitsvn.infra;
 
-import edu.illinois.gitsvn.infra.filters.CSVCommitPrinter;
+import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
 
 
 

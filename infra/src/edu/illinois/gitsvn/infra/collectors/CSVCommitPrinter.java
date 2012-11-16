@@ -1,4 +1,4 @@
-package edu.illinois.gitsvn.infra.filters;
+package edu.illinois.gitsvn.infra.collectors;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -12,6 +12,7 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.gitective.core.filter.commit.CommitFilter;
 
+import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 import edu.illinois.gitsvn.infra.util.CSVWriter;
 
 //TODO refactor this class to be a filter composite

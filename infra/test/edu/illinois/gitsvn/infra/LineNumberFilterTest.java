@@ -10,8 +10,8 @@ import org.gitective.tests.GitTestCase;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.illinois.gitsvn.infra.filters.CSVCommitPrinter;
-import edu.illinois.gitsvn.infra.filters.LineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
+import edu.illinois.gitsvn.infra.collectors.LineNumberFilter;
 
 //TODO test more line diff cases. Just to be sure.
 //TODO test how it handles renames

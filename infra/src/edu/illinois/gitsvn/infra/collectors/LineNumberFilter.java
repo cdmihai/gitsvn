@@ -1,4 +1,4 @@
-package edu.illinois.gitsvn.infra.filters;
+package edu.illinois.gitsvn.infra.collectors;
 
 import java.util.Collection;
 
