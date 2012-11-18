@@ -33,13 +33,11 @@ public class RepositoryCrawler {
 	}
 
 	public void crawlRepo(String remoteRepoLoc) throws GitAPIException, InvalidRemoteException, TransportException {
+		Git repo = cloneRepo(remoteRepoLoc);
+		crawlRepo(repo);
+	}
 
-		String cloneDirName = "repos/clone" + System.nanoTime();
-		File cloneDir = new File(cloneDirName);
-		cloneDir.deleteOnExit();
-
-		Git repo = Git.cloneRepository().setURI(remoteRepoLoc).setDirectory(cloneDir).call();
-
+	public void crawlRepo(Git repo) {
 		CommitFinder finder = new CommitFinder(repo.getRepository());
 		
 		PipelineCommitFilter analysisFilter = new PipelineCommitFilter();
@@ -58,5 +56,15 @@ public class RepositoryCrawler {
 		agregator.begin();
 		finder.find();
 		agregator.end();
+	}
+
+	private Git cloneRepo(String remoteRepoLoc) throws GitAPIException,
+			InvalidRemoteException, TransportException {
+		String cloneDirName = "repos/clone" + System.nanoTime();
+		File cloneDir = new File(cloneDirName);
+		cloneDir.deleteOnExit();
+
+		Git repo = Git.cloneRepository().setURI(remoteRepoLoc).setDirectory(cloneDir).call();
+		return repo;
 	}
 }
