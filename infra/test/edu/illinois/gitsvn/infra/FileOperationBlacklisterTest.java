@@ -10,6 +10,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import org.gitective.core.CommitFinder;
 import org.gitective.core.filter.commit.AndCommitFilter;
 import org.gitective.core.filter.commit.CommitCountFilter;
+import org.gitective.core.filter.commit.CommitDiffFilter;
 import org.gitective.core.filter.commit.CommitFilter;
 import org.gitective.tests.GitTestCase;
 import org.junit.Before;
@@ -28,7 +29,7 @@ public class FileOperationBlacklisterTest extends GitTestCase {
 	private AndCommitFilter deleteCountAndFilter;
 	private CommitFinder finder;
 	private AndCommitFilter renameCountAndFilter;
-	private FileOperationBlacklister renameFilter;
+	private CommitDiffFilter renameFilter;
 
 	@Before
 	public void setup() {

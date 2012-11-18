@@ -10,9 +10,10 @@ import org.eclipse.jgit.treewalk.filter.AndTreeFilter;
 import org.eclipse.jgit.treewalk.filter.TreeFilter;
 import org.gitective.core.filter.commit.DiffCountFilter;
 
+import edu.illinois.gitsvn.infra.DataCollector;
 import edu.illinois.gitsvn.infra.filters.blacklister.FileExtensionBlacklister;
 
-public class LineNumberFilter extends DiffCountFilter {
+public class LineNumberFilter extends DiffCountFilter implements DataCollector {
 
 	private int count;
 	private boolean ignoreNonSourceCode;
@@ -50,5 +51,18 @@ public class LineNumberFilter extends DiffCountFilter {
 
 	public int getCount() {
 		return count;
+	}
+
+	@Override
+	public String name() {
+		if (ignoreNonSourceCode)
+			return "LOC";
+		else
+			return "SLOC";
+	}
+
+	@Override
+	public String getDataForCommit() {
+		return "" + count;
 	}
 }

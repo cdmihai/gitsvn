@@ -5,9 +5,11 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.StopWalkException;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.gitective.core.filter.commit.CommitFilter;
@@ -60,5 +62,18 @@ public class PipelineCommitFilter extends CommitFilter {
 		dataAgregator.include(walker, cmit);
 
 		return true;
+	}
+
+	public void setRepository(Git repo) {
+		Repository repository = repo.getRepository();
+		for (CommitFilter filter : filters) {
+			filter.setRepository(repository);
+		}
+		
+		for (CommitFilter collector: collectors) {
+			collector.setRepository(repository);
+		}
+		
+		dataAgregator.setRepository(repository);
 	}
 }

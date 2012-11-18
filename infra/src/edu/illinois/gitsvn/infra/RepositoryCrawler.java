@@ -51,6 +51,7 @@ public class RepositoryCrawler {
 		
 		CSVCommitPrinter agregator = new CSVCommitPrinter(analysisFilter.getAllCollectors());
 		analysisFilter.setDataAgregator(agregator);
+		analysisFilter.setRepository(repo);
 		
 		finder.setFilter(analysisFilter);
 		agregator.begin();
