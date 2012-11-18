@@ -26,7 +26,7 @@ public class RepositoryCrawlerTest extends GitTestCase{
 		
 		crawler.crawlRepo(Git.open(testRepo));
 		
-		File file = new File("mumu.txt");
+		File file = new File("mumu.csv");
 		assertTrue(file.exists());
 	}
 }
