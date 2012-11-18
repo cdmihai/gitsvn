@@ -14,7 +14,6 @@ public class CyclopsGroupAnalysis {
 
 		RepositoryCrawler crawler = new RepositoryCrawler();
 
-		crawler.addFilter(CSVCommitPrinter.class);
 		crawler.crawlRepo(repoLoc);
 	}
 

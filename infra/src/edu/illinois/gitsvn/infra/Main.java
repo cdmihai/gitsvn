@@ -1,9 +1,5 @@
 package edu.illinois.gitsvn.infra;
 
-import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
-
-
-
 public class Main {
 
 	/**
@@ -24,7 +20,6 @@ public class Main {
 	}
 
 	private static void addFilters(RepositoryCrawler crawler) {
-		crawler.addFilter(CSVCommitPrinter.class);
 	}
 
 }

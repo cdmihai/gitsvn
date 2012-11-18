@@ -19,18 +19,7 @@ import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
 
 public class RepositoryCrawler {
 
-	private List<Class<? extends CommitFilter>> filterClasses;
-
 	public RepositoryCrawler() {
-		filterClasses = new ArrayList<>();
-	}
-
-	public void addFilter(Class<? extends CommitFilter> filterClass) {
-		filterClasses.add(filterClass);
-	}
-
-	public void removeFilterClass(Class<? extends CommitFilter> filterClass) {
-		filterClasses.remove(filterClass);
 	}
 
 	public void crawlRepo(String remoteRepoLoc) throws GitAPIException, InvalidRemoteException, TransportException {
