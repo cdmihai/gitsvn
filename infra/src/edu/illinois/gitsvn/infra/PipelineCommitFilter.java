@@ -16,9 +16,9 @@ import org.gitective.core.filter.commit.CommitFilter;
 
 public class PipelineCommitFilter extends CommitFilter {
 
-	public List<CommitFilter> filters;
-	public List<CommitFilter> collectors;
-	public CommitFilter dataAgregator;
+	private List<CommitFilter> filters = new ArrayList<CommitFilter>();
+	private List<CommitFilter> collectors = new ArrayList<CommitFilter>();
+	private CommitFilter dataAgregator;
 
 	public void addFilter(CommitFilter filter) {
 		filters.add(filter);
