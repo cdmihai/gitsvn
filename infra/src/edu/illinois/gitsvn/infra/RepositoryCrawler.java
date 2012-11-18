@@ -15,6 +15,7 @@ import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
 import edu.illinois.gitsvn.infra.collectors.CutofDetectorFilter;
 import edu.illinois.gitsvn.infra.collectors.AllLineNumberFilter;
 import edu.illinois.gitsvn.infra.collectors.JavaLineNumberFilter;
+import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
 
 public class RepositoryCrawler {
@@ -30,6 +31,18 @@ public class RepositoryCrawler {
 	public void crawlRepo(Git repo) {
 		CommitFinder finder = new CommitFinder(repo.getRepository());
 		
+		PipelineCommitFilter pipelineFilter = configureAnalysis();
+		
+		pipelineFilter.setRepository(repo);
+		AnalysisFilter agregator = pipelineFilter.getAgregator();
+		
+		finder.setFilter(pipelineFilter);
+		agregator.begin();
+		finder.find();
+		agregator.end();
+	}
+
+	private PipelineCommitFilter configureAnalysis() {
 		PipelineCommitFilter analysisFilter = new PipelineCommitFilter();
 		
 		analysisFilter.addFilter(FileOperationBlacklister.getDeleteDiffFilter());
@@ -39,14 +52,9 @@ public class RepositoryCrawler {
 		analysisFilter.addDataCollector(new JavaLineNumberFilter());
 		analysisFilter.addDataCollector(new CutofDetectorFilter());
 		
-		CSVCommitPrinter agregator = new CSVCommitPrinter(analysisFilter.getAllCollectors());
+		AnalysisFilter agregator = new CSVCommitPrinter(analysisFilter.getAllCollectors());
 		analysisFilter.setDataAgregator(agregator);
-		analysisFilter.setRepository(repo);
-		
-		finder.setFilter(analysisFilter);
-		agregator.begin();
-		finder.find();
-		agregator.end();
+		return analysisFilter;
 	}
 
 	private Git cloneRepo(String remoteRepoLoc) throws GitAPIException,
