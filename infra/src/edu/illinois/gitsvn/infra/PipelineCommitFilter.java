@@ -14,11 +14,13 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.gitective.core.filter.commit.CommitFilter;
 
+import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
+
 public class PipelineCommitFilter extends CommitFilter {
 
 	private List<CommitFilter> filters = new ArrayList<CommitFilter>();
 	private List<CommitFilter> collectors = new ArrayList<CommitFilter>();
-	private CommitFilter dataAgregator;
+	private AnalysisFilter dataAgregator;
 
 	public void addFilter(CommitFilter filter) {
 		filters.add(filter);
@@ -40,7 +42,7 @@ public class PipelineCommitFilter extends CommitFilter {
 		return returnedCollectors;
 	}
 
-	public void setDataAgregator(CommitFilter agregator) {
+	public void setDataAgregator(AnalysisFilter agregator) {
 		this.dataAgregator = agregator;
 	}
 
@@ -75,5 +77,9 @@ public class PipelineCommitFilter extends CommitFilter {
 		}
 		
 		dataAgregator.setRepository(repository);
+	}
+
+	public AnalysisFilter getAgregator() {
+		return dataAgregator;
 	}
 }
