@@ -1,11 +1,15 @@
 package edu.illinois.gitsvn.infra;
 
 import java.io.File;
+import java.util.List;
 
 import org.eclipse.jgit.api.Git;
 import org.gitective.tests.GitTestCase;
 import org.junit.Before;
 import org.junit.Test;
+
+import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
+import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 
 public class RepositoryCrawlerTest extends GitTestCase{
 	
@@ -24,7 +28,11 @@ public class RepositoryCrawlerTest extends GitTestCase{
 		mv("test.java", "test_rename.java");
 		add("readme","A non-java file", "forth");
 		
-		crawler.crawlRepo(Git.open(testRepo));
+		PipelineCommitFilter pipeline = ConfigurationUtil.configureAnalysis();
+		crawler.crawlRepo(Git.open(testRepo), pipeline);
+		CSVCommitPrinter agregator = (CSVCommitPrinter) pipeline.getAgregator();
+		List<List<String>> rows = agregator.getCSVWriter().getRows();
+		assertEquals(3,rows.size());
 		
 		File file = new File("mumu.csv");
 		assertTrue(file.exists());
