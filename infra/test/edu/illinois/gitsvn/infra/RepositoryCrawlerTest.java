@@ -1,13 +1,11 @@
 package edu.illinois.gitsvn.infra;
 
-import java.util.List;
+import java.io.File;
 
-import org.gitective.core.filter.commit.CommitCountFilter;
+import org.eclipse.jgit.api.Git;
 import org.gitective.tests.GitTestCase;
 import org.junit.Before;
 import org.junit.Test;
-
-import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 
 public class RepositoryCrawlerTest extends GitTestCase{
 	
@@ -16,25 +14,19 @@ public class RepositoryCrawlerTest extends GitTestCase{
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		add("file1.txt", "file1");
-		add("file2.txt", "file2");
-		
 		crawler = new RepositoryCrawler();
 	}
 	
 	@Test
-	public void testOneFilter() throws Exception {
+	public void testProducesCorrectOutput() throws Exception {
+		add("test.java", "Some java program", "first");
+		add("test2.java", "Some other java program", "second");
+		mv("test.java", "test_rename.java");
+		add("readme","A non-java file", "forth");
 		
-	}
-	
-	@Test
-	public void testTwoFilters() throws Exception {
+		crawler.crawlRepo(Git.open(testRepo));
 		
+		File file = new File("mumu.txt");
+		assertTrue(file.exists());
 	}
-	
-	@Test
-	public void testNoFilters() throws Exception {
-		
-	}
-
 }
