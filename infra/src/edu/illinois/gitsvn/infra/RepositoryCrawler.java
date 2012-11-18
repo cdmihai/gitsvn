@@ -13,7 +13,8 @@ import org.gitective.core.filter.commit.CommitFilter;
 
 import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
 import edu.illinois.gitsvn.infra.collectors.CutofDetectorFilter;
-import edu.illinois.gitsvn.infra.collectors.LineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.AllLineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.JavaLineNumberFilter;
 import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
 
 public class RepositoryCrawler {
@@ -45,8 +46,8 @@ public class RepositoryCrawler {
 		analysisFilter.addFilter(FileOperationBlacklister.getDeleteDiffFilter());
 		analysisFilter.addFilter(FileOperationBlacklister.getRenameDiffFilter());
 		
-		analysisFilter.addDataCollector(new LineNumberFilter(true));
-		analysisFilter.addDataCollector(new LineNumberFilter(false));
+		analysisFilter.addDataCollector(new AllLineNumberFilter());
+		analysisFilter.addDataCollector(new JavaLineNumberFilter());
 		analysisFilter.addDataCollector(new CutofDetectorFilter());
 		
 		CSVCommitPrinter agregator = new CSVCommitPrinter(analysisFilter.getAllCollectors());

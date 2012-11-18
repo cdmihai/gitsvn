@@ -13,35 +13,23 @@ import org.gitective.core.filter.commit.DiffCountFilter;
 import edu.illinois.gitsvn.infra.DataCollector;
 import edu.illinois.gitsvn.infra.filters.blacklister.FileExtensionBlacklister;
 
-public class LineNumberFilter extends DiffCountFilter implements DataCollector {
+public class JavaLineNumberFilter extends DiffCountFilter implements
+		DataCollector {
 
 	private int count;
-	private boolean ignoreNonSourceCode;
-
-	/**
-	 * 
-	 * @param ignoreNonSourceCode
-	 *            - if true, filter ignores files that do not have source code
-	 *            extensions
-	 */
-	public LineNumberFilter(boolean ignoreNonSourceCode) {
-		super(true);
-		this.ignoreNonSourceCode = ignoreNonSourceCode;
-	}
 
 	@Override
 	protected TreeWalk createTreeWalk(RevWalk walker, RevCommit commit) {
 		TreeWalk walk = super.createTreeWalk(walker, commit);
 
-		if (ignoreNonSourceCode) {
-			TreeFilter previousFilter = walk.getFilter();
-			TreeFilter newFilter = AndTreeFilter.create(new FileExtensionBlacklister(), previousFilter);
-			walk.setFilter(newFilter);
-		}
+		TreeFilter previousFilter = walk.getFilter();
+		TreeFilter newFilter = AndTreeFilter.create(
+				new FileExtensionBlacklister(), previousFilter);
+		walk.setFilter(newFilter);
 
 		return walk;
 	}
-
+	
 	@Override
 	protected boolean include(RevCommit commit, Collection<DiffEntry> diffs, int diffCount) {
 		count = diffCount;
@@ -49,20 +37,14 @@ public class LineNumberFilter extends DiffCountFilter implements DataCollector {
 		return true;
 	}
 
-	public int getCount() {
-		return count;
-	}
-
 	@Override
 	public String name() {
-		if (ignoreNonSourceCode)
-			return "LOC";
-		else
-			return "SLOC";
+		return "SLOC";
 	}
 
 	@Override
 	public String getDataForCommit() {
 		return "" + count;
 	}
+
 }

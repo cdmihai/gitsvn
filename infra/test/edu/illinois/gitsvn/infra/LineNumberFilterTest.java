@@ -11,14 +11,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
-import edu.illinois.gitsvn.infra.collectors.LineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.AllLineNumberFilter;
 
 //TODO test more line diff cases. Just to be sure.
 //TODO test how it handles renames
 
 public class LineNumberFilterTest extends GitTestCase {
 
-	private LineNumberFilter countFilter;
+	private AllLineNumberFilter countFilter;
 	private CommitFinder finder;
 	private CSVCommitPrinter csvCommitPrinter;
 	private AllCommitFilter allCommitFilter;
@@ -26,7 +26,7 @@ public class LineNumberFilterTest extends GitTestCase {
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		countFilter = new LineNumberFilter(true);
+		countFilter = new AllLineNumberFilter();
 		csvCommitPrinter = null;//new CSVCommitPrinter();
 
 		allCommitFilter = new AllCommitFilter(countFilter, csvCommitPrinter);
@@ -42,8 +42,8 @@ public class LineNumberFilterTest extends GitTestCase {
 	public void testAddition() throws Exception {
 		add("test.java", "mumu\n", "first");
 		finder.find();
-		long actual = countFilter.getCount();
-		assertEquals(1, actual);
+		String actual = countFilter.getDataForCommit();
+		assertEquals("1", actual);
 	}
 
 	@Test
@@ -51,8 +51,8 @@ public class LineNumberFilterTest extends GitTestCase {
 		add("test.java", "mumu\n", "first");
 		add("test.java", "", "second");
 		finder.find();
-		long actual = countFilter.getCount();
-		assertEquals(1, actual);
+		String actual = countFilter.getDataForCommit();
+		assertEquals("1", actual);
 	}
 
 	@Test
@@ -60,8 +60,8 @@ public class LineNumberFilterTest extends GitTestCase {
 		add("test.java", "mumu\n", "first");
 		add("test.java", "bubu\n", "second");
 		finder.find();
-		long actual = countFilter.getCount();
-		assertEquals(1, actual);
+		String actual = countFilter.getDataForCommit();
+		assertEquals("1", actual);
 	}
 
 	@Test
