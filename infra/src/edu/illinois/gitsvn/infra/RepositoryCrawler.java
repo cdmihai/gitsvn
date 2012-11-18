@@ -23,15 +23,13 @@ public class RepositoryCrawler {
 	public RepositoryCrawler() {
 	}
 
-	public void crawlRepo(String remoteRepoLoc) throws GitAPIException, InvalidRemoteException, TransportException {
+	public void crawlRepo(String remoteRepoLoc, PipelineCommitFilter pipelineFilter) throws GitAPIException, InvalidRemoteException, TransportException {
 		Git repo = cloneRepo(remoteRepoLoc);
-		crawlRepo(repo);
+		crawlRepo(repo, pipelineFilter);
 	}
 
-	public void crawlRepo(Git repo) {
+	public void crawlRepo(Git repo, PipelineCommitFilter pipelineFilter) {
 		CommitFinder finder = new CommitFinder(repo.getRepository());
-		
-		PipelineCommitFilter pipelineFilter = configureAnalysis();
 		
 		pipelineFilter.setRepository(repo);
 		AnalysisFilter agregator = pipelineFilter.getAgregator();
@@ -40,21 +38,6 @@ public class RepositoryCrawler {
 		agregator.begin();
 		finder.find();
 		agregator.end();
-	}
-
-	private PipelineCommitFilter configureAnalysis() {
-		PipelineCommitFilter analysisFilter = new PipelineCommitFilter();
-		
-		analysisFilter.addFilter(FileOperationBlacklister.getDeleteDiffFilter());
-		analysisFilter.addFilter(FileOperationBlacklister.getRenameDiffFilter());
-		
-		analysisFilter.addDataCollector(new AllLineNumberFilter());
-		analysisFilter.addDataCollector(new JavaLineNumberFilter());
-		analysisFilter.addDataCollector(new CutofDetectorFilter());
-		
-		AnalysisFilter agregator = new CSVCommitPrinter(analysisFilter.getAllCollectors());
-		analysisFilter.setDataAgregator(agregator);
-		return analysisFilter;
 	}
 
 	private Git cloneRepo(String remoteRepoLoc) throws GitAPIException,
