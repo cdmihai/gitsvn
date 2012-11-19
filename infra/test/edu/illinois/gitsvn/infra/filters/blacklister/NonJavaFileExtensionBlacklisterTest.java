@@ -16,7 +16,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class FileExtensionBlacklisterTest extends GitTestCase {
+public class NonJavaFileExtensionBlacklisterTest extends GitTestCase {
 
 	private List<String> paths;
 	private List<String> contents;
