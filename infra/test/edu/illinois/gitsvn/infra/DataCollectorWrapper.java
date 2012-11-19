@@ -12,7 +12,7 @@ import org.gitective.core.filter.commit.CommitFilter;
 
 class DataCollectorWrapper extends CommitFilter {
 
-	public String bla = "";
+	public String data = "";
 	private DataCollector collector;
 
 	public DataCollectorWrapper(DataCollector collector) {
@@ -29,8 +29,8 @@ class DataCollectorWrapper extends CommitFilter {
 			IncorrectObjectTypeException, IOException {
 		((CommitFilter) collector).include(walker, cmit);
 
-		bla += collector.getDataForCommit();
-		bla += "; ";
+		data += collector.getDataForCommit();
+		data += "; ";
 
 		return true;
 	}

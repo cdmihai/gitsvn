@@ -33,7 +33,7 @@ public class LineNumberFilterTest extends GitTestCase {
 	public void testAddition() throws Exception {
 		add("test.java", "mumu\n", "first");
 		finder.find();
-		String actual = countFilter.bla;
+		String actual = countFilter.data;
 		assertEquals("1; ", actual);
 	}
 
@@ -42,7 +42,7 @@ public class LineNumberFilterTest extends GitTestCase {
 		add("test.java", "mumu\n", "first");
 		add("test.java", "", "second");
 		finder.find();
-		String actual = countFilter.bla ;
+		String actual = countFilter.data ;
 		assertEquals("1; 1; ", actual);
 	}
 
@@ -51,7 +51,7 @@ public class LineNumberFilterTest extends GitTestCase {
 		add("test.java", "mumu\n", "first");
 		add("test.java", "bubu\n", "second");
 		finder.find();
-		String actual = countFilter.bla;
+		String actual = countFilter.data;
 		assertEquals("1; 1; ", actual);
 	}
 
@@ -60,7 +60,7 @@ public class LineNumberFilterTest extends GitTestCase {
 		add("test.java", "first line\nsecond line\nthird line\nfourth line", "c1");
 		add("test.java", "first line\nsecond line2\nthird line\nfourth line2", "c2");
 		finder.find();
-		String actual = countFilter.bla;
+		String actual = countFilter.data;
 
 		assertEquals("2; 4; ", actual);
 
@@ -103,7 +103,7 @@ public class LineNumberFilterTest extends GitTestCase {
 		add(testRepo, paths, content, "c2");
 
 		finder.find();
-		String actual = countFilter.bla;
+		String actual = countFilter.data;
 
 		assertEquals("6; 12; ", actual);
 

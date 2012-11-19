@@ -26,7 +26,7 @@ public class DateCollectorTest extends GitTestCase {
 		add("test.txt", "some contents", "first");
 		finder.find();
 		String expected = currentTime + "; ";
-		String actual = collector.bla;
+		String actual = collector.data;
 		
 		assertEquals(expected, actual);
 	}
