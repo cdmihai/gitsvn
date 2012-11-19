@@ -11,7 +11,7 @@ import org.gitective.core.filter.tree.BaseTreeFilter;
 
 public final class FileExtensionBlacklister extends BaseTreeFilter {
 	
-	private static final List<String> allowedExtensions = Arrays.asList("java", "py", "c", "cpp");
+	private static final List<String> allowedExtensions = Arrays.asList("java");
 	
 	static{
 		System.out.println("File Extension Blacklister loaded");

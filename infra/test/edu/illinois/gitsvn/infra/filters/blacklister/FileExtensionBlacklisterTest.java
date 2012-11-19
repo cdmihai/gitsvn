@@ -60,7 +60,7 @@ public class FileExtensionBlacklisterTest extends GitTestCase {
 	public void testFilterEffect() {
 		finderWithBlacklist.find();
 		
-		assertEquals(4, blackListCounter.getCount());
+		assertEquals(1, blackListCounter.getCount());
 	}
 
 	
