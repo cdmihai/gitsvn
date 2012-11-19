@@ -1,17 +1,13 @@
 package edu.illinois.gitsvn.infra;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.jgit.diff.DiffEntry;
-import org.eclipse.jgit.revwalk.RevCommit;
 import org.gitective.core.CommitFinder;
 import org.gitective.tests.GitTestCase;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.illinois.gitsvn.infra.collectors.AllLineNumberFilter;
 import edu.illinois.gitsvn.infra.collectors.JavaLineNumberFilter;
 
 //TODO test more line diff cases. Just to be sure.
@@ -19,28 +15,13 @@ import edu.illinois.gitsvn.infra.collectors.JavaLineNumberFilter;
 
 public class JavaLineNumberFilterTest extends GitTestCase {
 
-	private TestFilter countFilter;
+	private DataCollectorWrapper countFilter;
 	private CommitFinder finder;
-	
-	private class TestFilter extends JavaLineNumberFilter {
-		
-		public String bla = "";
-		
-		@Override
-		protected boolean include(RevCommit commit, Collection<DiffEntry> diffs, int diffCount) {
-			super.include(commit,diffs,diffCount);
-			
-			bla += getDataForCommit();
-			bla += " ";
-			
-			return true;
-		}
-	}
 	
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		countFilter = new TestFilter();
+		countFilter = new DataCollectorWrapper(new JavaLineNumberFilter());
 		finder = new CommitFinder(testRepo);
 		finder.setFilter(countFilter);
 	}
@@ -50,7 +31,7 @@ public class JavaLineNumberFilterTest extends GitTestCase {
 		add("test.java", "mumu\n", "first");
 		finder.find();
 		String actual = countFilter.bla;
-		assertEquals("1 ", actual);
+		assertEquals("1; ", actual);
 	}
 
 	@Test
@@ -59,7 +40,7 @@ public class JavaLineNumberFilterTest extends GitTestCase {
 		add("test.java", "", "second");
 		finder.find();
 		String actual = countFilter.bla ;
-		assertEquals("1 1 ", actual);
+		assertEquals("1; 1; ", actual);
 	}
 
 	@Test
@@ -68,7 +49,7 @@ public class JavaLineNumberFilterTest extends GitTestCase {
 		add("test.java", "bubu\n", "second");
 		finder.find();
 		String actual = countFilter.bla;
-		assertEquals("1 1 ", actual);
+		assertEquals("1; 1; ", actual);
 	}
 
 	@Test
@@ -78,7 +59,7 @@ public class JavaLineNumberFilterTest extends GitTestCase {
 		finder.find();
 		String actual = countFilter.bla;
 
-		assertEquals("2 4 ", actual);
+		assertEquals("2; 4; ", actual);
 
 	}
 
@@ -121,7 +102,7 @@ public class JavaLineNumberFilterTest extends GitTestCase {
 		finder.find();
 		String actual = countFilter.bla;
 
-		assertEquals("4 8 ", actual);
+		assertEquals("4; 8; ", actual);
 
 	}
 }
