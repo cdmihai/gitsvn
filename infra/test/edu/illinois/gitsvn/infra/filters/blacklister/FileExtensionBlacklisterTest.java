@@ -65,7 +65,7 @@ public class FileExtensionBlacklisterTest extends GitTestCase {
 
 	
 	static class BlacklistCounter extends BaseTreeFilter{
-		FileExtensionBlacklister extensionBlackLister = new FileExtensionBlacklister();
+		NonJavaFileExtensionBlacklister extensionBlackLister = new NonJavaFileExtensionBlacklister();
 		TypeCountFilter counter = TypeCountFilter.file();
 		
 		@Override

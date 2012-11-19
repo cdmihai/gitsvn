@@ -9,7 +9,7 @@ import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.gitective.core.filter.tree.BaseTreeFilter;
 
-public final class FileExtensionBlacklister extends BaseTreeFilter {
+public final class NonJavaFileExtensionBlacklister extends BaseTreeFilter {
 	
 	private static final List<String> allowedExtensions = Arrays.asList("java");
 	
