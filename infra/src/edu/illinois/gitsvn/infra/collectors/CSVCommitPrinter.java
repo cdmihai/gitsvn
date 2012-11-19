@@ -2,19 +2,18 @@ package edu.illinois.gitsvn.infra.collectors;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.StopWalkException;
-import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.gitective.core.filter.commit.CommitFilter;
 
 import edu.illinois.gitsvn.infra.DataCollector;
+import edu.illinois.gitsvn.infra.PipelineCommitFilter;
 import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 import edu.illinois.gitsvn.infra.util.CSVWriter;
 
@@ -22,9 +21,10 @@ import edu.illinois.gitsvn.infra.util.CSVWriter;
 public class CSVCommitPrinter extends AnalysisFilter {
 
 	private CSVWriter csv;
+	private List<DataCollector> allCollectors;
 	
-	public CSVCommitPrinter(List<DataCollector> collectors) {
-		super(collectors);
+	public CSVCommitPrinter(PipelineCommitFilter filter) {
+		super(filter);
 	}
 	
 	@Override
@@ -32,7 +32,8 @@ public class CSVCommitPrinter extends AnalysisFilter {
 		csv = new CSVWriter();
 		List<String> headerData = new ArrayList<>();
 		
-		for (DataCollector collector : collectors)
+		allCollectors = filter.getAllCollectors();
+		for (DataCollector collector : allCollectors)
 			headerData.add(collector.name());
 		
 		csv.addHeader(headerData);
@@ -56,7 +57,7 @@ public class CSVCommitPrinter extends AnalysisFilter {
 	public boolean include(RevWalk walker, RevCommit cmit) throws StopWalkException, MissingObjectException, IncorrectObjectTypeException, IOException {
 		List<String> data = new ArrayList<String>();
 		
-		for (DataCollector collector : collectors)
+		for (DataCollector collector : allCollectors)
 			data.add(collector.getDataForCommit());
 		
 		csv.addRow(data);

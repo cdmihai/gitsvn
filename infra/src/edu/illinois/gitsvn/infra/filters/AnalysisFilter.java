@@ -1,10 +1,8 @@
 package edu.illinois.gitsvn.infra.filters;
 
-import java.util.List;
-
 import org.gitective.core.filter.commit.CommitFilter;
 
-import edu.illinois.gitsvn.infra.DataCollector;
+import edu.illinois.gitsvn.infra.PipelineCommitFilter;
 
 /**
  *	Represents an Analysis over the commits. (the commit analysis visitor).
@@ -13,9 +11,9 @@ import edu.illinois.gitsvn.infra.DataCollector;
  */
 public abstract class AnalysisFilter extends CommitFilter implements AnalysisLifecycle{
 
-	protected List<DataCollector> collectors;
+	protected PipelineCommitFilter filter;
 	
-	public AnalysisFilter(List<DataCollector> collectors) {
-		this.collectors = collectors;
+	public AnalysisFilter(PipelineCommitFilter filter) {
+		this.filter = filter;
 	}
 }

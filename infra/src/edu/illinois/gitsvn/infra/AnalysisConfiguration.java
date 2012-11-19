@@ -21,9 +21,8 @@ public abstract class AnalysisConfiguration {
 	}
 
 	/**
-	 * This should return the {@link Git} repo that should be
-	 * analyzed. To further configure the analysis please see
-	 * {@link #configureAnalysis()}.
+	 * This should return the {@link Git} repo that should be analyzed. To
+	 * further configure the analysis please see {@link #configureAnalysis()}.
 	 * 
 	 * @return the git repo to be analyzed.
 	 */
@@ -68,8 +67,7 @@ public abstract class AnalysisConfiguration {
 		analysisFilter.addDataCollector(new AllLineNumberFilter());
 		analysisFilter.addDataCollector(new JavaLineNumberFilter());
 
-		AnalysisFilter agregator = new CSVCommitPrinter(
-				analysisFilter.getAllCollectors());
+		AnalysisFilter agregator = new CSVCommitPrinter(analysisFilter);
 		analysisFilter.setDataAgregator(agregator);
 		return analysisFilter;
 	}
