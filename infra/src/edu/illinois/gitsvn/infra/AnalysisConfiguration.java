@@ -43,7 +43,7 @@ public abstract class AnalysisConfiguration {
 	 * 
 	 * @return
 	 */
-	protected static PipelineCommitFilter configureAnalysis() {
+	protected PipelineCommitFilter configureAnalysis() {
 		PipelineCommitFilter analysisFilter = new PipelineCommitFilter();
 
 		analysisFilter
