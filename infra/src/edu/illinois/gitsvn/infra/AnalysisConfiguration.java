@@ -4,7 +4,9 @@ import org.eclipse.jgit.api.Git;
 
 import edu.illinois.gitsvn.infra.collectors.AllLineNumberFilter;
 import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
+import edu.illinois.gitsvn.infra.collectors.DateCollector;
 import edu.illinois.gitsvn.infra.collectors.JavaLineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.SHACollector;
 import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 import edu.illinois.gitsvn.infra.filters.blacklister.CVSManufacturedCommitBlacklister;
 import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
@@ -33,6 +35,8 @@ public abstract class AnalysisConfiguration {
 	 * <ul>
 	 * <li>A rename ignore filter</li>
 	 * <li>A delete ignore filter</li>
+	 * <li>A SHA1 collector</li>
+	 * <li>A Data collector</li>
 	 * <li>A CSV ignore filter</li>
 	 * <li>A line number collector</li>
 	 * <li>A java line number collector</li>
@@ -59,6 +63,8 @@ public abstract class AnalysisConfiguration {
 				.addFilter(FileOperationBlacklister.getRenameDiffFilter());
 		analysisFilter.addFilter(new CVSManufacturedCommitBlacklister());
 
+		analysisFilter.addDataCollector(new SHACollector());
+		analysisFilter.addDataCollector(new DateCollector());
 		analysisFilter.addDataCollector(new AllLineNumberFilter());
 		analysisFilter.addDataCollector(new JavaLineNumberFilter());
 
