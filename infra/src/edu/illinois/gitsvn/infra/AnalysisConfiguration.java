@@ -18,6 +18,13 @@ public abstract class AnalysisConfiguration {
 		crawler.crawlRepo(repo, analysisFilter);
 	}
 
+	/**
+	 * This should return the {@link Git} repo that should be
+	 * analyzed. To further configure the analysis please see
+	 * {@link #configureAnalysis()}.
+	 * 
+	 * @return the git repo to be analyzed.
+	 */
 	protected abstract Git getGitRepo();
 
 	/**
