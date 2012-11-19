@@ -1,30 +1,17 @@
 package edu.illinois.gitsvn.infra;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import javax.swing.event.ListSelectionEvent;
-
-import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.diff.DiffEntry;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.StopWalkException;
 import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevWalk;
 import org.gitective.core.CommitFinder;
-import org.gitective.core.filter.commit.AllCommitFilter;
-import org.gitective.core.filter.commit.CommitFilter;
 import org.gitective.tests.GitTestCase;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
 import edu.illinois.gitsvn.infra.collectors.AllLineNumberFilter;
-import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 
 //TODO test more line diff cases. Just to be sure.
 //TODO test how it handles renames
