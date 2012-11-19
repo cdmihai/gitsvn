@@ -22,10 +22,9 @@ import edu.illinois.gitsvn.infra.util.CSVWriter;
 public class CSVCommitPrinter extends AnalysisFilter {
 
 	private CSVWriter csv;
-	private List<DataCollector> collectors;
 	
 	public CSVCommitPrinter(List<DataCollector> collectors) {
-		this.collectors = collectors;
+		super(collectors);
 	}
 	
 	@Override
