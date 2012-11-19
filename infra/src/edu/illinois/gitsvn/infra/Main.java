@@ -5,6 +5,7 @@ import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
 import edu.illinois.gitsvn.infra.collectors.CutofDetectorFilter;
 import edu.illinois.gitsvn.infra.collectors.JavaLineNumberFilter;
 import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
+import edu.illinois.gitsvn.infra.filters.blacklister.CVSManufacturedCommitBlacklister;
 import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
 
 public class Main {
@@ -34,6 +35,7 @@ public class Main {
 		
 		analysisFilter.addFilter(FileOperationBlacklister.getDeleteDiffFilter());
 		analysisFilter.addFilter(FileOperationBlacklister.getRenameDiffFilter());
+		analysisFilter.addFilter(new CVSManufacturedCommitBlacklister());
 		
 		analysisFilter.addDataCollector(new AllLineNumberFilter());
 		analysisFilter.addDataCollector(new JavaLineNumberFilter());
