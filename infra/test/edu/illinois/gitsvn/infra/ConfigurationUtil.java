@@ -17,7 +17,7 @@ public class ConfigurationUtil {
 		
 		analysisFilter.addDataCollector(new AllLineNumberFilter());
 		analysisFilter.addDataCollector(new JavaLineNumberFilter());
-		analysisFilter.addDataCollector(new CutofDetectorFilter());
+		analysisFilter.addDataCollector(new CutofDetectorFilter(0));
 		
 		AnalysisFilter agregator = new CSVCommitPrinter(analysisFilter.getAllCollectors());
 		analysisFilter.setDataAgregator(agregator);

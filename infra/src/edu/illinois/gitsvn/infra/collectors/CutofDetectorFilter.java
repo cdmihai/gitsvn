@@ -15,6 +15,10 @@ public class CutofDetectorFilter extends CommitFilter implements AbstractSVNDete
 	private String mode = "";
 	private int cutofTime = 1295380000;
 	
+	public CutofDetectorFilter(int cutofTime) {
+		this.cutofTime = cutofTime;
+	}
+	
 	@Override
 	public String name() {
 		return "SCM";
