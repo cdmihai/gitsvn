@@ -13,24 +13,19 @@ import edu.illinois.gitsvn.infra.collectors.JavaLineNumberFilter;
 //TODO test more line diff cases. Just to be sure.
 //TODO test how it handles renames
 
-public class JavaLineNumberFilterTest extends GitTestCase {
+public class JavaLineNumberFilterTest extends DataCollectorTestCase {
 
-	private DataCollectorWrapper countFilter;
-	private CommitFinder finder;
-	
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		countFilter = new DataCollectorWrapper(new JavaLineNumberFilter());
-		finder = new CommitFinder(testRepo);
-		finder.setFilter(countFilter);
+		initTest(new JavaLineNumberFilter());
 	}
 
 	@Test
 	public void testAddition() throws Exception {
 		add("test.java", "mumu\n", "first");
 		finder.find();
-		String actual = countFilter.data;
+		String actual = collector.data;
 		assertEquals("1; ", actual);
 	}
 
@@ -39,7 +34,7 @@ public class JavaLineNumberFilterTest extends GitTestCase {
 		add("test.java", "mumu\n", "first");
 		add("test.java", "", "second");
 		finder.find();
-		String actual = countFilter.data ;
+		String actual = collector.data ;
 		assertEquals("1; 1; ", actual);
 	}
 
@@ -48,7 +43,7 @@ public class JavaLineNumberFilterTest extends GitTestCase {
 		add("test.java", "mumu\n", "first");
 		add("test.java", "bubu\n", "second");
 		finder.find();
-		String actual = countFilter.data;
+		String actual = collector.data;
 		assertEquals("1; 1; ", actual);
 	}
 
@@ -57,7 +52,7 @@ public class JavaLineNumberFilterTest extends GitTestCase {
 		add("test.java", "first line\nsecond line\nthird line\nfourth line", "c1");
 		add("test.java", "first line\nsecond line2\nthird line\nfourth line2", "c2");
 		finder.find();
-		String actual = countFilter.data;
+		String actual = collector.data;
 
 		assertEquals("2; 4; ", actual);
 
@@ -100,7 +95,7 @@ public class JavaLineNumberFilterTest extends GitTestCase {
 		add(testRepo, paths, content, "c2");
 
 		finder.find();
-		String actual = countFilter.data;
+		String actual = collector.data;
 
 		assertEquals("4; 8; ", actual);
 

@@ -2,23 +2,16 @@ package edu.illinois.gitsvn.infra;
 
 import java.util.regex.Pattern;
 
-import org.gitective.core.CommitFinder;
-import org.gitective.tests.GitTestCase;
 import org.junit.Before;
 import org.junit.Test;
 
 import edu.illinois.gitsvn.infra.collectors.SHACollector;
 
-public class SHA1CollectorTest extends GitTestCase {
+public class SHA1CollectorTest extends DataCollectorTestCase {
 	
-	private DataCollectorWrapper collector;
-	private CommitFinder finder;
-
 	@Before
 	public void before() {
-		collector = new DataCollectorWrapper(new SHACollector());
-		finder = new CommitFinder(testRepo);
-		finder.setFilter(collector);
+		initTest(new SHACollector());
 	}
 	
 	@Test

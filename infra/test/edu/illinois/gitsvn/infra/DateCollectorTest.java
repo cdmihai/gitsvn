@@ -1,23 +1,16 @@
 package edu.illinois.gitsvn.infra;
 
-import org.gitective.core.CommitFinder;
-import org.gitective.core.filter.commit.CommitFilter;
-import org.gitective.tests.GitTestCase;
 import org.junit.Before;
 import org.junit.Test;
 
 import edu.illinois.gitsvn.infra.collectors.DateCollector;
 
-public class DateCollectorTest extends GitTestCase {
-	
-	private DataCollectorWrapper collector;
-	private CommitFinder finder;
+
+public class DateCollectorTest extends DataCollectorTestCase {
 	
 	@Before
 	public void before() {
-		collector = new DataCollectorWrapper(new DateCollector());
-		finder = new CommitFinder(testRepo);
-		finder.setFilter(collector);
+		initTest(new DateCollector());
 	}
 	
 	@Test
