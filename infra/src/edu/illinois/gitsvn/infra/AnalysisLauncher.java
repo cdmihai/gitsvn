@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.illinois.gitsvn.analysis.CyclopsGroupAnalysis;
+import edu.illinois.gitsvn.analysis.ThymeleafAnalysis;
 
 public abstract class AnalysisLauncher {
 
@@ -16,7 +17,9 @@ public abstract class AnalysisLauncher {
 	 */
 	public static void main(String[] args) throws Exception {
 		List<AnalysisConfiguration> configurations = new ArrayList<AnalysisConfiguration>();
+		
 		configurations.add(new CyclopsGroupAnalysis());
+		configurations.add(new ThymeleafAnalysis());
 		
 		for (AnalysisConfiguration configuration : configurations) {
 			configuration.run();
