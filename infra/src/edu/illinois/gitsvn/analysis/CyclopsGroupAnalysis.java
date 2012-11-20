@@ -23,7 +23,12 @@ public class CyclopsGroupAnalysis extends AnalysisConfiguration {
 	@Override
 	protected PipelineCommitFilter configureAnalysis() {
 		PipelineCommitFilter configuredAnalysis = super.configureAnalysis();
-		configuredAnalysis.addDataCollector(new CutofDetectorFilter(1307306832));
+		configuredAnalysis.addDataCollector(new CutofDetectorFilter(1295380000));
 		return configuredAnalysis;
+	}
+
+	@Override
+	protected String getProjectName() {
+		return "CyclopsGroup";
 	}
 }
