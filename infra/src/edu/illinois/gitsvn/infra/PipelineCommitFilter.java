@@ -54,7 +54,7 @@ public class PipelineCommitFilter extends CommitFilter {
 		for (CommitFilter filter : filters) {
 			boolean result = filter.include(walker, cmit);
 			if (result == false)
-				return true;
+				return false;
 		}
 
 		for (CommitFilter collector : collectors) {
