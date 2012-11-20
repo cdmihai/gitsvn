@@ -8,6 +8,7 @@ import edu.illinois.gitsvn.infra.collectors.DateCollector;
 import edu.illinois.gitsvn.infra.collectors.JavaLineNumberFilter;
 import edu.illinois.gitsvn.infra.collectors.SHACollector;
 import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
+import edu.illinois.gitsvn.infra.filters.MetadataService;
 import edu.illinois.gitsvn.infra.filters.blacklister.CVSManufacturedCommitBlacklister;
 import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
 
@@ -27,6 +28,8 @@ public abstract class AnalysisConfiguration {
 	 * @return the git repo to be analyzed.
 	 */
 	protected abstract Git getGitRepo();
+	
+	protected abstract String getProjectName();
 
 	/**
 	 * Method for configuring the analysis. The default implementation does it
@@ -67,6 +70,7 @@ public abstract class AnalysisConfiguration {
 		analysisFilter.addDataCollector(new AllLineNumberFilter());
 		analysisFilter.addDataCollector(new JavaLineNumberFilter());
 
+		MetadataService.getService().pushInfo(CSVCommitPrinter.PROJ_NAME_PROP, getProjectName());
 		AnalysisFilter agregator = new CSVCommitPrinter(analysisFilter);
 		analysisFilter.setDataAgregator(agregator);
 		return analysisFilter;
