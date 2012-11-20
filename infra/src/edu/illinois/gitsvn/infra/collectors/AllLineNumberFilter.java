@@ -4,8 +4,6 @@ import java.util.Collection;
 
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.treewalk.TreeWalk;
 import org.gitective.core.filter.commit.DiffCountFilter;
 
 import edu.illinois.gitsvn.infra.DataCollector;
@@ -18,12 +16,6 @@ public class AllLineNumberFilter extends DiffCountFilter implements DataCollecto
 	 */
 	public AllLineNumberFilter() {
 		super(true);
-	}
-
-	@Override
-	protected TreeWalk createTreeWalk(RevWalk walker, RevCommit commit) {
-		TreeWalk walk = super.createTreeWalk(walker, commit);
-		return walk;
 	}
 
 	@Override
