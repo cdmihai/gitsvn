@@ -17,6 +17,10 @@ public class JavaLineNumberFilter extends DiffCountFilter implements
 		DataCollector {
 
 	private int count;
+	
+	public JavaLineNumberFilter() {
+		super(true);
+	}
 
 	@Override
 	protected TreeWalk createTreeWalk(RevWalk walker, RevCommit commit) {
