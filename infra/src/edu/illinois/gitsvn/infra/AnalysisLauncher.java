@@ -12,6 +12,7 @@ import edu.illinois.gitsvn.analysis.EclipsePlatformCommon;
 import edu.illinois.gitsvn.analysis.EclipsePlatformDebug;
 import edu.illinois.gitsvn.analysis.EclipsePlatformTeam;
 import edu.illinois.gitsvn.analysis.EclipsePlatformText;
+import edu.illinois.gitsvn.analysis.LibreOfficeAnalysis;
 import edu.illinois.gitsvn.analysis.ThymeleafAnalysis;
 
 public abstract class AnalysisLauncher {
@@ -36,6 +37,7 @@ public abstract class AnalysisLauncher {
 		configurations.add(new EclipsePlatformText());
 		configurations.add(new EclipsePlatformDebug());
 		configurations.add(new EclipsePlatformCommon());
+		configurations.add(new LibreOfficeAnalysis());
 		
 		for (AnalysisConfiguration configuration : configurations) {
 			configuration.run();
