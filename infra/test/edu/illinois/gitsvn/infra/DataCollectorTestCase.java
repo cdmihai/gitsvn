@@ -7,6 +7,8 @@ import org.gitective.core.CommitFinder;
 import org.gitective.core.filter.commit.CommitFilter;
 import org.gitective.tests.GitTestCase;
 
+import edu.illinois.gitsvn.infra.util.DataCollectorWrapper;
+
 public abstract class DataCollectorTestCase extends GitTestCase {
 
 	protected DataCollectorWrapper collector;
