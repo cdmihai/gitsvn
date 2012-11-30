@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.PrintWriter;
 
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.gitective.tests.GitTestCase;
@@ -18,8 +19,12 @@ public class DeleteBlacklisterFilter extends GitTestCase {
 	@Before
 	public void before() throws Exception {
 		add("test.txt", "line 1\nline 2\nline 3\nline4\nline5\n", "");
+		
+		Repository repository = Git.open(testRepo).getRepository();
 		deleteDiffFilter = FileOperationBlacklister.getDeleteDiffFilter();
-		revWalk = new RevWalk(Git.open(testRepo).getRepository());
+		deleteDiffFilter.setRepository(repository);
+		
+		revWalk = new RevWalk(repository);
 	}
 
 	@Test

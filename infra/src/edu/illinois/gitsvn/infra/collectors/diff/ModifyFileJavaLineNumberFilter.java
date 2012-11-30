@@ -1,4 +1,4 @@
-package edu.illinois.gitsvn.infra.collectors;
+package edu.illinois.gitsvn.infra.collectors.diff;
 
 import java.util.Collection;
 
@@ -8,17 +8,21 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.treewalk.filter.AndTreeFilter;
 import org.eclipse.jgit.treewalk.filter.TreeFilter;
-import org.gitective.core.filter.commit.DiffCountFilter;
 
 import edu.illinois.gitsvn.infra.DataCollector;
 import edu.illinois.gitsvn.infra.filters.blacklister.NonJavaFileExtensionBlacklister;
 
-public class JavaLineNumberFilter extends DiffCountFilter implements
+/**
+ * Code duplication of {@link JavaLineNumberFilter}
+ * @author mihai
+ *
+ */
+public class ModifyFileJavaLineNumberFilter extends ModifyDiffCountFilter implements
 		DataCollector {
 
 	private int count;
 	
-	public JavaLineNumberFilter() {
+	public ModifyFileJavaLineNumberFilter() {
 		super(true);
 	}
 

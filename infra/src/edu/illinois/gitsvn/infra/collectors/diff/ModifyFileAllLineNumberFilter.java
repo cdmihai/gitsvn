@@ -1,20 +1,24 @@
-package edu.illinois.gitsvn.infra.collectors;
+package edu.illinois.gitsvn.infra.collectors.diff;
 
 import java.util.Collection;
 
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.revwalk.RevCommit;
-import org.gitective.core.filter.commit.DiffCountFilter;
 
 import edu.illinois.gitsvn.infra.DataCollector;
 
-public class AllLineNumberFilter extends DiffCountFilter implements DataCollector {
+/**
+ * Code duplication of {@link AllLineNumberFilter}
+ * @author mihai
+ *
+ */
+public class ModifyFileAllLineNumberFilter extends ModifyDiffCountFilter implements DataCollector {
 
 	private int count;
 
 	/**
 	 */
-	public AllLineNumberFilter() {
+	public ModifyFileAllLineNumberFilter() {
 		super(true);
 	}
 
