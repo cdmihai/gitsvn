@@ -1,0 +1,11 @@
+https://github.com/thymeleaf/thymeleaf
+https://github.com/adrian/upm-swing
+https://github.com/jiaqi/cyclopsgroup
+git://git.eclipse.org/gitroot/jdt/eclipse.jdt.core.git
+git://git.eclipse.org/gitroot/jdt/eclipse.jdt.debug.git
+git://git.eclipse.org/gitroot/jdt/eclipse.jdt.ui.git
+git://git.eclipse.org/gitroot/platform/eclipse.platform.common.git
+git://git.eclipse.org/gitroot/platform/eclipse.platform.debug.git
+git://git.eclipse.org/gitroot/platform/eclipse.platform.git
+git://git.eclipse.org/gitroot/platform/eclipse.platform.team.git
+git://git.eclipse.org/gitroot/platform/eclipse.platform.text.git
