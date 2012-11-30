@@ -5,12 +5,14 @@ import org.eclipse.jgit.api.Git;
 import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
 import edu.illinois.gitsvn.infra.collectors.DateCollector;
 import edu.illinois.gitsvn.infra.collectors.SHACollector;
-import edu.illinois.gitsvn.infra.collectors.diff.AllLineNumberFilter;
-import edu.illinois.gitsvn.infra.collectors.diff.JavaLineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.diff.ModifyFileAllLineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.diff.ModifyFileJavaLineNumberFilter;
 import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 import edu.illinois.gitsvn.infra.filters.MetadataService;
 import edu.illinois.gitsvn.infra.filters.blacklister.CVSManufacturedCommitBlacklister;
 import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
+import edu.illinois.gitsvn.infra.filters.blacklister.MergeMessageCommitBlackLister;
+import edu.illinois.gitsvn.infra.filters.blacklister.MultipleParentCommitBlacklister;
 
 /**
  * Runs a preconfigured analysis on a particular repo. Subclasses provide the repo location, project name and may further configure the analyses.
@@ -65,16 +67,17 @@ public abstract class AnalysisConfiguration {
 		MetadataService.getService().pushInfo(CSVCommitPrinter.PROJ_NAME_PROP, getProjectName());
 		PipelineCommitFilter analysisFilter = new PipelineCommitFilter();
 
-		analysisFilter
-				.addFilter(FileOperationBlacklister.getDeleteDiffFilter());
-		analysisFilter
-				.addFilter(FileOperationBlacklister.getRenameDiffFilter());
+		analysisFilter.addFilter(FileOperationBlacklister.getAddDiffFilter());
+		analysisFilter.addFilter(FileOperationBlacklister.getDeleteDiffFilter());
+		analysisFilter.addFilter(FileOperationBlacklister.getRenameDiffFilter());
 		analysisFilter.addFilter(new CVSManufacturedCommitBlacklister());
+		analysisFilter.addFilter(new MergeMessageCommitBlackLister());
+		analysisFilter.addFilter(new MultipleParentCommitBlacklister());
 
 		analysisFilter.addDataCollector(new SHACollector());
 		analysisFilter.addDataCollector(new DateCollector());
-		analysisFilter.addDataCollector(new AllLineNumberFilter());
-		analysisFilter.addDataCollector(new JavaLineNumberFilter());
+		analysisFilter.addDataCollector(new ModifyFileAllLineNumberFilter());
+		analysisFilter.addDataCollector(new ModifyFileJavaLineNumberFilter());
 
 		AnalysisFilter agregator = new CSVCommitPrinter(analysisFilter);
 		analysisFilter.setDataAgregator(agregator);
