@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.Edit;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.gitective.tests.GitTestCase;
@@ -18,6 +19,10 @@ import edu.illinois.gitsvn.infra.collectors.diff.ModifyDiffCountFilter;
 public class ModifyDiffCountFilterTest extends GitTestCase {
 
 	public class ModifyDiffTesterFilter extends ModifyDiffCountFilter {
+		public ModifyDiffTesterFilter() {
+			super(true);
+		}
+
 		private int count;
 
 		public int getCount() {
@@ -39,8 +44,10 @@ public class ModifyDiffCountFilterTest extends GitTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
+		Repository repository = Git.open(testRepo).getRepository();
 		filter = new ModifyDiffTesterFilter();
-		revWalk = new RevWalk(Git.open(testRepo).getRepository());
+		filter.setRepository(repository);
+		revWalk = new RevWalk(repository);
 	}
 
 	@Test
