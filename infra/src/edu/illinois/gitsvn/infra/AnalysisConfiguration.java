@@ -25,6 +25,8 @@ public abstract class AnalysisConfiguration {
 		RepositoryCrawler crawler = new RepositoryCrawler();
 		PipelineCommitFilter analysisFilter = configureAnalysis();
 		Git repo = getGitRepo();
+		
+		System.out.println("Running for: "+  getProjectName());
 		crawler.crawlRepo(repo, analysisFilter);
 	}
 
