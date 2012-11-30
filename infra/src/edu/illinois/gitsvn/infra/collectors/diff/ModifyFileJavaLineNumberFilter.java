@@ -17,12 +17,12 @@ import edu.illinois.gitsvn.infra.filters.blacklister.NonJavaFileExtensionBlackli
  * @author mihai
  *
  */
-public class ModifydFileJavaLineNumberFilter extends ModifyDiffCountFilter implements
+public class ModifyFileJavaLineNumberFilter extends ModifyDiffCountFilter implements
 		DataCollector {
 
 	private int count;
 	
-	public ModifydFileJavaLineNumberFilter() {
+	public ModifyFileJavaLineNumberFilter() {
 		super(true);
 	}
 
