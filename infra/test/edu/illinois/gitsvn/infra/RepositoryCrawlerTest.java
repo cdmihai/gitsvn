@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
-import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 
 public class RepositoryCrawlerTest extends GitTestCase{
 	

@@ -3,8 +3,6 @@ package edu.illinois.gitsvn.infra;
 import java.util.Arrays;
 import java.util.List;
 
-import org.gitective.core.CommitFinder;
-import org.gitective.tests.GitTestCase;
 import org.junit.Before;
 import org.junit.Test;
 

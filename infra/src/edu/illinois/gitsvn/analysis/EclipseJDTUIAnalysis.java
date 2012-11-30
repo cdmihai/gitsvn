@@ -8,7 +8,6 @@ import org.eclipse.jgit.api.Git;
 import edu.illinois.gitsvn.infra.AnalysisConfiguration;
 import edu.illinois.gitsvn.infra.PipelineCommitFilter;
 import edu.illinois.gitsvn.infra.collectors.CutofDetectorFilter;
-import edu.illinois.gitsvn.infra.collectors.SVNCommitDetectorFilter;
 
 public class EclipseJDTUIAnalysis extends AnalysisConfiguration {
 
