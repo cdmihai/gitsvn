@@ -33,11 +33,17 @@ public class FileOperationBlacklister extends CommitDiffFilter {
 	}
 
 	public static FileOperationBlacklister getDeleteDiffFilter() {
-		return new FileOperationBlacklister(ChangeType.DELETE);
+		return new FileOperationBlacklister(ChangeType.DELETE, true);
 	}
 
+	//TODO write tests
 	public static FileOperationBlacklister getRenameDiffFilter() {
 		return new FileOperationBlacklister(ChangeType.RENAME, true);
+	}
+	
+	//TODO write tests
+	public static FileOperationBlacklister getAddDiffFilter(){
+		return new FileOperationBlacklister(ChangeType.ADD, true);
 	}
 
 	@Override
