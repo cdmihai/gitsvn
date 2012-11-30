@@ -12,6 +12,11 @@ import edu.illinois.gitsvn.infra.filters.MetadataService;
 import edu.illinois.gitsvn.infra.filters.blacklister.CVSManufacturedCommitBlacklister;
 import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
 
+/**
+ * Runs a preconfigured analysis on a particular repo. Subclasses provide the repo location, project name and may further configure the analyses.
+ * @author mihai
+ *
+ */
 public abstract class AnalysisConfiguration {
 
 	public void run() {
