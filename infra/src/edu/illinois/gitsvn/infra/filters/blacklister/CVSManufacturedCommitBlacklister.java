@@ -12,8 +12,6 @@ public class CVSManufacturedCommitBlacklister extends CommitMessageFindFilter{
 
 	public CVSManufacturedCommitBlacklister() {
 		super(CVS2SVN);
-		
-		System.out.println("CVS2SVN Manufactured commit filter active");
 	}
 	
 	@Override

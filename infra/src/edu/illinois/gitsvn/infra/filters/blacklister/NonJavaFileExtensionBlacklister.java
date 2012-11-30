@@ -13,10 +13,6 @@ public final class NonJavaFileExtensionBlacklister extends BaseTreeFilter {
 	
 	private static final List<String> allowedExtensions = Arrays.asList("java");
 	
-	static{
-		System.out.println("File Extension Blacklister loaded");
-	}
-	
 	@Override
 	public boolean include(TreeWalk walker) throws MissingObjectException, IncorrectObjectTypeException, IOException {
 		if (walker.isSubtree()){
