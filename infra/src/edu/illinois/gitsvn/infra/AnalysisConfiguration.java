@@ -2,6 +2,7 @@ package edu.illinois.gitsvn.infra;
 
 import org.eclipse.jgit.api.Git;
 
+import edu.illinois.gitsvn.infra.collectors.AuthorCollector;
 import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
 import edu.illinois.gitsvn.infra.collectors.DateCollector;
 import edu.illinois.gitsvn.infra.collectors.SHACollector;
@@ -78,6 +79,7 @@ public abstract class AnalysisConfiguration {
 
 		analysisFilter.addDataCollector(new SHACollector());
 		analysisFilter.addDataCollector(new DateCollector());
+		analysisFilter.addDataCollector(new AuthorCollector());
 		analysisFilter.addDataCollector(new ModifyFileAllLineNumberFilter());
 		analysisFilter.addDataCollector(new ModifyFileJavaLineNumberFilter());
 
