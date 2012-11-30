@@ -10,7 +10,7 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.gitective.core.filter.commit.CommitDiffFilter;
 
 /**
- * Excludes a commit for which all Diffs are of change type DELETE or RENAME.
+ * Excludes a commit for which all Diffs are of change type.
  * 
  * @author mihai
  * 
