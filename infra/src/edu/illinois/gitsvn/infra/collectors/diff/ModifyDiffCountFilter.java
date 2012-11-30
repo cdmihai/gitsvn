@@ -1,4 +1,4 @@
-package edu.illinois.gitsvn.infra.collectors;
+package edu.illinois.gitsvn.infra.collectors.diff;
 
 import java.util.Collection;
 

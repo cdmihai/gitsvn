@@ -13,6 +13,8 @@ import org.gitective.tests.GitTestCase;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.illinois.gitsvn.infra.collectors.diff.ModifyDiffCountFilter;
+
 public class ModifyDiffCountFilterTest extends GitTestCase {
 
 	public class ModifyDiffTesterFilter extends ModifyDiffCountFilter {

@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.illinois.gitsvn.infra.collectors.AllLineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.diff.AllLineNumberFilter;
 
 //TODO test more line diff cases. Just to be sure.
 //TODO test how it handles renames

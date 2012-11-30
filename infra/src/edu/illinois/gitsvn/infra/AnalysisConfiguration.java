@@ -2,11 +2,11 @@ package edu.illinois.gitsvn.infra;
 
 import org.eclipse.jgit.api.Git;
 
-import edu.illinois.gitsvn.infra.collectors.AllLineNumberFilter;
 import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
 import edu.illinois.gitsvn.infra.collectors.DateCollector;
-import edu.illinois.gitsvn.infra.collectors.JavaLineNumberFilter;
 import edu.illinois.gitsvn.infra.collectors.SHACollector;
+import edu.illinois.gitsvn.infra.collectors.diff.AllLineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.diff.JavaLineNumberFilter;
 import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 import edu.illinois.gitsvn.infra.filters.MetadataService;
 import edu.illinois.gitsvn.infra.filters.blacklister.CVSManufacturedCommitBlacklister;
@@ -62,6 +62,7 @@ public abstract class AnalysisConfiguration {
 	 * @return
 	 */
 	protected PipelineCommitFilter configureAnalysis() {
+		MetadataService.getService().pushInfo(CSVCommitPrinter.PROJ_NAME_PROP, getProjectName());
 		PipelineCommitFilter analysisFilter = new PipelineCommitFilter();
 
 		analysisFilter
@@ -75,7 +76,6 @@ public abstract class AnalysisConfiguration {
 		analysisFilter.addDataCollector(new AllLineNumberFilter());
 		analysisFilter.addDataCollector(new JavaLineNumberFilter());
 
-		MetadataService.getService().pushInfo(CSVCommitPrinter.PROJ_NAME_PROP, getProjectName());
 		AnalysisFilter agregator = new CSVCommitPrinter(analysisFilter);
 		analysisFilter.setDataAgregator(agregator);
 		return analysisFilter;
