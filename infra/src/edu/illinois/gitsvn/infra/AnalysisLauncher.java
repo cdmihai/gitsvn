@@ -1,6 +1,7 @@
 package edu.illinois.gitsvn.infra;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import edu.illinois.gitsvn.analysis.CyclopsGroupAnalysis;
@@ -13,6 +14,7 @@ import edu.illinois.gitsvn.analysis.EclipsePlatformDebug;
 import edu.illinois.gitsvn.analysis.EclipsePlatformTeam;
 import edu.illinois.gitsvn.analysis.EclipsePlatformText;
 import edu.illinois.gitsvn.analysis.ThymeleafAnalysis;
+import edu.illinois.gitsvn.analysis.UPMAnalysis;
 
 public abstract class AnalysisLauncher {
 
@@ -26,6 +28,7 @@ public abstract class AnalysisLauncher {
 	public static void main(String[] args) throws Exception {
 		List<AnalysisConfiguration> configurations = new ArrayList<AnalysisConfiguration>();
 		
+		configurations.add(new UPMAnalysis());
 		configurations.add(new CyclopsGroupAnalysis());
 		configurations.add(new ThymeleafAnalysis());
 		configurations.add(new EclipseJDTCoreAnalysis());
@@ -37,8 +40,10 @@ public abstract class AnalysisLauncher {
 		configurations.add(new EclipsePlatformDebug());
 		configurations.add(new EclipsePlatformCommon());
 		
-		for (AnalysisConfiguration configuration : configurations) {
-			configuration.run();
+		
+		for (int i = 0; i < configurations.size(); i++) {
+			System.out.println("\n" + (i + 1) + " / " + configurations.size());
+			configurations.get(i).run();
 		}
 	}
 }
