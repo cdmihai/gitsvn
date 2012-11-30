@@ -14,7 +14,7 @@ public class EclipseJDTUIAnalysis extends AnalysisConfiguration {
 	@Override
 	protected Git getGitRepo() {
 		try {
-			return Git.open(new File("../../projects/eclipse_jdt/eclipse.jdt.ui"));
+			return Git.open(new File("../../projects/eclipse.jdt.ui"));
 		} catch (IOException e) {
 		}
 		return null;

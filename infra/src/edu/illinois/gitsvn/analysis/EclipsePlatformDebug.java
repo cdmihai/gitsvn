@@ -15,7 +15,7 @@ public class EclipsePlatformDebug extends AnalysisConfiguration {
 	protected Git getGitRepo() {
 		try {
 			return Git.open(new File(
-					"../../projects/eclipse_core/eclipse.platform.debug"));
+					"../../projects/eclipse.platform.debug"));
 		} catch (IOException e) {
 		}
 
