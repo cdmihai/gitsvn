@@ -39,14 +39,15 @@ public class MultipleParentCommitBlacklisterTest extends GitTestCase{
 		
 		RevCommit cmit = CommitUtils.getHead(Git.open(testRepo).getRepository());
 		
+		assertEquals(2,cmit.getParentCount());
 		assertFalse(filter.include(revWalk, cmit));
 	}
 	
 	@Test
 	public void testZeroParents() throws Exception {
 		RevCommit cmit = add("a", "a");
-		
-		assertTrue(cmit.getParentCount() == 0);
+
+		assertEquals(0, cmit.getParentCount());
 		assertTrue(filter.include(revWalk, cmit));
 	}
 	
@@ -54,8 +55,8 @@ public class MultipleParentCommitBlacklisterTest extends GitTestCase{
 	public void testOneParent() throws Exception {
 		add("a", "a");
 		RevCommit cmit = add("a", "aa");
-		
-		assertTrue(cmit.getParentCount() == 1);
+
+		assertEquals(1, cmit.getParentCount());
 		assertTrue(filter.include(revWalk, cmit));
 		
 	}
