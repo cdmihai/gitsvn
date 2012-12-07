@@ -1,8 +1,9 @@
 package edu.illinois.gitsvn.infra;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import edu.illinois.gitsvn.analysis.CyclopsGroupAnalysis;
 import edu.illinois.gitsvn.analysis.EclipseJDTCoreAnalysis;
@@ -42,10 +43,30 @@ public abstract class AnalysisLauncher {
 		configurations.add(new EclipsePlatformCommon());
 		configurations.add(new LibreOfficeAnalysis());
 		
+		long before = System.nanoTime();
+		run(configurations);
+		long after = System.nanoTime();
 		
+		System.out.println((after - before) / 1000000);
+	}
+
+	private static void run(List<AnalysisConfiguration> configurations) {
 		for (int i = 0; i < configurations.size(); i++) {
 			System.out.println("\n" + (i + 1) + " / " + configurations.size());
 			configurations.get(i).run();
+		}
+	}
+	
+	private static void runParallel(List<AnalysisConfiguration> configurations) {
+		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+		for (final AnalysisConfiguration analysisConfiguration : configurations) {
+			exec.execute(new Runnable() {
+				
+				@Override
+				public void run() {
+					analysisConfiguration.run();
+				}
+			});
 		}
 	}
 }
