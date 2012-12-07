@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class MetadataService {
 	
-	private static MetadataService service = null;
+	private static ThreadLocal<MetadataService> service = null;
 	
 	private Map<String, String> infoMap = new HashMap<String, String>();
 	
@@ -22,9 +22,14 @@ public class MetadataService {
 	
 	public static MetadataService getService() {
 		if (service == null)
-			service = new MetadataService();
+			service = new ThreadLocal<MetadataService>(){
+			@Override
+			protected MetadataService initialValue() {
+				return new MetadataService();
+			}
+		};
 		
-		return service;
+		return service.get();
 	}
 	
 	public void pushInfo(String name, String value) {
