@@ -61,6 +61,12 @@ public class CopyrightJavadocImportBlacklisterTest extends GitTestCase{
 		
 		assertFalse(filter.include(revWalk, cmit));
 	}
-	
+		
+	@Test
+	public void testRejectMSG() throws Exception {
+		RevCommit cmit = add("f1", "", "javadoc and spelling updates");
+		
+		assertFalse(filter.include(revWalk, cmit));
+	}
 
 }
