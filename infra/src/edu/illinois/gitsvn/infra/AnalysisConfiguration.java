@@ -11,6 +11,7 @@ import edu.illinois.gitsvn.infra.collectors.diff.ModifyFileJavaLineNumberFilter;
 import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 import edu.illinois.gitsvn.infra.filters.MetadataService;
 import edu.illinois.gitsvn.infra.filters.blacklister.CVSManufacturedCommitBlacklister;
+import edu.illinois.gitsvn.infra.filters.blacklister.CopyrightJavadocImportBlacklister;
 import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
 import edu.illinois.gitsvn.infra.filters.blacklister.MergeMessageCommitBlackLister;
 import edu.illinois.gitsvn.infra.filters.blacklister.MultipleParentCommitBlacklister;
@@ -73,9 +74,10 @@ public abstract class AnalysisConfiguration {
 		analysisFilter.addFilter(FileOperationBlacklister.getAddDiffFilter());
 		analysisFilter.addFilter(FileOperationBlacklister.getDeleteDiffFilter());
 		analysisFilter.addFilter(FileOperationBlacklister.getRenameDiffFilter());
-		analysisFilter.addFilter(new CVSManufacturedCommitBlacklister());
 		analysisFilter.addFilter(new MergeMessageCommitBlackLister());
 		analysisFilter.addFilter(new MultipleParentCommitBlacklister());
+		analysisFilter.addFilter(new CVSManufacturedCommitBlacklister());
+		analysisFilter.addFilter(new CopyrightJavadocImportBlacklister());
 
 		analysisFilter.addDataCollector(new SHACollector());
 		analysisFilter.addDataCollector(new DateCollector());
