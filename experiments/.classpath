@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.jgit"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.jgit.ant"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.jgit.ant.test"/>
@@ -15,12 +16,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.jgit.pgm.test"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.jgit.test"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.jgit.ui"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.tmatesoft.svnkit.svnkit-1.7.x"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.tmatesoft.svnkit.svnkit-cli-1.7.x"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.tmatesoft.svnkit.svnkit-dav-1.7.x"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.tmatesoft.svnkit.svnkit-javahl16-1.7.x"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.tmatesoft.svnkit.svnkit-osgi-1.7.x"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.tmatesoft.svnkit.svnkit-test-1.7.x"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.gitective.core"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
