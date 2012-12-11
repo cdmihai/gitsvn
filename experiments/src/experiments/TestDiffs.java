@@ -20,6 +20,59 @@ import org.junit.Test;
 
 public class TestDiffs extends GitTestCase {
 
+	private final class DiffPrinter extends CommitDiffEditFilter {
+		private DiffPrinter(boolean detectRenames) {
+			super(detectRenames);
+		}
+
+		@Override
+		protected boolean include(RevCommit commit, DiffEntry diff, Collection<Edit> edits) {
+			if (!commit.getFullMessage().equals(CMIT))
+				return true;
+
+			System.out.println(diff.getNewPath());
+
+			String fOld = getOldFile(diff);
+			String fNew = getNewFile(diff);
+
+			System.err.println(fOld);
+			System.err.println();
+			System.err.println(fNew);
+
+			for (Edit edit : edits) {
+				System.out.println(edit.getType());
+				System.out.println("Old:\n" + StringUtils.getLineDelimitedRegion(fOld, edit.getBeginA(), edit.getEndA()));
+				System.out.println("New:\n" + StringUtils.getLineDelimitedRegion(fNew, edit.getBeginB(), edit.getEndB()));
+				System.out.println();
+			}
+
+			System.out.println();
+
+			return true;
+		}
+
+		private String getOldFile(DiffEntry diff) {
+			try {
+
+				File f = new File(diff.getOldPath());
+				return BlobUtils.getContent(Git.open(testRepo).getRepository(), diff.getOldId().toObjectId());
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		private String getNewFile(DiffEntry diff) {
+			try {
+				return BlobUtils.getContent(Git.open(testRepo).getRepository(), diff.getNewId().toObjectId());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+	}
+
 	private static final String CMIT = "cmit";
 	private CommitFinder finder;
 
@@ -81,6 +134,34 @@ public class TestDiffs extends GitTestCase {
 
 		add(testRepo, files, content, CMIT);
 	}
+	
+	private void repo3() throws Exception {
+		List<String> files = Arrays.asList(new String[]{"f1"});
+		List<String> content = Arrays.asList(new String[]{
+				"first line\n" 
+				+ "second line\n" 
+				+ "third line\n"
+				+ "fourth line\n" 
+				+ "fifth line\n"
+				+ "sixth line\n"
+				});
+
+		add(files, content);
+		
+		files = Arrays.asList(new String[]{"f1"});
+		content = Arrays.asList(new String[]{
+				"first line\n" 
+				+ "a new line\n" 
+				+ "fourth line\n" 
+				+ "new insert1\n" +
+				"new insert2\n" +
+				"new insert3\n" +
+				"new insert4\n"
+				+ "sixth line\n"
+				});
+
+		add(testRepo, files, content, CMIT);
+	}
 
 	@Ignore
 	@Test
@@ -112,54 +193,16 @@ public class TestDiffs extends GitTestCase {
 	public void testPrintDiffs() throws Exception {
 		repo2();
 		
-		finder.setFilter(new CommitDiffEditFilter(true) {
-			@Override
-			protected boolean include(RevCommit commit, DiffEntry diff, Collection<Edit> edits) {
-				if(!commit.getFullMessage().equals(CMIT))
-					return true;
-				
-				System.out.println(diff.getNewPath());
-				
-				String fOld = getOldFile(diff);
-				String fNew = getNewFile(diff);
-				
-				System.err.println(fOld);
-				System.err.println();
-				System.err.println(fNew);
-				
-				for (Edit edit : edits) {
-					System.out.println(edit.getType());
-					System.out.println("Old:\n" + StringUtils.getLineDelimitedRegion(fOld, edit.getBeginA(), edit.getEndA()));
-					System.out.println("New:\n" + StringUtils.getLineDelimitedRegion(fNew, edit.getBeginB(), edit.getEndB()));
-					System.out.println();
-				}
-				
-				System.out.println();
-				
-				return true;
-			}
-
-			private String getOldFile(DiffEntry diff) {
-				try {
-
-					File f = new File(diff.getOldPath());
-					return BlobUtils.getContent(Git.open(testRepo).getRepository(), diff.getOldId().toObjectId());
-
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				return null;
-			}
-			
-			private String getNewFile(DiffEntry diff) {
-				try {
-					return BlobUtils.getContent(Git.open(testRepo).getRepository(), diff.getNewId().toObjectId());
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				return null;
-			}
-		});
+		finder.setFilter(new DiffPrinter(true));
+		
+		finder.find();
+	}
+	
+	@Test
+	public void testPrintDiffs2() throws Exception {
+		repo3();
+		
+		finder.setFilter(new DiffPrinter(true));
 		
 		finder.find();
 	}
