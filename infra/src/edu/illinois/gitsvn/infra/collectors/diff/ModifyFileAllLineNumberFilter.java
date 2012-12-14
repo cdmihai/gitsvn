@@ -6,6 +6,7 @@ import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 import edu.illinois.gitsvn.infra.DataCollector;
+import edu.illinois.gitsvn.infra.collectors.diff.editfilter.EditFilter;
 
 /**
  * Code duplication of {@link AllLineNumberFilter}
@@ -16,10 +17,8 @@ public class ModifyFileAllLineNumberFilter extends ModifyDiffCountFilter impleme
 
 	private int count;
 
-	/**
-	 */
-	public ModifyFileAllLineNumberFilter() {
-		super(true);
+	public ModifyFileAllLineNumberFilter(EditFilter ... filters) {
+		super(filters);
 	}
 
 	@Override

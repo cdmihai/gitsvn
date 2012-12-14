@@ -19,9 +19,6 @@ import edu.illinois.gitsvn.infra.collectors.diff.ModifyDiffCountFilter;
 public class ModifyDiffCountFilterTest extends GitTestCase {
 
 	public class ModifyDiffTesterFilter extends ModifyDiffCountFilter {
-		public ModifyDiffTesterFilter() {
-			super(true);
-		}
 
 		private int count;
 

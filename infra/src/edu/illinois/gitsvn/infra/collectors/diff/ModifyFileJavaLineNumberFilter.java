@@ -10,6 +10,7 @@ import org.eclipse.jgit.treewalk.filter.AndTreeFilter;
 import org.eclipse.jgit.treewalk.filter.TreeFilter;
 
 import edu.illinois.gitsvn.infra.DataCollector;
+import edu.illinois.gitsvn.infra.collectors.diff.editfilter.EditFilter;
 import edu.illinois.gitsvn.infra.filters.blacklister.NonJavaFileExtensionBlacklister;
 
 /**
@@ -21,9 +22,9 @@ public class ModifyFileJavaLineNumberFilter extends ModifyDiffCountFilter implem
 		DataCollector {
 
 	private int count;
-	
-	public ModifyFileJavaLineNumberFilter() {
-		super(true);
+
+	public ModifyFileJavaLineNumberFilter(EditFilter ... filters) {
+		super(filters);
 	}
 
 	@Override
