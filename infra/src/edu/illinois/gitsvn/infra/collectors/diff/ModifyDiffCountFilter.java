@@ -27,13 +27,13 @@ public class ModifyDiffCountFilter extends DiffCountFilter {
 
 	private List<EditFilter> editFilters;
 
-	public ModifyDiffCountFilter(List<EditFilter> editFilters) {
+	public ModifyDiffCountFilter(EditFilter ... editFilters) {
 		super(true);
-		this.editFilters = editFilters;
+		this.editFilters = Arrays.asList(editFilters);
 	}
 
 	public ModifyDiffCountFilter(boolean enableRenamings) {
-		this(new ArrayList<EditFilter>());
+		this();
 	}
 
 	@Override
@@ -57,10 +57,6 @@ public class ModifyDiffCountFilter extends DiffCountFilter {
 		}
 
 		return edits;
-	}
-
-	public static ModifyDiffCountFilter getWithAllEditFilters() {
-		return new ModifyDiffCountFilter(Arrays.asList(new EditFilter[] { getCommentEditFilter(), getFormatEditFilter() }));
 	}
 
 	public static EditFilter getFormatEditFilter() {
