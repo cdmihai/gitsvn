@@ -21,10 +21,6 @@ public class ModifyFileJavaLineNumberFilter extends ModifyDiffCountFilter implem
 		DataCollector {
 
 	private int count;
-	
-	public ModifyFileJavaLineNumberFilter() {
-		super(true);
-	}
 
 	@Override
 	protected TreeWalk createTreeWalk(RevWalk walker, RevCommit commit) {

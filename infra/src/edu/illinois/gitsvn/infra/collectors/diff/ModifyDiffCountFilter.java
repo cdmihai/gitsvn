@@ -1,6 +1,5 @@
 package edu.illinois.gitsvn.infra.collectors.diff;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -30,10 +29,6 @@ public class ModifyDiffCountFilter extends DiffCountFilter {
 	public ModifyDiffCountFilter(EditFilter ... editFilters) {
 		super(true);
 		this.editFilters = Arrays.asList(editFilters);
-	}
-
-	public ModifyDiffCountFilter(boolean enableRenamings) {
-		this();
 	}
 
 	@Override

@@ -16,12 +16,6 @@ public class ModifyFileAllLineNumberFilter extends ModifyDiffCountFilter impleme
 
 	private int count;
 
-	/**
-	 */
-	public ModifyFileAllLineNumberFilter() {
-		super(true);
-	}
-
 	@Override
 	protected boolean include(RevCommit commit, Collection<DiffEntry> diffs, int diffCount) {
 		count = diffCount;
