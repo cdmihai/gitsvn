@@ -6,11 +6,13 @@ import edu.illinois.gitsvn.infra.collectors.AuthorCollector;
 import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
 import edu.illinois.gitsvn.infra.collectors.DateCollector;
 import edu.illinois.gitsvn.infra.collectors.SHACollector;
+import edu.illinois.gitsvn.infra.collectors.diff.ModifyDiffCountFilter;
 import edu.illinois.gitsvn.infra.collectors.diff.ModifyFileAllLineNumberFilter;
 import edu.illinois.gitsvn.infra.collectors.diff.ModifyFileJavaLineNumberFilter;
 import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 import edu.illinois.gitsvn.infra.filters.MetadataService;
 import edu.illinois.gitsvn.infra.filters.blacklister.CVSManufacturedCommitBlacklister;
+import edu.illinois.gitsvn.infra.filters.blacklister.CopyrightJavadocImportBlacklister;
 import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
 import edu.illinois.gitsvn.infra.filters.blacklister.MergeMessageCommitBlackLister;
 import edu.illinois.gitsvn.infra.filters.blacklister.MultipleParentCommitBlacklister;
@@ -73,15 +75,16 @@ public abstract class AnalysisConfiguration {
 		analysisFilter.addFilter(FileOperationBlacklister.getAddDiffFilter());
 		analysisFilter.addFilter(FileOperationBlacklister.getDeleteDiffFilter());
 		analysisFilter.addFilter(FileOperationBlacklister.getRenameDiffFilter());
-		analysisFilter.addFilter(new CVSManufacturedCommitBlacklister());
 		analysisFilter.addFilter(new MergeMessageCommitBlackLister());
 		analysisFilter.addFilter(new MultipleParentCommitBlacklister());
+		analysisFilter.addFilter(new CVSManufacturedCommitBlacklister());
+		analysisFilter.addFilter(new CopyrightJavadocImportBlacklister());
 
 		analysisFilter.addDataCollector(new SHACollector());
 		analysisFilter.addDataCollector(new DateCollector());
 		analysisFilter.addDataCollector(new AuthorCollector());
-		analysisFilter.addDataCollector(new ModifyFileAllLineNumberFilter());
-		analysisFilter.addDataCollector(new ModifyFileJavaLineNumberFilter());
+		analysisFilter.addDataCollector(new ModifyFileAllLineNumberFilter(ModifyDiffCountFilter.getCommentEditFilter(), ModifyDiffCountFilter.getFormatEditFilter()));
+		analysisFilter.addDataCollector(new ModifyFileJavaLineNumberFilter(ModifyDiffCountFilter.getCommentEditFilter(), ModifyDiffCountFilter.getFormatEditFilter()));
 
 		AnalysisFilter agregator = new CSVCommitPrinter(analysisFilter);
 		analysisFilter.setDataAgregator(agregator);
