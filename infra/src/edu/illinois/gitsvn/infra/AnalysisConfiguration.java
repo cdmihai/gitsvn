@@ -18,9 +18,11 @@ import edu.illinois.gitsvn.infra.filters.blacklister.MergeMessageCommitBlackList
 import edu.illinois.gitsvn.infra.filters.blacklister.MultipleParentCommitBlacklister;
 
 /**
- * Runs a preconfigured analysis on a particular repo. Subclasses provide the repo location, project name and may further configure the analyses.
+ * Runs a preconfigured analysis on a particular repo. Subclasses provide the
+ * repo location, project name and may further configure the analyses.
+ * 
  * @author mihai
- *
+ * 
  */
 public abstract class AnalysisConfiguration {
 
@@ -28,9 +30,10 @@ public abstract class AnalysisConfiguration {
 		RepositoryCrawler crawler = new RepositoryCrawler();
 		PipelineCommitFilter analysisFilter = configureAnalysis();
 		Git repo = getGitRepo();
-		
-		System.out.println("Running for: "+  getProjectName());
+
+		System.out.println("Running for: " + getProjectName());
 		crawler.crawlRepo(repo, analysisFilter);
+		System.out.println("Finished for: " + getProjectName());
 	}
 
 	/**
@@ -40,7 +43,7 @@ public abstract class AnalysisConfiguration {
 	 * @return the git repo to be analyzed.
 	 */
 	protected abstract Git getGitRepo();
-	
+
 	protected abstract String getProjectName();
 
 	/**
@@ -77,8 +80,8 @@ public abstract class AnalysisConfiguration {
 		analysisFilter.addFilter(FileOperationBlacklister.getRenameDiffFilter());
 		analysisFilter.addFilter(new MergeMessageCommitBlackLister());
 		analysisFilter.addFilter(new MultipleParentCommitBlacklister());
-		analysisFilter.addFilter(new CVSManufacturedCommitBlacklister());
 		analysisFilter.addFilter(new CopyrightJavadocImportBlacklister());
+		analysisFilter.addFilter(new CVSManufacturedCommitBlacklister());
 
 		analysisFilter.addDataCollector(new SHACollector());
 		analysisFilter.addDataCollector(new DateCollector());
