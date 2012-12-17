@@ -20,9 +20,17 @@ import edu.illinois.gitsvn.infra.util.StringUtils;
 public abstract class EditFilter{
 	
 	private Repository repo;
+//	private BufferedWriter log;
 	
 	public void setRepository(Repository repo){
 		this.repo = repo;
+		
+//		try {
+//			String pathname = "/home/mihai/workspaces/results/edits/" + MetadataService.getService().getInfo(CSVCommitPrinter.PROJ_NAME_PROP);
+//			log = new BufferedWriter(new FileWriter(new File(pathname)));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	public Collection<Edit> filterEdits(DiffEntry diff, Collection<Edit> edits){
@@ -38,6 +46,21 @@ public abstract class EditFilter{
 			
 			if(shouldInclude(oldEditRegion, newEditRegion, edit))
 				filteredEdits.add(edit);
+//			else{
+//				try {
+//					log.write(oldEditRegion);
+//					log.write("\n-----------------------------------------------------------------\n");
+//					log.write(newEditRegion);
+//					
+//					log.write("\n|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+//					
+//					log.flush();
+//					
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
 		}
 		
 		return filteredEdits;

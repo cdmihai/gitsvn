@@ -13,7 +13,7 @@ import org.gitective.core.filter.commit.CommitFilter;
 /**
  * Checks for comment and unused imports keywords.
  * 
- * Rejects the commit if: (detect > 1 keywords) OR (detect 1 keyword AND has less than 6 words)
+ * Rejects the commit if: (detect > 1 keywords) OR (detect 1 keyword AND has less than 5 words)
  * @author mihai
  *
  */
@@ -22,7 +22,7 @@ public class CopyrightJavadocImportBlacklister extends CommitFilter {
 	private static final Pattern JAVADOC_PATTERN = Pattern.compile("javadoc", Pattern.CASE_INSENSITIVE);
 	private static final Pattern COPYRIGHT_PATTERN = Pattern.compile("copyright", Pattern.CASE_INSENSITIVE);
 	private static final Pattern UNUSED_IMPORTS_PATTERN = Pattern.compile("unused imports", Pattern.CASE_INSENSITIVE);
-	private static final int NR_ENOUGH_WORDS = 6;
+	private static final int NR_ENOUGH_WORDS = 5;
 	
 	@Override
 	public boolean include(RevWalk walker, RevCommit cmit)
@@ -39,7 +39,6 @@ public class CopyrightJavadocImportBlacklister extends CommitFilter {
 		
 		return true;
 	}
-
 
 	private boolean hasEnoughWords(String message) {
 		return message.split("\\s+").length >= NR_ENOUGH_WORDS;

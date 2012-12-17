@@ -1,8 +1,9 @@
 package edu.illinois.gitsvn.infra;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ForkJoinPool;
 
 import edu.illinois.gitsvn.analysis.CyclopsGroupAnalysis;
 import edu.illinois.gitsvn.analysis.EclipseJDTCoreAnalysis;
@@ -13,7 +14,6 @@ import edu.illinois.gitsvn.analysis.EclipsePlatformCommon;
 import edu.illinois.gitsvn.analysis.EclipsePlatformDebug;
 import edu.illinois.gitsvn.analysis.EclipsePlatformTeam;
 import edu.illinois.gitsvn.analysis.EclipsePlatformText;
-import edu.illinois.gitsvn.analysis.LibreOfficeAnalysis;
 import edu.illinois.gitsvn.analysis.ThymeleafAnalysis;
 import edu.illinois.gitsvn.analysis.UPMAnalysis;
 
@@ -40,12 +40,37 @@ public abstract class AnalysisLauncher {
 		configurations.add(new EclipsePlatformText());
 		configurations.add(new EclipsePlatformDebug());
 		configurations.add(new EclipsePlatformCommon());
-		configurations.add(new LibreOfficeAnalysis());
+		//configurations.add(new LibreOfficeAnalysis());
 		
+		long before = System.nanoTime();
+		runParallel(configurations);
+		long after = System.nanoTime();
 		
+		System.out.println((after - before) / 1000000);
+	}
+
+	private static void run(List<AnalysisConfiguration> configurations) {
 		for (int i = 0; i < configurations.size(); i++) {
 			System.out.println("\n" + (i + 1) + " / " + configurations.size());
 			configurations.get(i).run();
 		}
+	}
+	
+	private static void runParallel(List<AnalysisConfiguration> configurations) {
+		ForkJoinPool pool = new ForkJoinPool();
+		List<Callable<Void>> list = new ArrayList<>();
+		
+		for (final AnalysisConfiguration analysisConfiguration : configurations) {
+			list.add(new Callable<Void>() {
+
+				@Override
+				public Void call() throws Exception {
+					analysisConfiguration.run();
+					return null;
+				}
+			});
+		}
+		
+		pool.invokeAll(list);
 	}
 }
