@@ -9,3 +9,4 @@ git://git.eclipse.org/gitroot/platform/eclipse.platform.debug.git
 git://git.eclipse.org/gitroot/platform/eclipse.platform.git
 git://git.eclipse.org/gitroot/platform/eclipse.platform.team.git
 git://git.eclipse.org/gitroot/platform/eclipse.platform.text.git
+git://github.com/KentBeck/junit.git
