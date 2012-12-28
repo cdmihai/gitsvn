@@ -3,12 +3,10 @@ package edu.illinois.gitsvn.infra;
 import java.util.Arrays;
 import java.util.List;
 
-import org.gitective.core.CommitFinder;
-import org.gitective.tests.GitTestCase;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.illinois.gitsvn.infra.collectors.JavaLineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.diff.JavaLineNumberFilter;
 
 //TODO test more line diff cases. Just to be sure.
 //TODO test how it handles renames

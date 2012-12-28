@@ -1,9 +1,9 @@
 package edu.illinois.gitsvn.infra;
 
-import edu.illinois.gitsvn.infra.collectors.AllLineNumberFilter;
 import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
 import edu.illinois.gitsvn.infra.collectors.CutofDetectorFilter;
-import edu.illinois.gitsvn.infra.collectors.JavaLineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.diff.AllLineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.diff.JavaLineNumberFilter;
 import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
 

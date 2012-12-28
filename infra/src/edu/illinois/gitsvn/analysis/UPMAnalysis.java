@@ -8,15 +8,17 @@ import org.eclipse.jgit.api.Git;
 import edu.illinois.gitsvn.infra.AnalysisConfiguration;
 import edu.illinois.gitsvn.infra.PipelineCommitFilter;
 import edu.illinois.gitsvn.infra.collectors.CutofDetectorFilter;
+import edu.illinois.gitsvn.infra.collectors.SVNCommitDetectorFilter;
 
-public class EclipsePlatformDebug extends AnalysisConfiguration {
+public class UPMAnalysis extends AnalysisConfiguration {
 
 	@Override
 	protected Git getGitRepo() {
 		try {
-			return Git.open(new File(
-					"../../projects/eclipse.platform.debug"));
+			return Git.open(new File("../../projects/upm-swing/"));
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return null;
@@ -24,14 +26,18 @@ public class EclipsePlatformDebug extends AnalysisConfiguration {
 
 	@Override
 	protected String getProjectName() {
-		return "EclipsePlatformDebug";
+		return "UPM";
 	}
 
 	@Override
 	protected PipelineCommitFilter configureAnalysis() {
 		PipelineCommitFilter analysis = super.configureAnalysis();
-		analysis.addDataCollector(new CutofDetectorFilter(1316408400));
+		analysis.addDataCollector(new CutofDetectorFilter(1287344636));
+
 		return analysis;
 	}
-
+	
+	public static void main(String[] args) {
+		new UPMAnalysis().run();
+	}
 }

@@ -8,14 +8,13 @@ import org.eclipse.jgit.api.Git;
 import edu.illinois.gitsvn.infra.AnalysisConfiguration;
 import edu.illinois.gitsvn.infra.PipelineCommitFilter;
 import edu.illinois.gitsvn.infra.collectors.CutofDetectorFilter;
-import edu.illinois.gitsvn.infra.collectors.SVNCommitDetectorFilter;
 
 public class EclipseJDTCoreAnalysis extends AnalysisConfiguration {
 
 	@Override
 	protected Git getGitRepo() {
 		try {
-			return Git.open(new File("../../projects/eclipse_jdt/eclipse.jdt.core"));
+			return Git.open(new File("../../projects/eclipse.jdt.core"));
 		} catch (IOException e) {
 		}
 		return null;

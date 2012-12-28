@@ -2,23 +2,38 @@ package edu.illinois.gitsvn.infra;
 
 import org.eclipse.jgit.api.Git;
 
-import edu.illinois.gitsvn.infra.collectors.AllLineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.AuthorCollector;
 import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
 import edu.illinois.gitsvn.infra.collectors.DateCollector;
-import edu.illinois.gitsvn.infra.collectors.JavaLineNumberFilter;
 import edu.illinois.gitsvn.infra.collectors.SHACollector;
+import edu.illinois.gitsvn.infra.collectors.diff.ModifyDiffCountFilter;
+import edu.illinois.gitsvn.infra.collectors.diff.ModifyFileAllLineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.diff.ModifyFileJavaLineNumberFilter;
 import edu.illinois.gitsvn.infra.filters.AnalysisFilter;
 import edu.illinois.gitsvn.infra.filters.MetadataService;
 import edu.illinois.gitsvn.infra.filters.blacklister.CVSManufacturedCommitBlacklister;
+import edu.illinois.gitsvn.infra.filters.blacklister.CopyrightJavadocImportBlacklister;
 import edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklister;
+import edu.illinois.gitsvn.infra.filters.blacklister.MergeMessageCommitBlackLister;
+import edu.illinois.gitsvn.infra.filters.blacklister.MultipleParentCommitBlacklister;
 
+/**
+ * Runs a preconfigured analysis on a particular repo. Subclasses provide the
+ * repo location, project name and may further configure the analyses.
+ * 
+ * @author mihai
+ * 
+ */
 public abstract class AnalysisConfiguration {
 
 	public void run() {
 		RepositoryCrawler crawler = new RepositoryCrawler();
 		PipelineCommitFilter analysisFilter = configureAnalysis();
 		Git repo = getGitRepo();
+
+		System.out.println("Running for: " + getProjectName());
 		crawler.crawlRepo(repo, analysisFilter);
+		System.out.println("Finished for: " + getProjectName());
 	}
 
 	/**
@@ -28,7 +43,7 @@ public abstract class AnalysisConfiguration {
 	 * @return the git repo to be analyzed.
 	 */
 	protected abstract Git getGitRepo();
-	
+
 	protected abstract String getProjectName();
 
 	/**
@@ -57,20 +72,23 @@ public abstract class AnalysisConfiguration {
 	 * @return
 	 */
 	protected PipelineCommitFilter configureAnalysis() {
+		MetadataService.getService().pushInfo(CSVCommitPrinter.PROJ_NAME_PROP, getProjectName());
 		PipelineCommitFilter analysisFilter = new PipelineCommitFilter();
 
-		analysisFilter
-				.addFilter(FileOperationBlacklister.getDeleteDiffFilter());
-		analysisFilter
-				.addFilter(FileOperationBlacklister.getRenameDiffFilter());
+		analysisFilter.addFilter(FileOperationBlacklister.getAddDiffFilter());
+		analysisFilter.addFilter(FileOperationBlacklister.getDeleteDiffFilter());
+		analysisFilter.addFilter(FileOperationBlacklister.getRenameDiffFilter());
+		analysisFilter.addFilter(new MergeMessageCommitBlackLister());
+		analysisFilter.addFilter(new MultipleParentCommitBlacklister());
+		analysisFilter.addFilter(new CopyrightJavadocImportBlacklister());
 		analysisFilter.addFilter(new CVSManufacturedCommitBlacklister());
 
 		analysisFilter.addDataCollector(new SHACollector());
 		analysisFilter.addDataCollector(new DateCollector());
-		analysisFilter.addDataCollector(new AllLineNumberFilter());
-		analysisFilter.addDataCollector(new JavaLineNumberFilter());
+		analysisFilter.addDataCollector(new AuthorCollector());
+		analysisFilter.addDataCollector(new ModifyFileAllLineNumberFilter(ModifyDiffCountFilter.getCommentEditFilter(), ModifyDiffCountFilter.getFormatEditFilter()));
+		analysisFilter.addDataCollector(new ModifyFileJavaLineNumberFilter(ModifyDiffCountFilter.getCommentEditFilter(), ModifyDiffCountFilter.getFormatEditFilter()));
 
-		MetadataService.getService().pushInfo(CSVCommitPrinter.PROJ_NAME_PROP, getProjectName());
 		AnalysisFilter agregator = new CSVCommitPrinter(analysisFilter);
 		analysisFilter.setDataAgregator(agregator);
 		return analysisFilter;

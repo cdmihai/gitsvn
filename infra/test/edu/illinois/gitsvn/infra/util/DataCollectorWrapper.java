@@ -1,4 +1,4 @@
-package edu.illinois.gitsvn.infra;
+package edu.illinois.gitsvn.infra.util;
 
 import java.io.IOException;
 import java.security.InvalidParameterException;
@@ -10,7 +10,9 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.gitective.core.filter.commit.CommitFilter;
 
-class DataCollectorWrapper extends CommitFilter {
+import edu.illinois.gitsvn.infra.DataCollector;
+
+public class DataCollectorWrapper extends CommitFilter {
 
 	public String data = "";
 	private DataCollector collector;
