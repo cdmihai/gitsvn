@@ -14,6 +14,7 @@ import edu.illinois.gitsvn.analysis.EclipsePlatformCommon;
 import edu.illinois.gitsvn.analysis.EclipsePlatformDebug;
 import edu.illinois.gitsvn.analysis.EclipsePlatformTeam;
 import edu.illinois.gitsvn.analysis.EclipsePlatformText;
+import edu.illinois.gitsvn.analysis.JUnitAnalysis;
 import edu.illinois.gitsvn.analysis.ThymeleafAnalysis;
 import edu.illinois.gitsvn.analysis.UPMAnalysis;
 
@@ -40,6 +41,7 @@ public abstract class AnalysisLauncher {
 		configurations.add(new EclipsePlatformText());
 		configurations.add(new EclipsePlatformDebug());
 		configurations.add(new EclipsePlatformCommon());
+		configurations.add(new JUnitAnalysis());
 		//configurations.add(new LibreOfficeAnalysis());
 		
 		long before = System.nanoTime();
