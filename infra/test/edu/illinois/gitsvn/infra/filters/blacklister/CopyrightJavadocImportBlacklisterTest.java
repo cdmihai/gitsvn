@@ -36,7 +36,7 @@ public class CopyrightJavadocImportBlacklisterTest extends GitTestCase{
 	
 	@Test
 	public void testAcceptForSufficientWords() throws Exception {
-		RevCommit cmit = add("f1", "", "New feature that changes the JavaDoc");
+		RevCommit cmit = add("f1", "", "New feature that changes the JavaDoc and more");
 		
 		assertTrue(filter.include(revWalk, cmit));
 	}
