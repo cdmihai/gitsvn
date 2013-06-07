@@ -11,7 +11,7 @@ import org.eclipse.jgit.treewalk.filter.TreeFilter;
 import org.gitective.core.filter.commit.DiffCountFilter;
 
 import edu.illinois.gitsvn.infra.DataCollector;
-import edu.illinois.gitsvn.infra.filters.blacklister.NonJavaFileExtensionBlacklister;
+import edu.illinois.gitsvn.infra.filters.blacklister.NonSourceCodeFileExtensionBlacklister;
 
 public class JavaLineNumberFilter extends DiffCountFilter implements
 		DataCollector {
@@ -28,7 +28,7 @@ public class JavaLineNumberFilter extends DiffCountFilter implements
 
 		TreeFilter previousFilter = walk.getFilter();
 		TreeFilter newFilter = AndTreeFilter.create(
-				new NonJavaFileExtensionBlacklister(), previousFilter);
+				new NonSourceCodeFileExtensionBlacklister(), previousFilter);
 		walk.setFilter(newFilter);
 
 		return walk;

@@ -9,9 +9,10 @@ import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.gitective.core.filter.tree.BaseTreeFilter;
 
-public final class NonJavaFileExtensionBlacklister extends BaseTreeFilter {
+//TODO make this into a configurable extension blocker and use factory methods for java blocker, source code blocker etc
+public final class NonSourceCodeFileExtensionBlacklister extends BaseTreeFilter {
 	
-	private static final List<String> allowedExtensions = Arrays.asList("java");
+	private static final List<String> allowedExtensions = Arrays.asList("java", "js", "c", "cpp", "h", "ino", "py");
 	
 	@Override
 	public boolean include(TreeWalk walker) throws MissingObjectException, IncorrectObjectTypeException, IOException {

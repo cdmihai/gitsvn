@@ -11,7 +11,7 @@ import org.eclipse.jgit.treewalk.filter.TreeFilter;
 
 import edu.illinois.gitsvn.infra.DataCollector;
 import edu.illinois.gitsvn.infra.collectors.diff.editfilter.EditFilter;
-import edu.illinois.gitsvn.infra.filters.blacklister.NonJavaFileExtensionBlacklister;
+import edu.illinois.gitsvn.infra.filters.blacklister.NonSourceCodeFileExtensionBlacklister;
 
 /**
  * Code duplication of {@link JavaLineNumberFilter}
@@ -33,7 +33,7 @@ public class ModifyFileJavaLineNumberFilter extends ModifyDiffCountFilter implem
 
 		TreeFilter previousFilter = walk.getFilter();
 		TreeFilter newFilter = AndTreeFilter.create(
-				new NonJavaFileExtensionBlacklister(), previousFilter);
+				new NonSourceCodeFileExtensionBlacklister(), previousFilter);
 		walk.setFilter(newFilter);
 
 		return walk;
