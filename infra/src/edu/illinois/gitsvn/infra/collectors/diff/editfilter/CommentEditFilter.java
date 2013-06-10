@@ -5,10 +5,12 @@ import java.util.Scanner;
 import org.eclipse.jgit.diff.Edit;
 
 public class CommentEditFilter extends EditFilter {
+	
+	private final static String[] commentHeaders = new String[]{"*", "//", "/*", "/**", "#"};
 
 	@Override
 	protected boolean shouldInclude(String oldContent, String newContent, Edit edit) {
-		boolean allLinesHaveHeader = linesStartWithHeader(oldContent, "*", "//", "/*", "/**") && linesStartWithHeader(newContent, "*", "//", "/*", "/**");
+		boolean allLinesHaveHeader = linesStartWithHeader(oldContent, commentHeaders) && linesStartWithHeader(newContent, commentHeaders);
 		
 		return !allLinesHaveHeader;
 	}

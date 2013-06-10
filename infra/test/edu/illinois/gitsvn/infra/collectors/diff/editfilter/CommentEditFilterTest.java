@@ -37,9 +37,10 @@ public class CommentEditFilterTest extends AbstractEditFilterTest {
 	}
 	
 	@Test
-	public void testSlashAsterixHeader() throws Exception {
+	public void testSlashAsterixDiezHeader() throws Exception {
 		testHeader("//");
 		testHeader("*");
+		testHeader("#");
 	}
 	
 	@Test
