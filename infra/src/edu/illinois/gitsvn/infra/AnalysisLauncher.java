@@ -22,30 +22,18 @@ import edu.illinois.gitsvn.analysis.PrototypeAnalysis;
 import edu.illinois.gitsvn.analysis.ThymeleafAnalysis;
 import edu.illinois.gitsvn.analysis.UPMAnalysis;
 
-public class AnalysisLauncher {
-
-	public static void main(String[] args) throws Exception {
-		new AnalysisLauncher().run();
-	}
+public abstract class AnalysisLauncher {
 
 	/**
 	 * Starts the analysis.
 	 * 
+	 * @param args
+	 *            a list of repositories to crawl.
 	 * @throws Exception
 	 */
-	public void run() throws Exception {
+	public static void main(String[] args) throws Exception {
 		List<AnalysisConfiguration> configurations = new ArrayList<AnalysisConfiguration>();
-
-		populateWithConfigurations(configurations);
-
-		long before = System.nanoTime();
-		runParallel(configurations);
-		long after = System.nanoTime();
-
-		System.out.println((after - before) / 1000000);
-	}
-
-	protected void populateWithConfigurations(List<AnalysisConfiguration> configurations) {
+		
 		configurations.add(new EclipseJDTCoreAnalysis());
 		configurations.add(new MPSAnalysis());
 		configurations.add(new ArduinoAnalysis());
@@ -62,19 +50,26 @@ public class AnalysisLauncher {
 		configurations.add(new JUnitAnalysis());
 		configurations.add(new PrototypeAnalysis());
 		configurations.add(new UPMAnalysis());
+		
+		
+		long before = System.nanoTime();
+		runParallel(configurations);
+		long after = System.nanoTime();
+		
+		System.out.println((after - before) / 1000000);
 	}
 
-	private void runSerial(List<AnalysisConfiguration> configurations) {
+	private static void run(List<AnalysisConfiguration> configurations) {
 		for (int i = 0; i < configurations.size(); i++) {
 			System.out.println("\n" + (i + 1) + " / " + configurations.size());
 			configurations.get(i).run();
 		}
 	}
-
-	private void runParallel(List<AnalysisConfiguration> configurations) {
+	
+	private static void runParallel(List<AnalysisConfiguration> configurations) {
 		ForkJoinPool pool = new ForkJoinPool();
 		List<Callable<Void>> list = new ArrayList<>();
-
+		
 		for (final AnalysisConfiguration analysisConfiguration : configurations) {
 			list.add(new Callable<Void>() {
 
@@ -85,8 +80,7 @@ public class AnalysisLauncher {
 				}
 			});
 		}
-
+		
 		pool.invokeAll(list);
 	}
-
 }
