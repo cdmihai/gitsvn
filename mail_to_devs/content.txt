@@ -1,0 +1,21 @@
+Hello,
+
+Happy New Year!
+
+My name is Caius Brindescu and I am a PhD student at University of
+Illinois at Urbana-Champaign. I am working on a project to improve
+current version control systems by making them handle changes more
+intelligently. First, we try to find if version control systems affect
+the way in which developers commit changes.
+
+We would be grateful if you could supply us with a list of open source
+repositories that you contributed to. Also, it would of great help if
+you could tell us the username you used to commit code in the
+particular repository.
+
+I would like to mention that all the data that we collect will be
+anonymous. We will release all the enhancements that we create as open 
+source plugins.
+
+Thank you for your time,
+Caius
