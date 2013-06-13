@@ -22,7 +22,7 @@ public class CopyrightJavadocImportBlacklister extends CommitFilter {
 	private static final Pattern JAVADOC_PATTERN = Pattern.compile("javadoc", Pattern.CASE_INSENSITIVE);
 	private static final Pattern COPYRIGHT_PATTERN = Pattern.compile("copyright", Pattern.CASE_INSENSITIVE);
 	private static final Pattern UNUSED_IMPORTS_PATTERN = Pattern.compile("unused imports", Pattern.CASE_INSENSITIVE);
-	private static final int NR_ENOUGH_WORDS = 5;
+	private static final int NR_ENOUGH_WORDS = 7;
 	
 	@Override
 	public boolean include(RevWalk walker, RevCommit cmit)

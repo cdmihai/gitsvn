@@ -23,10 +23,6 @@ public class FileOperationBlacklister extends CommitDiffFilter {
 		this.changeType = ct;
 	}
 
-	private FileOperationBlacklister(ChangeType ct) {
-		this(ct, false);
-	}
-
 	private FileOperationBlacklister() {
 		super(false);
 	}

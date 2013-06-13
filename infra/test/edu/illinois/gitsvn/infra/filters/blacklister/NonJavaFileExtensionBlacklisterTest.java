@@ -29,8 +29,8 @@ public class NonJavaFileExtensionBlacklisterTest extends GitTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 		
-		paths = Arrays.asList("a.txt", "b", "c.java", "f1/d.c", "f1/f2/e.cpp", "f1/f2/f3/f.py");
-		contents = Arrays.asList("a", "a", "a", "a", "a", "a");
+		paths = Arrays.asList("a.txt", "b", "c.java", "f1/d.c", "f1/f2/e.cpp", "f1/f2/f3/f.py", "f1/g.cp");
+		contents = Arrays.asList("a", "a", "a", "a", "a", "a", "a");
 		add(testRepo, paths, contents, "c1");
 		
 		counter = TypeCountFilter.file();
@@ -53,19 +53,19 @@ public class NonJavaFileExtensionBlacklisterTest extends GitTestCase {
 	public void testNoFilterEffect() {
 		finderWithoutBlacklist.find();
 		
-		assertEquals(6, counter.getCount());
+		assertEquals(7, counter.getCount());
 	}
 	
 	@Test
 	public void testFilterEffect() {
 		finderWithBlacklist.find();
 		
-		assertEquals(1, blackListCounter.getCount());
+		assertEquals(4, blackListCounter.getCount());
 	}
 
 	
 	static class BlacklistCounter extends BaseTreeFilter{
-		NonJavaFileExtensionBlacklister extensionBlackLister = new NonJavaFileExtensionBlacklister();
+		NonSourceCodeFileExtensionBlacklister extensionBlackLister = new NonSourceCodeFileExtensionBlacklister();
 		TypeCountFilter counter = TypeCountFilter.file();
 		
 		@Override
