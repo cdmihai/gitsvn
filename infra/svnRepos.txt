@@ -1,0 +1,9 @@
+http://svn.code.sf.net/p/sapnweclipse/code
+http://svn.code.sf.net/p/squirrel-sql/code
+http://svn.code.sf.net/p/tripleamaps/code
+http://svn.code.sf.net/p/java-game-lib/code
+http://svn.code.sf.net/p/tuxguitar/code
+http://svn.code.sf.net/p/wxdsgn/code
+http://svn.code.sf.net/p/freeplane/svn 
+http://svn.code.sf.net/p/subsonic/code
+http://svn.code.sf.net/p/jtds/code
