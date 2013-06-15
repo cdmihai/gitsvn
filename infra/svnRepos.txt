@@ -4,8 +4,9 @@ http://svn.code.sf.net/p/tripleamaps/code
 http://svn.code.sf.net/p/java-game-lib/code
 http://svn.code.sf.net/p/tuxguitar/code
 http://svn.code.sf.net/p/wxdsgn/code
-http://svn.code.sf.net/p/freeplane/code 
 http://svn.code.sf.net/p/subsonic/code
 http://svn.code.sf.net/p/jtds/code
 http://svn.code.sf.net/p/shelled/svn
-svn.code.sf.net/p/vlkgps/code
+http://svn.code.sf.net/p/vlkgps/code
+http://svn.code.sf.net/p/pcgen/code
+http://svn.code.sf.net/p/atunes/code
