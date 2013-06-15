@@ -13,7 +13,7 @@ public class BatchAnalysisLauncher extends AnalysisLauncher {
 	
 	@Override
 	protected void populateWithConfigurations(List<AnalysisConfiguration> configurations) {
-		String reposPath = "../../gitProjects";
+		String reposPath = "../../svnProjects";
 		
 		File parent = new File(reposPath);
 		
