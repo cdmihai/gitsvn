@@ -27,8 +27,8 @@ public class FFmpegAnalysis extends AnalysisConfiguration {
 	}
 	
 	@Override
-	protected PipelineCommitFilter configureAnalysis() {
-		PipelineCommitFilter configureAnalysis = super.configureAnalysis();
+	protected PipelineCommitFilter configurePipelineAnalysis() {
+		PipelineCommitFilter configureAnalysis = super.configurePipelineAnalysis();
 		configureAnalysis.addDataCollector(new CutofDetectorFilter(1295258573));
 		return configureAnalysis;
 	}

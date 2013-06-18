@@ -30,8 +30,8 @@ public class UPMAnalysis extends AnalysisConfiguration {
 	}
 
 	@Override
-	protected PipelineCommitFilter configureAnalysis() {
-		PipelineCommitFilter analysis = super.configureAnalysis();
+	protected PipelineCommitFilter configurePipelineAnalysis() {
+		PipelineCommitFilter analysis = super.configurePipelineAnalysis();
 		analysis.addDataCollector(new CutofDetectorFilter(1287344636));
 
 		return analysis;

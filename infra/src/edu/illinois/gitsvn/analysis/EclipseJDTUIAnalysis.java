@@ -26,8 +26,8 @@ public class EclipseJDTUIAnalysis extends AnalysisConfiguration {
 	}
 	
 	@Override
-	protected PipelineCommitFilter configureAnalysis() {
-		PipelineCommitFilter analysis = super.configureAnalysis();
+	protected PipelineCommitFilter configurePipelineAnalysis() {
+		PipelineCommitFilter analysis = super.configurePipelineAnalysis();
 		analysis.addDataCollector(new CutofDetectorFilter(1316608366));
 		return analysis;
 	}

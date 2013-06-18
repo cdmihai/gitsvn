@@ -28,8 +28,8 @@ public class LibreOfficeAnalysis extends AnalysisConfiguration {
 	}
 
 	@Override
-	protected PipelineCommitFilter configureAnalysis() {
-		PipelineCommitFilter analysis = super.configureAnalysis();
+	protected PipelineCommitFilter configurePipelineAnalysis() {
+		PipelineCommitFilter analysis = super.configurePipelineAnalysis();
 		analysis.addDataCollector(new CutofDetectorFilter(1282256340));
 		analysis.addDataCollector(new CppLineNumberCollector());
 		return analysis;
