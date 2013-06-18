@@ -5,10 +5,17 @@ import java.util.List;
 
 import edu.illinois.gitsvn.analysis.GenericAnalysis;
 
-public class BatchAnalysisLauncher extends AnalysisLauncher {
+
+/**
+ * Creates analysis configurations for all repos inside a given parent directory
+ * @author mihai
+ *
+ */
+
+public class DirectoryAnalysisLauncher extends AnalysisLauncher {
 	
 	public static void main(String[] args) throws Exception {
-		new BatchAnalysisLauncher().run();
+		new DirectoryAnalysisLauncher().run();
 	}
 	
 	@Override
