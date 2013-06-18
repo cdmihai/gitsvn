@@ -28,7 +28,7 @@ public abstract class AnalysisConfiguration {
 
 	public void run() {
 		RepositoryCrawler crawler = new RepositoryCrawler();
-		PipelineCommitFilter pipeline = configureAnalysis();
+		PipelineCommitFilter pipeline = configurePipelineAnalysis();
 		Git repo = getGitRepo();
 
 		System.out.println("Running for: " + getProjectName());
@@ -38,7 +38,7 @@ public abstract class AnalysisConfiguration {
 
 	/**
 	 * This should return the {@link Git} repo that should be analyzed. To
-	 * further configure the analysis please see {@link #configureAnalysis()}.
+	 * further configure the analysis please see {@link #configurePipelineAnalysis()}.
 	 * 
 	 * @return the git repo to be analyzed.
 	 */
@@ -71,7 +71,7 @@ public abstract class AnalysisConfiguration {
 	 * 
 	 * @return
 	 */
-	protected PipelineCommitFilter configureAnalysis() {
+	protected PipelineCommitFilter configurePipelineAnalysis() {
 		MetadataService.getService().pushInfo(CSVCommitPrinter.PROJ_NAME_PROP, getProjectName());
 		PipelineCommitFilter pipeLineFilter = new PipelineCommitFilter();
 

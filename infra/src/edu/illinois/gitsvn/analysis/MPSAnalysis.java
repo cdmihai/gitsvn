@@ -26,8 +26,8 @@ public class MPSAnalysis extends AnalysisConfiguration {
 	}
 	
 	@Override
-	protected PipelineCommitFilter configureAnalysis() {
-		PipelineCommitFilter configureAnalysis = super.configureAnalysis();
+	protected PipelineCommitFilter configurePipelineAnalysis() {
+		PipelineCommitFilter configureAnalysis = super.configurePipelineAnalysis();
 		configureAnalysis.addDataCollector(new CutofDetectorFilter(1277726186));
 		return configureAnalysis;
 	}

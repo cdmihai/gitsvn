@@ -28,8 +28,8 @@ public class EclipsePlatformTeam extends AnalysisConfiguration {
 	}
 
 	@Override
-	protected PipelineCommitFilter configureAnalysis() {
-		PipelineCommitFilter analysis = super.configureAnalysis();
+	protected PipelineCommitFilter configurePipelineAnalysis() {
+		PipelineCommitFilter analysis = super.configurePipelineAnalysis();
 		analysis.addDataCollector(new CutofDetectorFilter(1316581200));
 		return analysis;
 	}

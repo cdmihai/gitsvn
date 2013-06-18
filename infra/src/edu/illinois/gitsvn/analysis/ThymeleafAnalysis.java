@@ -21,8 +21,8 @@ public class ThymeleafAnalysis extends AnalysisConfiguration {
 	}
 
 	@Override
-	protected PipelineCommitFilter configureAnalysis() {
-		PipelineCommitFilter configuredAnalysis = super.configureAnalysis();
+	protected PipelineCommitFilter configurePipelineAnalysis() {
+		PipelineCommitFilter configuredAnalysis = super.configurePipelineAnalysis();
 		configuredAnalysis.addDataCollector(new CutofDetectorFilter(1337530081));
 		return configuredAnalysis;
 	}
