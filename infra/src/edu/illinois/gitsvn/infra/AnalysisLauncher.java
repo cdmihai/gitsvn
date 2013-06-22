@@ -16,7 +16,9 @@ import edu.illinois.gitsvn.analysis.EclipsePlatformDebug;
 import edu.illinois.gitsvn.analysis.EclipsePlatformTeam;
 import edu.illinois.gitsvn.analysis.EclipsePlatformText;
 import edu.illinois.gitsvn.analysis.FFmpegAnalysis;
+import edu.illinois.gitsvn.analysis.GitAnalysis;
 import edu.illinois.gitsvn.analysis.JUnitAnalysis;
+import edu.illinois.gitsvn.analysis.LinuxAnalysis;
 import edu.illinois.gitsvn.analysis.MPSAnalysis;
 import edu.illinois.gitsvn.analysis.PrototypeAnalysis;
 import edu.illinois.gitsvn.analysis.ThymeleafAnalysis;
@@ -51,6 +53,8 @@ public abstract class AnalysisLauncher {
 		configurations.add(new PrototypeAnalysis());
 		configurations.add(new UPMAnalysis());
 		
+		configurations.add(new LinuxAnalysis());
+		configurations.add(new GitAnalysis());
 		
 		long before = System.nanoTime();
 		runParallel(configurations);
