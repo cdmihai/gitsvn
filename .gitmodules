@@ -1,9 +1,6 @@
 [submodule "jgit"]
 	path = jgit
 	url = git@github.com:caiusb/jgit.git
-[submodule "svnkit"]
-	path = svnkit
-	url = git@github.com:caiusb/SVNKit.git
 [submodule "gitective"]
 	path = gitective
 	url = git@github.com:caiusb/gitective.git
