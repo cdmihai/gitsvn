@@ -1,8 +1,8 @@
-package edu.illinois.gitsvn.analysis;
+package edu.illinois.gitsvn.analysis.launchers;
 
 import java.util.List;
 
-import edu.illinois.gitsvn.analysis.privateRepos.CutoffGenericAnalysis;
+import edu.illinois.gitsvn.analysis.CutoffGenericAnalysis;
 import edu.illinois.gitsvn.infra.AnalysisConfiguration;
 import edu.illinois.gitsvn.infra.AnalysisLauncher;
 
@@ -23,13 +23,14 @@ public class SvnToGitRepoAnalysisLauncher extends AnalysisLauncher {
 		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/FFmpeg", "FFmpeg", 1295258573));
 		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/junit", "JUnit", 1231818542));
 		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/libreoffice", "LibreOffice", 1282256340));
-		//configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/MPS", "MPS", 1277726186));
+		// configurations.add(new
+		// CutoffGenericAnalysis("../../svnToGitRepos/MPS", "MPS", 1277726186));
 		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/prototype", "prototype", 1205935492));
 		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/thymeleaf", "Thymeleaf", 1337530081));
 		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/upm-swing/", "UPM", 1287344636));
-		
+
 	}
-	
+
 	public static void main(String[] args) throws Exception {
 		new SvnToGitRepoAnalysisLauncher().run();
 	}

@@ -1,12 +1,13 @@
-package edu.illinois.gitsvn.analysis.privateRepos;
+package edu.illinois.gitsvn.analysis.launchers;
 
 import java.util.List;
 
+import edu.illinois.gitsvn.analysis.CutoffGenericAnalysis;
 import edu.illinois.gitsvn.infra.AnalysisConfiguration;
 import edu.illinois.gitsvn.infra.AnalysisLauncher;
 
 public class PrivateRepoAnalysisLauncher extends AnalysisLauncher {
-	
+
 	@Override
 	protected void populateWithConfigurations(List<AnalysisConfiguration> configurations) {
 		configurations.add(new CutoffGenericAnalysis("../../personalSvnToGitRepos/AlexConverseFFmpeg", "AlexConverseFFmpeg", 1295258573));
@@ -19,7 +20,7 @@ public class PrivateRepoAnalysisLauncher extends AnalysisLauncher {
 		configurations.add(new CutoffGenericAnalysis("../../personalSvnToGitRepos/RamiroPollaFFmpeg", "RamiroPollaFFmpeg", 1295258573));
 		configurations.add(new CutoffGenericAnalysis("../../personalSvnToGitRepos/TobieLangelPrototype", "TobieLangelPrototype", 1205935492));
 	}
-	
+
 	public static void main(String[] args) throws Exception {
 		new PrivateRepoAnalysisLauncher().run();
 	}
