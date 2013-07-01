@@ -7,22 +7,22 @@ import edu.illinois.gitsvn.analysis.GenericAnalysis;
 
 
 /**
- * Creates analysis configurations for all repos inside a given parent directory
+ * Create and run analysis configurations for all repos inside a given parent directory
  * @author mihai
  *
  */
 
 public class DirectoryAnalysisLauncher extends AnalysisLauncher {
 	
-	public static void main(String[] args) throws Exception {
-		new DirectoryAnalysisLauncher().run();
+	private String repositoryParentDir;
+
+	public DirectoryAnalysisLauncher(String repositoryParentDir) {
+		this.repositoryParentDir = repositoryParentDir;
 	}
 	
 	@Override
 	protected void populateWithConfigurations(List<AnalysisConfiguration> configurations) {
-		String reposPath = "../../svnProjects";
-		
-		File parent = new File(reposPath);
+		File parent = new File(repositoryParentDir);
 		
 		for (File f : parent.listFiles()) {
 			configurations.add(new GenericAnalysis(f.getAbsolutePath(), f.getName()));
