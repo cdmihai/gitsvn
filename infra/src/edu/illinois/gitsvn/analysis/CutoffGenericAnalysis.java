@@ -1,6 +1,5 @@
-package edu.illinois.gitsvn.analysis.privateRepos;
+package edu.illinois.gitsvn.analysis;
 
-import edu.illinois.gitsvn.analysis.GenericAnalysis;
 import edu.illinois.gitsvn.infra.PipelineCommitFilter;
 import edu.illinois.gitsvn.infra.collectors.CutofDetectorFilter;
 
