@@ -15,7 +15,7 @@ public class EclipsePlatform extends AnalysisConfiguration {
 	protected Git getGitRepo() {
 		try {
 			return Git.open(new File(
-					"../../projects/eclipse.platform"));
+					"../../svnToGitRepos/eclipse.platform"));
 		} catch (IOException e) {
 		}
 

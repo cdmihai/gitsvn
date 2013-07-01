@@ -15,7 +15,7 @@ public class EclipsePlatformText extends AnalysisConfiguration {
 	protected Git getGitRepo() {
 		try {
 			return Git.open(new File(
-					"../../projects/eclipse.platform.text"));
+					"../../svnToGitRepos/eclipse.platform.text"));
 		} catch (IOException e) {
 		}
 

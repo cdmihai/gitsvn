@@ -14,7 +14,7 @@ public class EclipseJDTCoreAnalysis extends AnalysisConfiguration {
 	@Override
 	protected Git getGitRepo() {
 		try {
-			return Git.open(new File("../../projects/eclipse.jdt.core"));
+			return Git.open(new File("../../svnToGitRepos/eclipse.jdt.core"));
 		} catch (IOException e) {
 		}
 		return null;

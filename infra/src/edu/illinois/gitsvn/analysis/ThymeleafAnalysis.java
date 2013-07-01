@@ -14,7 +14,7 @@ public class ThymeleafAnalysis extends AnalysisConfiguration {
 	@Override
 	protected Git getGitRepo() {
 		try {
-			return Git.open(new File("../../projects/thymeleaf"));
+			return Git.open(new File("../../svnToGitRepos/thymeleaf"));
 		} catch (IOException e) {
 			return null;
 		}

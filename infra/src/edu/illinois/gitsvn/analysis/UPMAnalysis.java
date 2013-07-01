@@ -15,7 +15,7 @@ public class UPMAnalysis extends AnalysisConfiguration {
 	@Override
 	protected Git getGitRepo() {
 		try {
-			return Git.open(new File("../../projects/upm-swing/"));
+			return Git.open(new File("../../svnToGitRepos/upm-swing/"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

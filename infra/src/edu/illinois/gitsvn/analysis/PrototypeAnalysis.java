@@ -15,7 +15,7 @@ public class PrototypeAnalysis extends AnalysisConfiguration {
 	@Override
 	protected Git getGitRepo() {
 		try {
-			return Git.open(new File("../../projects/prototype"));
+			return Git.open(new File("../../svnToGitRepos/prototype"));
 		} catch (IOException e) {
 		}
 		return null;
