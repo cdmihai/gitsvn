@@ -9,15 +9,15 @@ public class PrivateRepoAnalysisLauncher extends AnalysisLauncher {
 	
 	@Override
 	protected void populateWithConfigurations(List<AnalysisConfiguration> configurations) {
-		configurations.add(new CutoffGenericAnalysis("/mnt/storage/privateRepos/AlexConverseFFmpeg", "AlexConverseFFmpeg", 1295258573));
-		configurations.add(new CutoffGenericAnalysis("/mnt/storage/privateRepos/CarlEugenHoyosFFmpeg", "CarlEugenHoyosFFmpeg", 1295258573));
-		configurations.add(new CutoffGenericAnalysis("/mnt/storage/privateRepos/DeepakAzadJDTUI", "DeepakAzadJDTUI", 1316608366));
-		configurations.add(new CutoffGenericAnalysis("/mnt/storage/privateRepos/dsaffJUnit", "dsaffJUnit", 1231818542));
-		configurations.add(new CutoffGenericAnalysis("/mnt/storage/privateRepos/JanneGrunauFFmpeg", "JanneGrunauFFmpeg", 1295258573));
-		configurations.add(new CutoffGenericAnalysis("/mnt/storage/privateRepos/JoakimPlateFFmpeg", "JoakimPlateFFmpeg", 1295258573));
-		configurations.add(new CutoffGenericAnalysis("/mnt/storage/privateRepos/MichaelNiedermayerFFmpeg", "MichaelNiedermayerFFmpeg", 1295258573));
-		configurations.add(new CutoffGenericAnalysis("/mnt/storage/privateRepos/RamiroPollaFFmpeg", "RamiroPollaFFmpeg", 1295258573));
-		configurations.add(new CutoffGenericAnalysis("/mnt/storage/privateRepos/TobieLangelPrototype", "TobieLangelPrototype", 1205935492));
+		configurations.add(new CutoffGenericAnalysis("../../personalSvnToGitRepos/AlexConverseFFmpeg", "AlexConverseFFmpeg", 1295258573));
+		configurations.add(new CutoffGenericAnalysis("../../personalSvnToGitRepos/CarlEugenHoyosFFmpeg", "CarlEugenHoyosFFmpeg", 1295258573));
+		configurations.add(new CutoffGenericAnalysis("../../personalSvnToGitRepos/DeepakAzadJDTUI", "DeepakAzadJDTUI", 1316608366));
+		configurations.add(new CutoffGenericAnalysis("../../personalSvnToGitRepos/dsaffJUnit", "dsaffJUnit", 1231818542));
+		configurations.add(new CutoffGenericAnalysis("../../personalSvnToGitRepos/JanneGrunauFFmpeg", "JanneGrunauFFmpeg", 1295258573));
+		configurations.add(new CutoffGenericAnalysis("../../personalSvnToGitRepos/JoakimPlateFFmpeg", "JoakimPlateFFmpeg", 1295258573));
+		configurations.add(new CutoffGenericAnalysis("../../personalSvnToGitRepos/MichaelNiedermayerFFmpeg", "MichaelNiedermayerFFmpeg", 1295258573));
+		configurations.add(new CutoffGenericAnalysis("../../personalSvnToGitRepos/RamiroPollaFFmpeg", "RamiroPollaFFmpeg", 1295258573));
+		configurations.add(new CutoffGenericAnalysis("../../personalSvnToGitRepos/TobieLangelPrototype", "TobieLangelPrototype", 1205935492));
 	}
 	
 	public static void main(String[] args) throws Exception {
