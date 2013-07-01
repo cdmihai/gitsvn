@@ -14,7 +14,7 @@ public class ArduinoAnalysis extends AnalysisConfiguration {
 	@Override
 	protected Git getGitRepo() {
 		try {
-			return Git.open(new File("../../projects/Arduino"));
+			return Git.open(new File("../../svnToGitRepos/Arduino"));
 		} catch (IOException e) {
 		}
 		return null;

@@ -14,7 +14,7 @@ public class EclipseJDTDebugAnalysis extends AnalysisConfiguration {
 	@Override
 	protected Git getGitRepo() {
 		try {
-			return Git.open(new File("../../projects/eclipse.jdt.debug"));
+			return Git.open(new File("../../svnToGitRepos/eclipse.jdt.debug"));
 		} catch (IOException e) {
 		}
 		return null;

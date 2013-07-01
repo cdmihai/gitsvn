@@ -15,7 +15,7 @@ public class EclipsePlatformTeam extends AnalysisConfiguration {
 	protected Git getGitRepo() {
 		try {
 			return Git.open(new File(
-					"../../projects/eclipse.platform.team"));
+					"../../svnToGitRepos/eclipse.platform.team"));
 		} catch (IOException e) {
 		}
 

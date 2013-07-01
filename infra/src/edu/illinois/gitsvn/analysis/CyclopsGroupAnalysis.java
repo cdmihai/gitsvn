@@ -14,7 +14,7 @@ public class CyclopsGroupAnalysis extends AnalysisConfiguration {
 	@Override
 	protected Git getGitRepo() {
 		try {
-			return Git.open(new File("../../projects/cyclopsgroup"));
+			return Git.open(new File("../../svnToGitRepos/cyclopsgroup"));
 		} catch (IOException e) {
 			return null;
 		}

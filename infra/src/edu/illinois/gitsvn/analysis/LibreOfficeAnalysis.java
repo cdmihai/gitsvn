@@ -15,7 +15,7 @@ public class LibreOfficeAnalysis extends AnalysisConfiguration {
 	@Override
 	protected Git getGitRepo() {
 		try {
-			return Git.open(new File("../../projects/libreoffice"));
+			return Git.open(new File("../../svnToGitRepos/libreoffice"));
 		} catch (IOException e) {
 		}
 

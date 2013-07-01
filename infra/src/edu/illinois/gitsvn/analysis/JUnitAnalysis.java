@@ -15,7 +15,7 @@ public class JUnitAnalysis extends AnalysisConfiguration {
 	@Override
 	protected Git getGitRepo() {
 		try {
-			return Git.open(new File("../../projects/junit"));
+			return Git.open(new File("../../svnToGitRepos/junit"));
 		} catch (IOException e) {
 		}
 		return null;
