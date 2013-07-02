@@ -5,56 +5,22 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ForkJoinPool;
 
-import edu.illinois.gitsvn.analysis.ArduinoAnalysis;
-import edu.illinois.gitsvn.analysis.CyclopsGroupAnalysis;
-import edu.illinois.gitsvn.analysis.EclipseJDTCoreAnalysis;
-import edu.illinois.gitsvn.analysis.EclipseJDTDebugAnalysis;
-import edu.illinois.gitsvn.analysis.EclipseJDTUIAnalysis;
-import edu.illinois.gitsvn.analysis.EclipsePlatform;
-import edu.illinois.gitsvn.analysis.EclipsePlatformCommon;
-import edu.illinois.gitsvn.analysis.EclipsePlatformDebug;
-import edu.illinois.gitsvn.analysis.EclipsePlatformTeam;
-import edu.illinois.gitsvn.analysis.EclipsePlatformText;
-import edu.illinois.gitsvn.analysis.FFmpegAnalysis;
-import edu.illinois.gitsvn.analysis.GitAnalysis;
-import edu.illinois.gitsvn.analysis.JUnitAnalysis;
-import edu.illinois.gitsvn.analysis.LinuxAnalysis;
-import edu.illinois.gitsvn.analysis.MPSAnalysis;
-import edu.illinois.gitsvn.analysis.PrototypeAnalysis;
-import edu.illinois.gitsvn.analysis.ThymeleafAnalysis;
-import edu.illinois.gitsvn.analysis.UPMAnalysis;
-
+/**
+ * Class responsible for running the analyses
+ * Subclasses should implement {@link populateWithConfigurations} in order to provide analysis configurations
+ * @author mihai
+ *
+ */
 public abstract class AnalysisLauncher {
 
 	/**
-	 * Starts the analysis.
-	 * 
-	 * @param args
-	 *            a list of repositories to crawl.
+	 * Starts the analysis. 
 	 * @throws Exception
 	 */
-	public static void main(String[] args) throws Exception {
+	public void run() throws Exception {
 		List<AnalysisConfiguration> configurations = new ArrayList<AnalysisConfiguration>();
 		
-		configurations.add(new EclipseJDTCoreAnalysis());
-		configurations.add(new MPSAnalysis());
-		configurations.add(new ArduinoAnalysis());
-		configurations.add(new FFmpegAnalysis());
-		configurations.add(new CyclopsGroupAnalysis());
-		configurations.add(new ThymeleafAnalysis());
-		configurations.add(new EclipseJDTDebugAnalysis());
-		configurations.add(new EclipseJDTUIAnalysis());
-		configurations.add(new EclipsePlatform());
-		configurations.add(new EclipsePlatformTeam());
-		configurations.add(new EclipsePlatformText());
-		configurations.add(new EclipsePlatformDebug());
-		configurations.add(new EclipsePlatformCommon());
-		configurations.add(new JUnitAnalysis());
-		configurations.add(new PrototypeAnalysis());
-		configurations.add(new UPMAnalysis());
-		
-		configurations.add(new LinuxAnalysis());
-		configurations.add(new GitAnalysis());
+		populateWithConfigurations(configurations);
 		
 		long before = System.nanoTime();
 		runParallel(configurations);
@@ -63,14 +29,16 @@ public abstract class AnalysisLauncher {
 		System.out.println((after - before) / 1000000);
 	}
 
-	private static void run(List<AnalysisConfiguration> configurations) {
+	protected abstract void populateWithConfigurations(List<AnalysisConfiguration> configurations);
+
+	private void runSerial(List<AnalysisConfiguration> configurations) {
 		for (int i = 0; i < configurations.size(); i++) {
 			System.out.println("\n" + (i + 1) + " / " + configurations.size());
 			configurations.get(i).run();
 		}
 	}
 	
-	private static void runParallel(List<AnalysisConfiguration> configurations) {
+	private void runParallel(List<AnalysisConfiguration> configurations) {
 		ForkJoinPool pool = new ForkJoinPool();
 		List<Callable<Void>> list = new ArrayList<>();
 		
