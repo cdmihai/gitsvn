@@ -1,0 +1,12 @@
+git://github.com/nathanmarz/storm.git
+git://github.com/JakeWharton/ActionBarSherlock.git
+git://github.com/jfeinstein10/SlidingMenu.git
+git://github.com/facebook/facebook-android-sdk.git
+git://github.com/github/android.git
+git://github.com/nostra13/Android-Universal-Image-Loader.git
+git://github.com/Bukkit/CraftBukkit.git
+git://github.com/netty/netty.git
+git://github.com/cyrilmottier/GreenDroid.git
+git://github.com/loopj/android-async-http.git
+git://github.com/nicolasgramlich/AndEngine.git
+git://github.com/fernandezpablo85/scribe-java.git

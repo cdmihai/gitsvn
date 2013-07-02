@@ -1,7 +1,6 @@
 package edu.illinois.gitsvn.infra.collectors.diff.editfilter;
 
 import org.eclipse.jgit.diff.Edit;
-import org.eclipse.jgit.lib.Repository;
 
 /**
  * EditFilter that accepts only edits that are not a result of formatting.
