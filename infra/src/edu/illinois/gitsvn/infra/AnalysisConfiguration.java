@@ -5,6 +5,7 @@ import org.eclipse.jgit.api.Git;
 import edu.illinois.gitsvn.infra.collectors.AuthorCollector;
 import edu.illinois.gitsvn.infra.collectors.CSVCommitPrinter;
 import edu.illinois.gitsvn.infra.collectors.DateCollector;
+import edu.illinois.gitsvn.infra.collectors.IssuesCollector;
 import edu.illinois.gitsvn.infra.collectors.SHACollector;
 import edu.illinois.gitsvn.infra.collectors.diff.ModifyDiffCountFilter;
 import edu.illinois.gitsvn.infra.collectors.diff.ModifyFileAllLineNumberFilter;
@@ -88,6 +89,7 @@ public abstract class AnalysisConfiguration {
 		pipeLineFilter.addDataCollector(new AuthorCollector());
 		pipeLineFilter.addDataCollector(new ModifyFileAllLineNumberFilter(ModifyDiffCountFilter.getCommentEditFilter(), ModifyDiffCountFilter.getFormatEditFilter()));
 		pipeLineFilter.addDataCollector(new ModifyFileJavaLineNumberFilter(ModifyDiffCountFilter.getCommentEditFilter(), ModifyDiffCountFilter.getFormatEditFilter()));
+		pipeLineFilter.addDataCollector(new IssuesCollector());
 
 		AnalysisFilter agregator = new CSVCommitPrinter(pipeLineFilter);
 		pipeLineFilter.setDataAgregator(agregator);
