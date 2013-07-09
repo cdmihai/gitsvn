@@ -90,7 +90,9 @@ public class CSVWriter {
 		StringBuffer sb = new StringBuffer();
 
 		for (String element : line) {
+			sb.append("\"");
 			sb.append(element);
+			sb.append("\"");
 			sb.append(",");
 		}
 
