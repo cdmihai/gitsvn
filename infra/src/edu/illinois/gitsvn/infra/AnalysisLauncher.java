@@ -5,28 +5,16 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ForkJoinPool;
 
-import edu.illinois.gitsvn.analysis.ArduinoAnalysis;
-import edu.illinois.gitsvn.analysis.CyclopsGroupAnalysis;
-import edu.illinois.gitsvn.analysis.EclipseJDTCoreAnalysis;
-import edu.illinois.gitsvn.analysis.EclipseJDTDebugAnalysis;
-import edu.illinois.gitsvn.analysis.EclipseJDTUIAnalysis;
-import edu.illinois.gitsvn.analysis.EclipsePlatform;
-import edu.illinois.gitsvn.analysis.EclipsePlatformCommon;
-import edu.illinois.gitsvn.analysis.EclipsePlatformDebug;
-import edu.illinois.gitsvn.analysis.EclipsePlatformTeam;
-import edu.illinois.gitsvn.analysis.EclipsePlatformText;
-import edu.illinois.gitsvn.analysis.FFmpegAnalysis;
-import edu.illinois.gitsvn.analysis.JUnitAnalysis;
-import edu.illinois.gitsvn.analysis.MPSAnalysis;
-import edu.illinois.gitsvn.analysis.PrototypeAnalysis;
-import edu.illinois.gitsvn.analysis.ThymeleafAnalysis;
-import edu.illinois.gitsvn.analysis.UPMAnalysis;
-
-public class AnalysisLauncher {
+/**
+ * Class responsible for running the analyses
+ * Subclasses should implement {@link populateWithConfigurations} in order to provide analysis configurations
+ * @author mihai
+ *
+ */
+public abstract class AnalysisLauncher {
 
 	/**
-	 * Starts the analysis.
-	 * 
+	 * Starts the analysis. 
 	 * @throws Exception
 	 */
 	public void run() throws Exception {
@@ -41,24 +29,7 @@ public class AnalysisLauncher {
 		System.out.println((after - before) / 1000000);
 	}
 
-	protected void populateWithConfigurations(List<AnalysisConfiguration> configurations) {
-		configurations.add(new EclipseJDTCoreAnalysis());
-		configurations.add(new MPSAnalysis());
-		configurations.add(new ArduinoAnalysis());
-		configurations.add(new FFmpegAnalysis());
-		configurations.add(new CyclopsGroupAnalysis());
-		configurations.add(new ThymeleafAnalysis());
-		configurations.add(new EclipseJDTDebugAnalysis());
-		configurations.add(new EclipseJDTUIAnalysis());
-		configurations.add(new EclipsePlatform());
-		configurations.add(new EclipsePlatformTeam());
-		configurations.add(new EclipsePlatformText());
-		configurations.add(new EclipsePlatformDebug());
-		configurations.add(new EclipsePlatformCommon());
-		configurations.add(new JUnitAnalysis());
-		configurations.add(new PrototypeAnalysis());
-		configurations.add(new UPMAnalysis());
-	}
+	protected abstract void populateWithConfigurations(List<AnalysisConfiguration> configurations);
 
 	private void runSerial(List<AnalysisConfiguration> configurations) {
 		for (int i = 0; i < configurations.size(); i++) {
@@ -83,9 +54,5 @@ public class AnalysisLauncher {
 		}
 		
 		pool.invokeAll(list);
-	}
-
-	public static void main(String[] args) throws Exception {
-		new AnalysisLauncher().run();
 	}
 }
