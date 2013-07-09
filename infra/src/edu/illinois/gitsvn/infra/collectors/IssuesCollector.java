@@ -26,7 +26,7 @@ import org.gitective.core.filter.commit.CommitFilter;
 public class IssuesCollector extends CommitFilter implements DataCollector {
 
 	private Set<String> issues;
-	private static final String ISSUES_PATTERN_REGEX = "(((fix|complet)(es|ed|ing)? (for )?)?(fix|bug|issue|ticket|task|feature)s? ?(#?[0-9]+)(( and |,( )?)(#?[0-9]+))*|#[0-9]+)"; 
+	private static final String ISSUES_PATTERN_REGEX = "(((fix|complet|clos)(es|ed|ing)? (for )?)?(fix|bug|issue|ticket|task|feature)s? ?(#?[0-9]+)(( and |,( )?| )(#?[0-9]+))*|#[0-9]+)"; 
 
 	private Matcher numberMatcher, m;
 	private List<Matcher> issueMatchers = new ArrayList<Matcher>();
@@ -34,6 +34,24 @@ public class IssuesCollector extends CommitFilter implements DataCollector {
 	private List<List<String>> matchesListsList = new ArrayList<List<String>>();
 	private Pattern numberPattern = Pattern.compile("[0-9]+");
 	private List<Pattern> issuePatterns = new ArrayList<Pattern>();
+
+	
+	public IssuesCollector() {
+		issuePatterns.add(
+			// Numbers with a hash symbol are usually used as issue references
+			Pattern.compile("#[0-9]+", Pattern.CASE_INSENSITIVE)
+		);
+		issuePatterns.add(
+			// Numbers preceded by 'fix' word or its variations are usually used
+			// as issue references 
+			Pattern.compile("(fix|complet|clos)(es|ed|ing)? ?(for )?(#?[0-9]+)(( and |,( )?| )(#?[0-9]+))*", Pattern.CASE_INSENSITIVE)
+		);
+		issuePatterns.add(
+			// Numbers preceded by 'bug', 'issue', 'ticket', etc words or their variations 
+			// are usually used as issue references
+			Pattern.compile("((fix|complet|clos)(es|ed|ing)? ?(for )?)?((fix|bug|issue|ticket|task|feature)s? ?)(#?[0-9]+)(( and |,( )?| )(#?[0-9]+))*", Pattern.CASE_INSENSITIVE)
+		);
+	}
 
 	/**
 	 * Method extracts issue numbers from string using simple heuristic implemented
@@ -45,20 +63,8 @@ public class IssuesCollector extends CommitFilter implements DataCollector {
 	private Set<String> findIssues(String line) {
 		Set<String> result;
 		String match;
-		issuePatterns.add(
-			// Numbers with a hash symbol are usually used as issue references
-			Pattern.compile("#[0-9]+", Pattern.CASE_INSENSITIVE)
-		);
-		issuePatterns.add(
-			// Numbers preceded by 'fix' word or its variations are usually used
-			// as issue references 
-			Pattern.compile("fix(es|ed|ing)? ?(for )?(#?[0-9]+)(( and |, )(#?[0-9]+))*", Pattern.CASE_INSENSITIVE)
-		);
-		issuePatterns.add(
-			// Numbers preceded by 'bug', 'issue', 'ticket', etc words or their variations 
-			// are usually used as issue references
-			Pattern.compile("((fix|complet)(es|ed|ing)? ?(for )?)?((fix|bug|issue|ticket|task|feature)s? )(#?[0-9]+)(( and |,( )?)(#?[0-9]+))*", Pattern.CASE_INSENSITIVE)
-		);
+		String[] matchArr;
+		
 		numberMatcher = numberPattern.matcher(line);
 		for(Pattern p: issuePatterns) {
 			issueMatchers.add(p.matcher(line));
@@ -83,9 +89,13 @@ public class IssuesCollector extends CommitFilter implements DataCollector {
 			for(Iterator<List<String>> listIterator = matchesListsList.iterator(); listIterator.hasNext();) {
 				for (Iterator<String> iter = listIterator.next().iterator(); iter.hasNext();) {
 					match = (String) iter.next();
-					if(match.indexOf(num) != -1) {
-						result.add(num);
-						break;
+					// need to match whole numbers, that's why string is split by non-digit characters
+					matchArr = match.split("\\D+");
+					for(int j = 1; j < matchArr.length; j++) {
+						if(matchArr[j].equals(num)) {
+							result.add(num);
+							break;
+						}
 					}
 				}
 			}
