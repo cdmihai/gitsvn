@@ -12,6 +12,7 @@ import org.gitective.core.filter.commit.CommitFilter;
 
 import edu.illinois.gitsvn.infra.DataCollector;
 
+
 public class DataCollectorWrapper extends CommitFilter {
 
 	public String data = "";

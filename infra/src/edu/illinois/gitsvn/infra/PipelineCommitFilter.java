@@ -20,7 +20,7 @@ public class PipelineCommitFilter extends CommitFilter {
 
 	private List<CommitFilter> filters = new ArrayList<CommitFilter>();
 	private List<CommitFilter> collectors = new ArrayList<CommitFilter>();
-	private AnalysisFilter dataAgregator;
+	private CommitFilter dataAgregator;
 
 	public void addFilter(CommitFilter filter) {
 		filters.add(filter);
@@ -79,7 +79,7 @@ public class PipelineCommitFilter extends CommitFilter {
 		dataAgregator.setRepository(repository);
 	}
 
-	public AnalysisFilter getAgregator() {
+	public CommitFilter getAgregator() {
 		return dataAgregator;
 	}
 }
