@@ -30,6 +30,7 @@ import org.gitective.core.GitException;
 import org.gitective.core.filter.commit.CommitFilter;
 
 import edu.illinois.gitsvn.infra.DataCollector;
+import edu.illinois.gitsvn.infra.exceptions.MasterBranchNotFoundException;
 
 public class BranchCollector extends CommitFilter implements DataCollector {
 
@@ -49,17 +50,21 @@ public class BranchCollector extends CommitFilter implements DataCollector {
 		this.repository = repository;
 		this.git = new Git(repository);
 		this.refs = repository.getAllRefs().entrySet();
-		this.masterRef = this.findMasterRef();
+		try {
+			this.masterRef = this.findMasterRef();
+		} catch (MasterBranchNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		this.branchesCheckout();
 	}
-	private Ref findMasterRef() {
+	private Ref findMasterRef() throws MasterBranchNotFoundException {
 		for(Entry<String, Ref> ref: this.refs) {
-			if(ref.getKey() == MASTER_REF_KEY) {
+			if(ref.getKey().equals(MASTER_REF_KEY)) {
 				return ref.getValue();
 			}
 		}
-		return null;
+		throw new MasterBranchNotFoundException("No master branch at " + this.repository.getDirectory().getPath());
 	}
 	
 	private void branchesCheckout() {
