@@ -5,6 +5,7 @@
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. -->
 <project basedir="." default="build" name="infra">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>  
 	<property file="build.properties"/>
 	<property environment="env"/>
 	<property name="junit.output.dir" value="junit"/>
@@ -276,7 +277,25 @@
 		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
 		<antcall target="build"/>
 	</target>
+	<macrodef name="echo-path">
+		<attribute name="pathref" />
+	   	<sequential>
+	   		<echo>echoing path=@{pathref}</echo>
+			<for param="fromfile">
+	   			<path refid="@{pathref}"  />
+	   			<sequential>
+					<echo>&#x9;@{fromfile}</echo>
+	   			</sequential>
+			</for>
+	   	</sequential>
+	</macrodef>
+	
 	<target name="AnalysisLauncher">
+		<echo message="Classpath:"/>
+		<echo-path pathref="infra.classpath" />
+		<echo message="Boot classpath:"/>
+		<echo-path pathref="run.AnalysisLauncher.bootclasspath" />
+		
 		<java classname="edu.illinois.gitsvn.infra.AnalysisLauncher" failonerror="true" fork="yes">
 			<classpath refid="infra.classpath"/>
 			<bootclasspath>
@@ -285,6 +304,11 @@
 		</java>
 	</target>
 	<target name="BatchAnalysisLauncher">
+		<echo message="Classpath:" />
+		<echo-path pathref="infra.classpath" />
+		<echo message="Boot classpath:"/>
+		<echo-path pathref="run.AnalysisLauncher.bootclasspath" />
+		
 		<java classname="edu.illinois.gitsvn.infra.BatchAnalysisLauncher" failonerror="true" fork="yes">
 			<classpath refid="infra.classpath"/>
 			<bootclasspath>
@@ -337,6 +361,11 @@
 		</junit>
 	</target>
 	<target name="PrivateRepoAnalysisLauncher">
+		<echo message="Classpath:" />
+		<echo-path pathref="infra.classpath" />
+		<echo message="Boot classpath:"/>
+		<echo-path pathref="run.AnalysisLauncher.bootclasspath" />
+		
 		<java classname="edu.illinois.gitsvn.analysis.launchers.PrivateRepoAnalysisLauncher" failonerror="true" fork="yes">
 			<classpath refid="infra.classpath"/>
 			<bootclasspath>
@@ -345,6 +374,11 @@
 		</java>
 	</target>
 	<target name="PureReposAnalysis">
+		<echo message="Classpath:" />
+		<echo-path pathref="infra.classpath" />
+		<echo message="Boot classpath:"/>
+		<echo-path pathref="run.AnalysisLauncher.bootclasspath" />
+		
 		<java classname="edu.illinois.gitsvn.analysis.launchers.PureReposAnalysis" failonerror="true" fork="yes">
 			<classpath refid="infra.classpath"/>
 			<bootclasspath>
@@ -353,6 +387,11 @@
 		</java>
 	</target>
 	<target name="SvnToGitRepoAnalysisLauncher">
+		<echo message="Classpath:" />
+		<echo-path pathref="infra.classpath" />
+		<echo message="Boot classpath:"/>
+		<echo-path pathref="run.AnalysisLauncher.bootclasspath" />
+		
 		<java classname="edu.illinois.gitsvn.analysis.launchers.SvnToGitRepoAnalysisLauncher" failonerror="true" fork="yes">
 			<classpath refid="infra.classpath"/>
 			<bootclasspath>

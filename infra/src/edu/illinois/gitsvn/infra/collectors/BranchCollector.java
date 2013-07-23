@@ -30,7 +30,6 @@ import org.gitective.core.GitException;
 import org.gitective.core.filter.commit.CommitFilter;
 
 import edu.illinois.gitsvn.infra.DataCollector;
-import edu.illinois.gitsvn.infra.exceptions.MasterBranchNotFoundException;
 
 public class BranchCollector extends CommitFilter implements DataCollector {
 
@@ -40,8 +39,6 @@ public class BranchCollector extends CommitFilter implements DataCollector {
 	
 	private Git git;
 	
-	private Set<Entry<String, Ref>> refs;
-	
 	private Ref masterRef;
 	
 	private static final String MASTER_REF_KEY = "refs/heads/master";
@@ -49,27 +46,25 @@ public class BranchCollector extends CommitFilter implements DataCollector {
 	public BranchCollector(Repository repository) {
 		this.repository = repository;
 		this.git = new Git(repository);
-		this.refs = repository.getAllRefs().entrySet();
-		try {
-			this.masterRef = this.findMasterRef();
-		} catch (MasterBranchNotFoundException e) {
-			e.printStackTrace();
-		}
-		
 		this.branchesCheckout();
+		if(masterRef == null) {
+			this.masterRef = this.findMasterRef();
+		} 
 	}
-	private Ref findMasterRef() throws MasterBranchNotFoundException {
-		for(Entry<String, Ref> ref: this.refs) {
+	private Ref findMasterRef() {
+		Set<Entry<String, Ref>> refs = repository.getAllRefs().entrySet();
+		for(Entry<String, Ref> ref: refs) {
 			if(ref.getKey().equals(MASTER_REF_KEY)) {
 				return ref.getValue();
 			}
 		}
-		throw new MasterBranchNotFoundException("No master branch at " + this.repository.getDirectory().getPath());
+		return null;
 	}
 	
-	private void branchesCheckout() {
+	public void branchesCheckout() {
 		String branchName = "";
-		for (Entry<String, Ref> ref : this.refs) {
+		Set<Entry<String, Ref>> refs = repository.getAllRefs().entrySet();
+		for (Entry<String, Ref> ref : refs) {
 			if(ref.getKey().startsWith(Constants.R_REMOTES) && !ref.getKey().contains(Constants.HEAD)) {
 				branchName = ref.getValue().getName().split(Constants.R_REMOTES)[1];
 				//TODO: replace with logging
@@ -81,7 +76,7 @@ public class BranchCollector extends CommitFilter implements DataCollector {
 				checkoutCommand.setName(branchName.split("origin/")[1]);
 				checkoutCommand.setStartPoint(branchName);
 				try {
-					Ref result = checkoutCommand.call();
+					checkoutCommand.call();
 					//TODO: replace with logging
 					//println "Successfully checked out branch " + branchName;
 				} catch (RefAlreadyExistsException e) {
@@ -113,14 +108,23 @@ public class BranchCollector extends CommitFilter implements DataCollector {
 	 * @throws GitException
 	 */
 	public String getBranchName(RevCommit commit) throws GitException {
+		Set<Entry<String, Ref>> refs = repository.getAllRefs().entrySet();
+		if(this.masterRef == null) {
+			this.masterRef = this.findMasterRef();
+		}
+		boolean commitBelongsToBranch;
+		boolean commitBelongsToMaster;
 		List<String> foundInBranches = new ArrayList<String>();
 		try {
 			RevWalk walker = new RevWalk(this.repository); 
 			RevCommit targetCommit = walker.parseCommit(this.repository.resolve(commit.getName()));
-			for (Entry<String, Ref> ref : this.refs) {
+			for (Entry<String, Ref> ref : refs) {
 				if (ref.getKey().startsWith(Constants.R_HEADS) && !ref.getKey().equals(this.masterRef)) {
-					boolean commitBelongsToBranch = walker.isMergedInto(targetCommit, walker.parseCommit(ref.getValue().getObjectId()));
-					boolean commitBelongsToMaster = walker.isMergedInto(targetCommit, walker.parseCommit(this.masterRef.getObjectId()));
+					commitBelongsToBranch = walker.isMergedInto(targetCommit, walker.parseCommit(ref.getValue().getObjectId()));
+					commitBelongsToMaster = false;
+					if(this.masterRef != null) {
+						commitBelongsToMaster = walker.isMergedInto(targetCommit, walker.parseCommit(this.masterRef.getObjectId()));
+					}
 					if (commitBelongsToBranch && !commitBelongsToMaster) {
 						foundInBranches.add(ref.getValue().getName());
 					} 
