@@ -1,4 +1,4 @@
-package edu.illinois.gitsvn.infra;
+package edu.illinois.gitsvn.infra.collectors;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.lib.Constants;

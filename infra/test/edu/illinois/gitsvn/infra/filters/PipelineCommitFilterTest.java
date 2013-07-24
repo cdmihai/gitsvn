@@ -1,4 +1,4 @@
-package edu.illinois.gitsvn.infra;
+package edu.illinois.gitsvn.infra.filters;
 
 import java.io.IOException;
 
@@ -10,6 +10,8 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.gitective.core.filter.commit.CommitFilter;
 import org.gitective.tests.GitTestCase;
 import org.junit.Test;
+
+import edu.illinois.gitsvn.infra.PipelineCommitFilter;
 
 public class PipelineCommitFilterTest extends GitTestCase {
 

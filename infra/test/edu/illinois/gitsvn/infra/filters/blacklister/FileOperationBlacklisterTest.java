@@ -1,4 +1,4 @@
-package edu.illinois.gitsvn.infra;
+package edu.illinois.gitsvn.infra.filters.blacklister;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
