@@ -1,4 +1,4 @@
-package edu.illinois.gitsvn.infra;
+package edu.illinois.gitsvn.infra.collectors;
 
 import java.io.IOException;
 
@@ -7,6 +7,7 @@ import org.gitective.core.CommitFinder;
 import org.gitective.core.filter.commit.CommitFilter;
 import org.gitective.tests.GitTestCase;
 
+import edu.illinois.gitsvn.infra.DataCollector;
 import edu.illinois.gitsvn.infra.util.DataCollectorWrapper;
 
 public abstract class DataCollectorTestCase extends GitTestCase {
