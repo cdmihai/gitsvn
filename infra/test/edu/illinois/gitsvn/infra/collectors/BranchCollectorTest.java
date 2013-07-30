@@ -2,6 +2,7 @@ package edu.illinois.gitsvn.infra.collectors;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.Repository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,15 +12,17 @@ public class BranchCollectorTest extends DataCollectorTestCase {
 
 	private static final String MASTER = "master";
 	private static final String BR1 = "br1";
+	private Repository repository;
 	
 	BranchCollector branchCollector;
 	
 	@Before
 	public void before() throws Exception {
-		this.branchCollector = new BranchCollector(Git.open(testRepo).getRepository());
+		repository = Git.open(testRepo).getRepository();
+		this.branchCollector = new BranchCollector(repository);
 		initTest(this.branchCollector);
 		try{
-			this.branchCollector.branchesCheckout();
+			this.branchCollector.branchesCheckout(repository);
 			add("f0", "file0 contents");
 		} catch (Exception e) {
 			System.out.println (e.getMessage());
@@ -54,7 +57,7 @@ public class BranchCollectorTest extends DataCollectorTestCase {
 		branch(BR1);
 		add("f2", "file2 contents");
 		
-		this.branchCollector.branchesCheckout();
+		this.branchCollector.branchesCheckout(repository);
 		finder.findInBranches();
 		
 		String[] data = collector.data.split("; ");
@@ -74,7 +77,7 @@ public class BranchCollectorTest extends DataCollectorTestCase {
 		checkout(MASTER);
 		add("f3", "file3 contents");
 		
-		this.branchCollector.branchesCheckout();
+		this.branchCollector.branchesCheckout(repository);
 		finder.findInBranches();
 		
 		assertEquals(1, getNumberOfBranchCommits(collector.data));
@@ -95,7 +98,7 @@ public class BranchCollectorTest extends DataCollectorTestCase {
 		checkout(BR1);
 		merge(MASTER);
 		
-		this.branchCollector.branchesCheckout();
+		this.branchCollector.branchesCheckout(repository);
 		finder.findInBranches();
 		
 		assertEquals(2, getNumberOfBranchCommits(collector.data));
