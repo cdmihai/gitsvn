@@ -22,7 +22,6 @@ public class BranchCollectorTest extends DataCollectorTestCase {
 		this.branchCollector = new BranchCollector(repository);
 		initTest(this.branchCollector);
 		try{
-			this.branchCollector.branchesCheckout(repository);
 			add("f0", "file0 contents");
 		} catch (Exception e) {
 			System.out.println (e.getMessage());
@@ -57,7 +56,6 @@ public class BranchCollectorTest extends DataCollectorTestCase {
 		branch(BR1);
 		add("f2", "file2 contents");
 		
-		this.branchCollector.branchesCheckout(repository);
 		finder.findInBranches();
 		
 		String[] data = collector.data.split("; ");
@@ -77,7 +75,6 @@ public class BranchCollectorTest extends DataCollectorTestCase {
 		checkout(MASTER);
 		add("f3", "file3 contents");
 		
-		this.branchCollector.branchesCheckout(repository);
 		finder.findInBranches();
 		
 		assertEquals(1, getNumberOfBranchCommits(collector.data));
@@ -98,7 +95,6 @@ public class BranchCollectorTest extends DataCollectorTestCase {
 		checkout(BR1);
 		merge(MASTER);
 		
-		this.branchCollector.branchesCheckout(repository);
 		finder.findInBranches();
 		
 		assertEquals(2, getNumberOfBranchCommits(collector.data));
