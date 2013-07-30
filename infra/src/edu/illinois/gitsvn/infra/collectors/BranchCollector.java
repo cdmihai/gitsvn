@@ -35,8 +35,6 @@ public class BranchCollector extends CommitFilter implements DataCollector {
 
 	private String branchName;
 	
-	private Repository repository;
-	
 	private Git git;
 	
 	private Ref masterRef;
