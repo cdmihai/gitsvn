@@ -23,11 +23,11 @@ public class RepositoryCrawler {
 		CommitFinder finder = new CommitFinder(repo.getRepository());
 
 		pipelineFilter.setRepository(repo);
-		AnalysisFilter agregator = pipelineFilter.getAgregator();
+		AnalysisFilter agregator = (AnalysisFilter) pipelineFilter.getAgregator();
 
 		finder.setFilter(pipelineFilter);
 		agregator.begin();
-		finder.find();
+		finder.findInBranches();
 		agregator.end();
 	}
 
