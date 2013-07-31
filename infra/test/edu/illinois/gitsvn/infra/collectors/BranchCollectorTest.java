@@ -12,14 +12,13 @@ public class BranchCollectorTest extends DataCollectorTestCase {
 
 	private static final String MASTER = "master";
 	private static final String BR1 = "br1";
-	private Repository repository;
 	
 	BranchCollector branchCollector;
 	
 	@Before
 	public void before() throws Exception {
-		repository = Git.open(testRepo).getRepository();
-		this.branchCollector = new BranchCollector(repository);
+		Git git = Git.open(testRepo);
+		this.branchCollector = new BranchCollector(git);
 		initTest(this.branchCollector);
 		try{
 			add("f0", "file0 contents");
