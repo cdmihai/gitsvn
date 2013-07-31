@@ -40,7 +40,7 @@ public class IssuesCollector extends CommitFilter implements DataCollector {
 		issuePatterns.add(
 			// Numbers with a hash symbol are usually used as issue references
 			// Capital letters followed by dash and sequence of digits are typical JIRA issue references
-			Pattern.compile("(#|[A-Z]{3,}-)[0-9]+", Pattern.CASE_INSENSITIVE)
+			Pattern.compile("(#|[A-Z]{3,}-)[0-9]+")
 		);
 		issuePatterns.add(
 			// Numbers preceded by 'fix' word or its variations are usually used
