@@ -75,4 +75,32 @@ public class IssuesCollectorTest extends DataCollectorTestCase {
 		assertEquals("5; ", collector.data);
 	}
 	
+	@Test
+	public void testJIRAIssue() throws Exception {
+		add("test.txt", "some contents", "HHH-7943 C3P0 and Proxool OSGi support");
+		finder.find();
+		assertEquals("1; ", collector.data);
+	}
+	
+	@Test
+	public void testTwoJIRAIssues() throws Exception {
+		add("test.txt", "some contents", "HHH-7850 BulkAccessorFactory Java 7 verify error resolved by JASSIST-163 BulkAccessorFactory.java.diff2 patch from Shigeru Chiba");
+		finder.find();
+		assertEquals("2; ", collector.data);
+	}
+	
+	@Test
+	public void testThreeJIRAIssues() throws Exception {
+		add("test.txt", "some contents", "SPR-8830 SPR-8082 SPR-7833 + add support for CacheDefinitions declarations inside XML + more integration tests");
+		finder.find();
+		assertEquals("3; ", collector.data);
+	}
+	
+	@Test
+	public void testMixedIssues() throws Exception {
+		add("test.txt", "some contents", "Merge pull request #320 from beamerblvd/SPR-10770");
+		finder.find();
+		assertEquals("2; ", collector.data);
+	}
+	
 }
