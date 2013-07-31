@@ -61,19 +61,36 @@ public class BranchCollector extends CommitFilter implements DataCollector {
 		return null;
 	}
 	
+	private String truncateBranchName(String branchName) {
+		String truncatedBranchName = "";
+		String[] branchNameArr;
+		branchNameArr = branchName.split("origin/");
+		if(branchNameArr.length >= 2) {
+			truncatedBranchName = branchNameArr[1];
+		} else {
+			branchNameArr = branchName.split("svn/");
+			if(branchNameArr.length >= 2) {
+				truncatedBranchName = branchNameArr[1];
+			} else {
+				truncatedBranchName = branchName;
+			}
+		}
+		return truncatedBranchName;
+	}
+	
 	public void branchesCheckout() {
-		String branchName = "";
+		String branchName = "", truncatedBranchName = "";
 		Set<Entry<String, Ref>> refs = repository.getAllRefs().entrySet();
 		for (Entry<String, Ref> ref : refs) {
 			if(ref.getKey().startsWith(Constants.R_REMOTES) && !ref.getKey().contains(Constants.HEAD)) {
 				branchName = ref.getValue().getName().split(Constants.R_REMOTES)[1];
-				//TODO: replace with logging
-				System.out.println("Trying to checkout branch: " + branchName + " (" + branchName.split("origin/")[1] + ")");
+				truncatedBranchName = this.truncateBranchName(branchName);
+				System.out.println("Trying to checkout branch: " + branchName + " (" + truncatedBranchName + ")");
 				CheckoutCommand checkoutCommand = this.git.checkout();
 				checkoutCommand.setForce(true);
 				checkoutCommand.setCreateBranch(true);
 				checkoutCommand.setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.TRACK);
-				checkoutCommand.setName(branchName.split("origin/")[1]);
+				checkoutCommand.setName(truncatedBranchName);
 				checkoutCommand.setStartPoint(branchName);
 				try {
 					checkoutCommand.call();
