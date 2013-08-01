@@ -13,7 +13,6 @@ git://github.com/fernandezpablo85/scribe-java.git
 git://github.com/hibernate/hibernate-orm.git
 git://github.com/wildfly/wildfly.git
 git://github.com/phonegap/phonegap-plugins.git
-git://github.com/libgdx/libgdx.git
 git://github.com/bigbluebutton/bigbluebutton.git
 git://github.com/elasticsearch/elasticsearch.git
 git://github.com/mtotschnig/MyExpenses.git

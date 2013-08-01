@@ -31,7 +31,15 @@ public abstract class AnalysisLauncher {
 
 	protected abstract void populateWithConfigurations(List<AnalysisConfiguration> configurations);
 
-	private void runSerial(List<AnalysisConfiguration> configurations) {
+	protected void runSerial(List<AnalysisConfiguration> configurations) {
+		for (int i = 0; i < configurations.size(); i++) {
+			System.out.println("\n" + (i + 1) + " / " + configurations.size());
+			configurations.get(i).run();
+		}
+	}
+	public void runSerial() {
+		List<AnalysisConfiguration> configurations = new ArrayList<AnalysisConfiguration>();
+		populateWithConfigurations(configurations);
 		for (int i = 0; i < configurations.size(); i++) {
 			System.out.println("\n" + (i + 1) + " / " + configurations.size());
 			configurations.get(i).run();
