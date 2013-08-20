@@ -30,13 +30,15 @@ public class SvnToGitRepoAnalysisLauncher extends AnalysisLauncher {
 		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/thymeleaf", "Thymeleaf", 1337530081));
 		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/upm-swing/", "UPM", 1287344636));
 		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/astrid/", "astrid", 1273138392));
-		
+		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/clojure/", "clojure", 1229436656));
+//		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/spring-framework/", "spring-framework", ));
+
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/cassandra", "cassandra"));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/Essentials", "Essentials"));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/k-9", "k-9"));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/liferay-plugins", "liferay-plugins"));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/twitter4j", "twitter4j"));
-		
+		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/gradle", "gradle"));
 
 	}
 
