@@ -13,3 +13,10 @@ https://github.com/junit-team/junit.git
 git://github.com/kir/prototype.git
 git://github.com/eighthave/FFmpeg.git
 git://github.com/arduino/Arduino.git
+git@github.com:todoroo/astrid.git
+git@github.com:apache/cassandra.git
+git@github.com:essentials/Essentials.git
+git@github.com:k9mail/k-9.git
+git@github.com:liferay/liferay-plugins.git
+git@github.com:liferay/liferay-portal.git
+git@github.com:yusuke/twitter4j.git
