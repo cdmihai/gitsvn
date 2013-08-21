@@ -31,7 +31,8 @@ public class SvnToGitRepoAnalysisLauncher extends AnalysisLauncher {
 		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/upm-swing/", "UPM", 1287344636));
 		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/astrid/", "astrid", 1273138392));
 		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/clojure/", "clojure", 1229436656));
-//		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/spring-framework/", "spring-framework", ));
+		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/spring-framework/", "spring-framework", 1266882776));
+		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/yuicompressor/", "yuicompressor", 1232056073));
 
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/cassandra", "cassandra"));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/Essentials", "Essentials"));
@@ -39,7 +40,10 @@ public class SvnToGitRepoAnalysisLauncher extends AnalysisLauncher {
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/liferay-plugins", "liferay-plugins"));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/twitter4j", "twitter4j"));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/gradle", "gradle"));
-
+		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/hibernate-orm", "hibernate-orm"));
+		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/jenkins", "jenkins"));
+		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/grails-core", "grails-core"));
+		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/groovy-core", "groovy-core"));
 	}
 
 	public static void main(String[] args) throws Exception {

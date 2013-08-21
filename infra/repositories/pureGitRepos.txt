@@ -17,12 +17,3 @@ git://github.com/libgdx/libgdx.git
 git://github.com/bigbluebutton/bigbluebutton.git
 git://github.com/elasticsearch/elasticsearch.git
 git://github.com/mtotschnig/MyExpenses.git
-git://github.com/clojure/clojure.git
-git://github.com/jenkinsci/jenkins.git
-git://github.com/SpringSource/spring-framework.git
-git://github.com/gradle/gradle.git
-git://github.com/grails/grails-core.git
-git://github.com/groovy/groovy-core.git
-git://github.com/yui/yuicompressor.git
-git://github.com/apache/lucene.git
-git://github.com/apache/lucene-solr.git
