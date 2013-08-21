@@ -20,3 +20,14 @@ git@github.com:k9mail/k-9.git
 git@github.com:liferay/liferay-plugins.git
 git@github.com:liferay/liferay-portal.git
 git@github.com:yusuke/twitter4j.git
+git://github.com/git/git.git
+https://github.com/torvalds/linux
+git://github.com/hibernate/hibernate-orm.git
+git://github.com/bigbluebutton/bigbluebutton.git
+git://github.com/clojure/clojure.git
+git://github.com/jenkinsci/jenkins.git
+git://github.com/SpringSource/spring-framework.git
+git://github.com/gradle/gradle.git
+git://github.com/grails/grails-core.git
+git://github.com/groovy/groovy-core.git
+git://github.com/yui/yuicompressor.git

@@ -1,0 +1,3 @@
+ECLIPSE_HOME=/home/shmarka2/eclipse
+JUNIT_ECLIPSE_PATH=plugins/org.junit_4.8.2.v4_8_2_v20110321-1705/junit.jar
+HAMCREST_ECLIPSE_PATH=plugins/org.hamcrest.core_1.3.0.v201303031735.jar
