@@ -18,7 +18,7 @@ public class BranchCollectorTest extends DataCollectorTestCase {
 	@Before
 	public void before() throws Exception {
 		Git git = Git.open(testRepo);
-		this.branchCollector = new BranchCollector(git);
+		this.branchCollector = new BranchCollector(git.getRepository());
 		initTest(this.branchCollector);
 		try{
 			add("f0", "file0 contents");
