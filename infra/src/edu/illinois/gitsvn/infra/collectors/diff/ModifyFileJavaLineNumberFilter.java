@@ -33,7 +33,7 @@ public class ModifyFileJavaLineNumberFilter extends ModifyDiffCountFilter implem
 
 		TreeFilter previousFilter = walk.getFilter();
 		TreeFilter newFilter = AndTreeFilter.create(
-				new NonSourceCodeFileExtensionBlacklister(), previousFilter);
+				new NonSourceCodeFileExtensionBlacklister(NonSourceCodeFileExtensionBlacklister.JAVA_EXTENSIONS), previousFilter);
 		walk.setFilter(newFilter);
 
 		return walk;
