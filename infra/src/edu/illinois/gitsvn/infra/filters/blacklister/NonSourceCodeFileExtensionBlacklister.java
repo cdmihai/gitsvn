@@ -12,7 +12,20 @@ import org.gitective.core.filter.tree.BaseTreeFilter;
 //TODO make this into a configurable extension blocker and use factory methods for java blocker, source code blocker etc
 public final class NonSourceCodeFileExtensionBlacklister extends BaseTreeFilter {
 	
-	private static final List<String> allowedExtensions = Arrays.asList("java", "js", "c", "cpp", "h", "ino", "py");
+	/**
+	 * List with extensions for Java, JavaScript, C, C++ and Python.
+	 */
+	public static final List<String> ALL_SOURCE_EXTENSIONS = Arrays.asList("java", "js", "c", "cpp", "h", "ino", "py");
+	
+	/**
+	 * List with extensions for Java.
+	 */
+	public static final List<String> JAVA_EXTENSIONS = Arrays.asList("java");
+	private List<String> sourceExtensions;
+	
+	public NonSourceCodeFileExtensionBlacklister(List<String> sourceExtensions) {
+		this.sourceExtensions = sourceExtensions;
+	}
 	
 	@Override
 	public boolean include(TreeWalk walker) throws MissingObjectException, IncorrectObjectTypeException, IOException {
@@ -29,6 +42,6 @@ public final class NonSourceCodeFileExtensionBlacklister extends BaseTreeFilter 
 		
 		name = name.substring(extensionStart);
 		
-		return allowedExtensions.contains(name);
+		return sourceExtensions.contains(name);
 	}
 }
