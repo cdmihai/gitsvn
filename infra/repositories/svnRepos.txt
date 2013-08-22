@@ -1,7 +1,7 @@
-git://github.com/apache/lucene.git
-git://github.com/apache/lucene-solr.git
 firebird
 freecol
+git://github.com/apache/lucene-solr.git
+git://github.com/apache/lucene.git
 glpk
 gridlab
 groove
