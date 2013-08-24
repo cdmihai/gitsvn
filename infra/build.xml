@@ -3,408 +3,354 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. -->
-<project basedir="." default="build" name="infra">
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>  
-	<property file="build.properties"/>
-	<property environment="env"/>
-	<property name="junit.output.dir" value="junit"/>
-	<property name="org.eclipse.jgit.location" value="../jgit/org.eclipse.jgit"/>
-	<property name="org.eclipse.jgit.console.location" value="../jgit/org.eclipse.jgit.console"/>
-	<property name="org.eclipse.jgit.http.server.location" value="../jgit/org.eclipse.jgit.http.server"/>
-	<property name="org.eclipse.jgit.iplog.location" value="../jgit/org.eclipse.jgit.iplog"/>
-	<property name="org.eclipse.jgit.junit.location" value="../jgit/org.eclipse.jgit.junit"/>
-	<property name="org.eclipse.jgit.junit.http.location" value="../jgit/org.eclipse.jgit.junit.http"/>
-	<property name="org.eclipse.jgit.http.test.location" value="../jgit/org.eclipse.jgit.http.test"/>
-	<property name="org.eclipse.jgit.ui.location" value="../jgit/org.eclipse.jgit.ui"/>
-	<property name="org.eclipse.jgit.pgm.location" value="../jgit/org.eclipse.jgit.pgm"/>
-	<property name="org.eclipse.jgit.test.location" value="../jgit/org.eclipse.jgit.test"/>
-	<property name="org.eclipse.jgit.pgm.test.location" value="../jgit/org.eclipse.jgit.pgm.test"/>
-	<property name="org.eclipse.jgit.ant.location" value="../jgit/org.eclipse.jgit.ant"/>
-	<property name="org.eclipse.jgit.ant.test.location" value="../jgit/org.eclipse.jgit.ant.test"/>
-	<property name="org.gitective.core.location" value="../gitective/org.gitective.core"/>
-	<property name="debuglevel" value="source,lines,vars"/>
-	<property name="target" value="1.7"/>
-	<property name="source" value="1.7"/>
-	<path id="Plug-in Dependencies.libraryclasspath">
-		<pathelement location="${ECLIPSE_HOME}/plugins/com.jcraft.jsch_0.1.46.v201205102330.jar"/>
-	</path>
-	<path id="org.eclipse.jgit.classpath">
-		<pathelement location="${org.eclipse.jgit.location}/bin"/>
-		<path refid="Plug-in Dependencies.libraryclasspath"/>
-	</path>
-	<path id="JUnit 4.libraryclasspath">
-		<pathelement location="${ECLIPSE_HOME}/${JUNIT_ECLIPSE_PATH}"/>
-		<pathelement location="${ECLIPSE_HOME}/${HAMCREST_ECLIPSE_PATH}"/>
-	</path>
-	<path id="org.gitective.core.classpath">
-		<pathelement location="${org.gitective.core.location}/bin"/>
-		<path refid="org.eclipse.jgit.classpath"/>
-		<path refid="JUnit 4.libraryclasspath"/>
-	</path>
-	<!--<path id="Groovy DSL Support.libraryclasspath">
-        <pathelement location="C:/Users/altern/.groovy/greclipse/global_dsld_support"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.codehaus.groovy_2.0.6.xx-RELEASE-20121219-0800-e42/plugin_dsld_support/"/>
-    </path>-->
-	<path id="org.eclipse.jgit.ant.classpath">
-		<path refid="Plug-in Dependencies.libraryclasspath"/>
-		<pathelement location="${org.eclipse.jgit.ant.location}/bin"/>
-	</path>
-	<path id="org.eclipse.jgit.ant.test.classpath">
-		<path refid="Plug-in Dependencies.libraryclasspath"/>
-		<pathelement location="${org.eclipse.jgit.ant.test.location}/bin"/>
-	</path>
-	<path id="org.eclipse.jgit.console.classpath">
-		<path refid="Plug-in Dependencies.libraryclasspath"/>
-		<pathelement location="${org.eclipse.jgit.console.location}/bin"/>
-	</path>
-	<path id="org.eclipse.jgit.http.server.classpath">
-		<pathelement location="${org.eclipse.jgit.http.server.location}/bin"/>
-		<path refid="Plug-in Dependencies.libraryclasspath"/>
-	</path>
-	<path id="org.eclipse.jgit.http.test.classpath">
-		<path refid="Plug-in Dependencies.libraryclasspath"/>
-		<pathelement location="${org.eclipse.jgit.http.test.location}/bin"/>
-	</path>
-	<path id="org.eclipse.jgit.iplog.classpath">
-		<pathelement location="${org.eclipse.jgit.iplog.location}/bin"/>
-		<path refid="Plug-in Dependencies.libraryclasspath"/>
-	</path>
-	<path id="org.eclipse.jgit.junit.classpath">
-		<path refid="Plug-in Dependencies.libraryclasspath"/>
-		<pathelement location="${org.eclipse.jgit.junit.location}/bin"/>
-	</path>
-	<path id="org.eclipse.jgit.junit.http.classpath">
-		<path refid="Plug-in Dependencies.libraryclasspath"/>
-		<pathelement location="${org.eclipse.jgit.junit.http.location}/bin"/>
-	</path>
-	<path id="org.eclipse.jgit.pgm.classpath">
-		<pathelement location="${org.eclipse.jgit.pgm.location}/bin"/>
-		<path refid="Plug-in Dependencies.libraryclasspath"/>
-	</path>
-	<path id="org.eclipse.jgit.pgm.test.classpath">
-		<pathelement location="${org.eclipse.jgit.pgm.test.location}/bin"/>
-		<path refid="Plug-in Dependencies.libraryclasspath"/>
-	</path>
-	<path id="org.eclipse.jgit.test.classpath">
-		<pathelement location="${org.eclipse.jgit.test.location}/bin"/>
-		<path refid="Plug-in Dependencies.libraryclasspath"/>
-	</path>
-	<path id="org.eclipse.jgit.ui.classpath">
-		<path refid="Plug-in Dependencies.libraryclasspath"/>
-		<pathelement location="${org.eclipse.jgit.ui.location}/bin"/>
-	</path>
-	<path id="infra.classpath">
-		<pathelement location="bin"/>
-		<path refid="org.gitective.core.classpath"/>
-		<path refid="JUnit 4.libraryclasspath"/>
-		<!--<path refid="Groovy DSL Support.libraryclasspath"/> -->
-		<path refid="org.eclipse.jgit.classpath"/>
-		<path refid="org.eclipse.jgit.ant.classpath"/>
-		<path refid="org.eclipse.jgit.ant.test.classpath"/>
-		<path refid="org.eclipse.jgit.console.classpath"/>
-		<path refid="org.eclipse.jgit.http.server.classpath"/>
-		<path refid="org.eclipse.jgit.http.test.classpath"/>
-		<path refid="org.eclipse.jgit.iplog.classpath"/>
-		<path refid="org.eclipse.jgit.junit.classpath"/>
-		<path refid="org.eclipse.jgit.junit.http.classpath"/>
-		<path refid="org.eclipse.jgit.pgm.classpath"/>
-		<path refid="org.eclipse.jgit.pgm.test.classpath"/>
-		<path refid="org.eclipse.jgit.test.classpath"/>
-		<path refid="org.eclipse.jgit.ui.classpath"/>
-	</path>
-	<path id="run.AnalysisLauncher.bootclasspath">
-		<fileset dir="${java.home}/lib" includes="*.jar"/>
-		<fileset dir="${java.home}/lib/ext" includes="*.jar"/>
-	</path>
-	<path id="run.BatchAnalysisLauncher.bootclasspath">
-		<fileset dir="${java.home}/lib" includes="*.jar"/>
-		<fileset dir="${java.home}/lib/ext" includes="*.jar"/>
-	</path>
-	<path id="run.DateCollectorTest.bootclasspath">
-		<fileset dir="${java.home}/lib" includes="*.jar"/>
-		<fileset dir="${java.home}/lib/ext" includes="*.jar"/>
-	</path>
-	<path id="run.IssuesCollectorTest.bootclasspath">
-		<fileset dir="${java.home}/lib" includes="*.jar"/>
-		<fileset dir="${java.home}/lib/ext" includes="*.jar"/>
-	</path>
-	<path id="run.IssuesCollectorTest.testIssues8.bootclasspath">
-		<fileset dir="${java.home}/lib" includes="*.jar"/>
-		<fileset dir="${java.home}/lib/ext" includes="*.jar"/>
-	</path>
-	<path id="run.IssuesCollectorTest.testIssuesCloseKeyword.bootclasspath">
-		<fileset dir="${java.home}/lib" includes="*.jar"/>
-		<fileset dir="${java.home}/lib/ext" includes="*.jar"/>
-	</path>
-	<path id="run.PrivateRepoAnalysisLauncher.bootclasspath">
-		<fileset dir="${java.home}/lib" includes="*.jar"/>
-		<fileset dir="${java.home}/lib/ext" includes="*.jar"/>
-	</path>
-	<path id="run.PureReposAnalysis.bootclasspath">
-		<fileset dir="${java.home}/lib" includes="*.jar"/>
-		<fileset dir="${java.home}/lib/ext" includes="*.jar"/>
-	</path>
-	<path id="run.SvnToGitRepoAnalysisLauncher.bootclasspath">
-		<fileset dir="${java.home}/lib" includes="*.jar"/>
-		<fileset dir="${java.home}/lib/ext" includes="*.jar"/>
-	</path>
-	<target name="init" if="build.properties.present">
-		<mkdir dir="bin"/>
-		<copy includeemptydirs="false" todir="bin">
-			<fileset dir="src">
-				<exclude name="**/*.java"/>
-			</fileset>
-		</copy>
-		<copy includeemptydirs="false" todir="bin">
-			<fileset dir="test">
-				<exclude name="**/*.java"/>
-			</fileset>
-		</copy>
-	</target>
-	<target name="clean">
-		<delete dir="bin"/>
-	</target>
-	<target depends="clean" name="cleanall">
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.location}" inheritAll="false" target="clean"/>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.console.location}" inheritAll="false" target="clean"/>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.http.server.location}" inheritAll="false" target="clean"/>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.iplog.location}" inheritAll="false" target="clean"/>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.junit.location}" inheritAll="false" target="clean"/>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.junit.http.location}" inheritAll="false" target="clean"/>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.http.test.location}" inheritAll="false" target="clean"/>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.ui.location}" inheritAll="false" target="clean"/>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.pgm.location}" inheritAll="false" target="clean"/>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.test.location}" inheritAll="false" target="clean"/>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.pgm.test.location}" inheritAll="false" target="clean"/>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.ant.location}" inheritAll="false" target="clean"/>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.ant.test.location}" inheritAll="false" target="clean"/>
-		<ant antfile="build.xml" dir="${org.gitective.core.location}" inheritAll="false" target="clean"/>
-	</target>
-
-	<target depends="build-subprojects,build-project" name="build" />
-	<target name="build-subprojects">
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.location}" inheritAll="false" target="build-project">
-			<propertyset>
-				<propertyref name="build.compiler"/>
-			</propertyset>
-		</ant>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.console.location}" inheritAll="false" target="build-project">
-			<propertyset>
-				<propertyref name="build.compiler"/>
-			</propertyset>
-		</ant>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.http.server.location}" inheritAll="false" target="build-project">
-			<propertyset>
-				<propertyref name="build.compiler"/>
-			</propertyset>
-		</ant>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.iplog.location}" inheritAll="false" target="build-project">
-			<propertyset>
-				<propertyref name="build.compiler"/>
-			</propertyset>
-		</ant>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.junit.location}" inheritAll="false" target="build-project">
-			<propertyset>
-				<propertyref name="build.compiler"/>
-			</propertyset>
-		</ant>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.junit.http.location}" inheritAll="false" target="build-project">
-			<propertyset>
-				<propertyref name="build.compiler"/>
-			</propertyset>
-		</ant>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.http.test.location}" inheritAll="false" target="build-project">
-			<propertyset>
-				<propertyref name="build.compiler"/>
-			</propertyset>
-		</ant>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.ui.location}" inheritAll="false" target="build-project">
-			<propertyset>
-				<propertyref name="build.compiler"/>
-			</propertyset>
-		</ant>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.pgm.location}" inheritAll="false" target="build-project">
-			<propertyset>
-				<propertyref name="build.compiler"/>
-			</propertyset>
-		</ant>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.test.location}" inheritAll="false" target="build-project">
-			<propertyset>
-				<propertyref name="build.compiler"/>
-			</propertyset>
-		</ant>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.pgm.test.location}" inheritAll="false" target="build-project">
-			<propertyset>
-				<propertyref name="build.compiler"/>
-			</propertyset>
-		</ant>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.ant.location}" inheritAll="false" target="build-project">
-			<propertyset>
-				<propertyref name="build.compiler"/>
-			</propertyset>
-		</ant>
-		<ant antfile="build.xml" dir="${org.eclipse.jgit.ant.test.location}" inheritAll="false" target="build-project">
-			<propertyset>
-				<propertyref name="build.compiler"/>
-			</propertyset>
-		</ant>
-		<ant antfile="build.xml" dir="${org.gitective.core.location}" inheritAll="false" target="build-project">
-			<propertyset>
-				<propertyref name="build.compiler"/>
-			</propertyset>
-		</ant>
-	</target>
-	<target depends="init" name="build-project">
-		<echo message="${ant.project.name}: ${ant.file}"/>
-		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
-			<src path="src"/>
-			<src path="test"/>
-			<classpath refid="infra.classpath"/>
-		</javac>
-	</target>
-	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-		<copy todir="${ant.library.dir}">
-			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-		</copy>
-		<unzip dest="${ant.library.dir}">
-			<patternset includes="jdtCompilerAdapter.jar"/>
-			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-		</unzip>
-	</target>
-	<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-		<antcall target="build"/>
-	</target>
-	<macrodef name="echo-path">
-		<attribute name="pathref" />
-	   	<sequential>
-	   		<echo>echoing path=@{pathref}</echo>
-			<for param="fromfile">
-	   			<path refid="@{pathref}"  />
-	   			<sequential>
-					<echo>&#x9;@{fromfile}</echo>
-	   			</sequential>
-			</for>
-	   	</sequential>
-	</macrodef>
-	
-	<target name="AnalysisLauncher">
-		<echo message="Classpath:"/>
-		<echo-path pathref="infra.classpath" />
-		<echo message="Boot classpath:"/>
-		<echo-path pathref="run.AnalysisLauncher.bootclasspath" />
-		
-		<java classname="edu.illinois.gitsvn.infra.AnalysisLauncher" failonerror="true" fork="yes">
-			<classpath refid="infra.classpath"/>
-			<bootclasspath>
-				<path refid="run.AnalysisLauncher.bootclasspath"/>
-			</bootclasspath>
-		</java>
-	</target>
-	<target name="BatchAnalysisLauncher">
-		<echo message="Classpath:" />
-		<echo-path pathref="infra.classpath" />
-		<echo message="Boot classpath:"/>
-		<echo-path pathref="run.AnalysisLauncher.bootclasspath" />
-		
-		<java classname="edu.illinois.gitsvn.infra.BatchAnalysisLauncher" failonerror="true" fork="yes">
-			<classpath refid="infra.classpath"/>
-			<bootclasspath>
-				<path refid="run.BatchAnalysisLauncher.bootclasspath"/>
-			</bootclasspath>
-		</java>
-	</target>
-	<target name="DateCollectorTest">
-		<mkdir dir="${junit.output.dir}"/>
-		<junit fork="yes" printsummary="withOutAndErr">
-			<formatter type="xml"/>
-			<test name="edu.illinois.gitsvn.infra.DateCollectorTest" todir="${junit.output.dir}"/>
-			<classpath refid="infra.classpath"/>
-			<bootclasspath>
-				<path refid="run.DateCollectorTest.bootclasspath"/>
-			</bootclasspath>
-		</junit>
-	</target>
-	<target name="IssuesCollectorTest">
-		<mkdir dir="${junit.output.dir}"/>
-		<junit fork="yes" printsummary="withOutAndErr">
-			<formatter type="xml"/>
-			<test name="edu.illinois.gitsvn.infra.IssuesCollectorTest" todir="${junit.output.dir}"/>
-			<classpath refid="infra.classpath"/>
-			<bootclasspath>
-				<path refid="run.IssuesCollectorTest.bootclasspath"/>
-			</bootclasspath>
-		</junit>
-	</target>
-	<target name="IssuesCollectorTest.testIssues8">
-		<mkdir dir="${junit.output.dir}"/>
-		<junit fork="yes" printsummary="withOutAndErr">
-			<formatter type="xml"/>
-			<test name="edu.illinois.gitsvn.infra.IssuesCollectorTest" todir="${junit.output.dir}"/>
-			<classpath refid="infra.classpath"/>
-			<bootclasspath>
-				<path refid="run.IssuesCollectorTest.testIssues8.bootclasspath"/>
-			</bootclasspath>
-		</junit>
-	</target>
-	<target name="IssuesCollectorTest.testIssuesCloseKeyword">
-		<mkdir dir="${junit.output.dir}"/>
-		<junit fork="yes" printsummary="withOutAndErr">
-			<formatter type="xml"/>
-			<test name="edu.illinois.gitsvn.infra.IssuesCollectorTest" todir="${junit.output.dir}"/>
-			<classpath refid="infra.classpath"/>
-			<bootclasspath>
-				<path refid="run.IssuesCollectorTest.testIssuesCloseKeyword.bootclasspath"/>
-			</bootclasspath>
-		</junit>
-	</target>
-	<target name="PrivateRepoAnalysisLauncher">
-		<echo message="Classpath:" />
-		<echo-path pathref="infra.classpath" />
-		<echo message="Boot classpath:"/>
-		<echo-path pathref="run.AnalysisLauncher.bootclasspath" />
-		
-		<java classname="edu.illinois.gitsvn.analysis.launchers.PrivateRepoAnalysisLauncher" failonerror="true" fork="yes">
-			<classpath refid="infra.classpath"/>
-			<bootclasspath>
-				<path refid="run.PrivateRepoAnalysisLauncher.bootclasspath"/>
-			</bootclasspath>
-		</java>
-	</target>
-	<target name="PureReposAnalysis">
-		<echo message="Classpath:" />
-		<echo-path pathref="infra.classpath" />
-		<echo message="Boot classpath:"/>
-		<echo-path pathref="run.AnalysisLauncher.bootclasspath" />
-		
-		<java classname="edu.illinois.gitsvn.analysis.launchers.PureReposAnalysis" failonerror="true" fork="yes">
-			<classpath refid="infra.classpath"/>
-			<bootclasspath>
-				<path refid="run.PureReposAnalysis.bootclasspath"/>
-			</bootclasspath>
-		</java>
-	</target>
-	<target name="SvnToGitRepoAnalysisLauncher">
-		<echo message="Classpath:" />
-		<echo-path pathref="infra.classpath" />
-		<echo message="Boot classpath:"/>
-		<echo-path pathref="run.AnalysisLauncher.bootclasspath" />
-		
-		<java classname="edu.illinois.gitsvn.analysis.launchers.SvnToGitRepoAnalysisLauncher" failonerror="true" fork="yes">
-			<classpath refid="infra.classpath"/>
-			<bootclasspath>
-				<path refid="run.SvnToGitRepoAnalysisLauncher.bootclasspath"/>
-			</bootclasspath>
-		</java>
-	</target>
-	<target name="junitreport">
-		<junitreport todir="${junit.output.dir}">
-			<fileset dir="${junit.output.dir}">
-				<include name="TEST-*.xml"/>
-			</fileset>
-			<report format="frames" todir="${junit.output.dir}"/>
-		</junitreport>
-	</target>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="infra">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../../../../home/mihai/eclipseJ"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="org.eclipse.jgit.location" value="../jgit/org.eclipse.jgit"/>
+    <property name="org.eclipse.jgit.ant.location" value="../jgit/org.eclipse.jgit.ant"/>
+    <property name="org.eclipse.jgit.ant.test.location" value="../jgit/org.eclipse.jgit.ant.test"/>
+    <property name="org.eclipse.jgit.console.location" value="../jgit/org.eclipse.jgit.console"/>
+    <property name="org.eclipse.jgit.http.server.location" value="../jgit/org.eclipse.jgit.http.server"/>
+    <property name="org.eclipse.jgit.http.test.location" value="../jgit/org.eclipse.jgit.http.test"/>
+    <property name="org.eclipse.jgit.iplog.location" value="../jgit/org.eclipse.jgit.iplog"/>
+    <property name="org.eclipse.jgit.junit.location" value="../jgit/org.eclipse.jgit.junit"/>
+    <property name="org.eclipse.jgit.junit.http.location" value="../jgit/org.eclipse.jgit.junit.http"/>
+    <property name="org.eclipse.jgit.pgm.location" value="../jgit/org.eclipse.jgit.pgm"/>
+    <property name="org.eclipse.jgit.pgm.test.location" value="../jgit/org.eclipse.jgit.pgm.test"/>
+    <property name="org.eclipse.jgit.test.location" value="../jgit/org.eclipse.jgit.test"/>
+    <property name="org.eclipse.jgit.ui.location" value="../jgit/org.eclipse.jgit.ui"/>
+    <property name="org.gitective.core.location" value="../gitective/org.gitective.core"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <path id="Plug-in Dependencies.libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.jcraft.jsch_0.1.46.v201205102330.jar"/>
+    </path>
+    <path id="org.eclipse.jgit.classpath">
+        <pathelement location="${org.eclipse.jgit.location}/bin"/>
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+    </path>
+    <path id="JUnit 4.libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.10.0.v4_10_0_v20120426-0900/junit.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
+    </path>
+    <path id="org.gitective.core.classpath">
+        <pathelement location="${org.gitective.core.location}/bin"/>
+        <path refid="org.eclipse.jgit.classpath"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+    </path>
+    <path id="Persisted container [GROOVY_DSL_SUPPORT for project [infra]].libraryclasspath"/>
+    <path id="org.eclipse.jgit.ant.classpath">
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+        <pathelement location="${org.eclipse.jgit.ant.location}/bin"/>
+    </path>
+    <path id="org.eclipse.jgit.ant.test.classpath">
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+        <pathelement location="${org.eclipse.jgit.ant.test.location}/bin"/>
+    </path>
+    <path id="org.eclipse.jgit.console.classpath">
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+        <pathelement location="${org.eclipse.jgit.console.location}/bin"/>
+    </path>
+    <path id="org.eclipse.jgit.http.server.classpath">
+        <pathelement location="${org.eclipse.jgit.http.server.location}/bin"/>
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+    </path>
+    <path id="org.eclipse.jgit.http.test.classpath">
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+        <pathelement location="${org.eclipse.jgit.http.test.location}/bin"/>
+    </path>
+    <path id="org.eclipse.jgit.iplog.classpath">
+        <pathelement location="${org.eclipse.jgit.iplog.location}/bin"/>
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+    </path>
+    <path id="org.eclipse.jgit.junit.classpath">
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+        <pathelement location="${org.eclipse.jgit.junit.location}/bin"/>
+    </path>
+    <path id="org.eclipse.jgit.junit.http.classpath">
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+        <pathelement location="${org.eclipse.jgit.junit.http.location}/bin"/>
+    </path>
+    <path id="org.eclipse.jgit.pgm.classpath">
+        <pathelement location="${org.eclipse.jgit.pgm.location}/bin"/>
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+    </path>
+    <path id="org.eclipse.jgit.pgm.test.classpath">
+        <pathelement location="${org.eclipse.jgit.pgm.test.location}/bin"/>
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+    </path>
+    <path id="org.eclipse.jgit.test.classpath">
+        <pathelement location="${org.eclipse.jgit.test.location}/bin"/>
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+    </path>
+    <path id="org.eclipse.jgit.ui.classpath">
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+        <pathelement location="${org.eclipse.jgit.ui.location}/bin"/>
+    </path>
+    <path id="infra.classpath">
+        <pathelement location="bin"/>
+        <path refid="org.gitective.core.classpath"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+        <path refid="Persisted container [GROOVY_DSL_SUPPORT for project [infra]].libraryclasspath"/>
+        <path refid="org.eclipse.jgit.classpath"/>
+        <path refid="org.eclipse.jgit.ant.classpath"/>
+        <path refid="org.eclipse.jgit.ant.test.classpath"/>
+        <path refid="org.eclipse.jgit.console.classpath"/>
+        <path refid="org.eclipse.jgit.http.server.classpath"/>
+        <path refid="org.eclipse.jgit.http.test.classpath"/>
+        <path refid="org.eclipse.jgit.iplog.classpath"/>
+        <path refid="org.eclipse.jgit.junit.classpath"/>
+        <path refid="org.eclipse.jgit.junit.http.classpath"/>
+        <path refid="org.eclipse.jgit.pgm.classpath"/>
+        <path refid="org.eclipse.jgit.pgm.test.classpath"/>
+        <path refid="org.eclipse.jgit.test.classpath"/>
+        <path refid="org.eclipse.jgit.ui.classpath"/>
+    </path>
+    <path id="run.AnalysisLauncher.bootclasspath">
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <path id="run.DirectoryAnalysisLauncher.bootclasspath">
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <path id="run.PrivateRepoAnalysisLauncher.bootclasspath">
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <path id="run.PureReposAnalysis.bootclasspath">
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <path id="run.SingleRepoLauncher.bootclasspath">
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <path id="run.SvnToGitRepoAnalysisLauncher.bootclasspath">
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <path id="run.test.bootclasspath">
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="test">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall">
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.ant.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.ant.test.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.console.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.http.server.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.http.test.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.iplog.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.junit.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.junit.http.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.pgm.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.pgm.test.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.test.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.ui.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${org.gitective.core.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.ant.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.ant.test.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.console.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.http.server.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.http.test.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.iplog.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.junit.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.junit.http.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.pgm.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.pgm.test.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.test.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${org.eclipse.jgit.ui.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${org.gitective.core.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <src path="test"/>
+            <classpath refid="infra.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="AnalysisLauncher">
+        <java classname="edu.illinois.gitsvn.infra.AnalysisLauncher" failonerror="true" fork="yes">
+            <jvmarg line="-Xmx5000M"/>
+            <classpath refid="infra.classpath"/>
+            <bootclasspath>
+                <path refid="run.AnalysisLauncher.bootclasspath"/>
+            </bootclasspath>
+        </java>
+    </target>
+    <target name="DirectoryAnalysisLauncher">
+        <java classname="edu.illinois.gitsvn.infra.DirectoryAnalysisLauncher" failonerror="true" fork="yes">
+            <jvmarg line="-Xmx5000M"/>
+            <classpath refid="infra.classpath"/>
+            <bootclasspath>
+                <path refid="run.DirectoryAnalysisLauncher.bootclasspath"/>
+            </bootclasspath>
+        </java>
+    </target>
+    <target name="PrivateRepoAnalysisLauncher">
+        <java classname="edu.illinois.gitsvn.analysis.launchers.PrivateRepoAnalysisLauncher" failonerror="true" fork="yes">
+            <classpath refid="infra.classpath"/>
+            <bootclasspath>
+                <path refid="run.PrivateRepoAnalysisLauncher.bootclasspath"/>
+            </bootclasspath>
+        </java>
+    </target>
+    <target name="PureReposAnalysis">
+        <java classname="edu.illinois.gitsvn.analysis.launchers.PureReposAnalysis" failonerror="true" fork="yes">
+            <classpath refid="infra.classpath"/>
+            <bootclasspath>
+                <path refid="run.PureReposAnalysis.bootclasspath"/>
+            </bootclasspath>
+        </java>
+    </target>
+    <target name="SingleRepoLauncher">
+        <java classname="edu.illinois.gitsvn.infra.SingleRepoLauncher" failonerror="true" fork="yes">
+            <classpath refid="infra.classpath"/>
+            <bootclasspath>
+                <path refid="run.SingleRepoLauncher.bootclasspath"/>
+            </bootclasspath>
+        </java>
+    </target>
+    <target name="SvnToGitRepoAnalysisLauncher">
+        <java classname="edu.illinois.gitsvn.analysis.launchers.SvnToGitRepoAnalysisLauncher" failonerror="true" fork="yes">
+            <classpath refid="infra.classpath"/>
+            <bootclasspath>
+                <path refid="run.SvnToGitRepoAnalysisLauncher.bootclasspath"/>
+            </bootclasspath>
+        </java>
+    </target>
+    <target name="test">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="edu.illinois.gitsvn.infra.CSVwriterTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.FilesCollectorTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.RepositoryCrawlerTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.collectors.BranchCollectorTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.collectors.DateCollectorTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.collectors.IssuesCollectorTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.collectors.ModifyDiffCountFilterTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.collectors.SHA1CollectorTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.collectors.diff.editfilter.CommentEditFilterTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.collectors.diff.editfilter.FormatEditFilterTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.collectors.diff.editfilter.ModifyDiffCountFilterIntegrationTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.filters.JavaLineNumberFilterTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.filters.LineNumberFilterTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.filters.MetadataServiceTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.filters.PipelineCommitFilterTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.filters.blacklister.CopyrightJavadocImportBlacklisterTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.filters.blacklister.DeleteBlacklisterFilter" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.filters.blacklister.FileOperationBlacklisterTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.filters.blacklister.MergeMessageCommitBlackListerTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.filters.blacklister.MultipleParentCommitBlacklisterTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.filters.blacklister.NonSourceFileExtensionBlacklisterTest" todir="${junit.output.dir}"/>
+            <test name="edu.illinois.gitsvn.infra.util.StringUtilsTest" todir="${junit.output.dir}"/>
+            <classpath refid="infra.classpath"/>
+            <bootclasspath>
+                <path refid="run.test.bootclasspath"/>
+            </bootclasspath>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
 </project>

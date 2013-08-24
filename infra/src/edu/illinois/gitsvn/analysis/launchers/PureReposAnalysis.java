@@ -10,7 +10,7 @@ public class PureReposAnalysis {
 				new SingleRepoLauncher(arg).run();
 			}
 		} else {
-			new DirectoryAnalysisLauncher("../../pureGitRepos").run();
+			new DirectoryAnalysisLauncher("/home/codo/workspace/buggyGit").run();
 			// new DirectoryAnalysisLauncher("../../pureSVNRepos");
 		}
 	}
