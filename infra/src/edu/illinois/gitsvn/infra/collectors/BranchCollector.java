@@ -13,14 +13,14 @@ import org.eclipse.jgit.errors.StopWalkException;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.api.CheckoutCommand;
+import org.eclipse.jgit.api.CreateBranchCommand;
+import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.CheckoutConflictException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRefNameException;
 import org.eclipse.jgit.api.errors.RefAlreadyExistsException;
 import org.eclipse.jgit.api.errors.RefNotFoundException;
-import org.eclipse.jgit.api.CheckoutCommand;
-import org.eclipse.jgit.api.CreateBranchCommand;
-import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.storage.file.CheckoutEntry;
@@ -34,8 +34,6 @@ import edu.illinois.gitsvn.infra.DataCollector;
 public class BranchCollector extends CommitFilter implements DataCollector {
 
 	private String branchName;
-	
-	private Repository repository;
 	
 	private Git git;
 	
@@ -110,6 +108,8 @@ public class BranchCollector extends CommitFilter implements DataCollector {
 					e.printStackTrace();
 				} catch ( GitAPIException e) {
 					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (RuntimeException e) {
 					e.printStackTrace();
 				}
 			}

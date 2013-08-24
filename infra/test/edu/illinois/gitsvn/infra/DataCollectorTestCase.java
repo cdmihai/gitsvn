@@ -11,17 +11,17 @@ import edu.illinois.gitsvn.infra.util.DataCollectorWrapper;
 
 public abstract class DataCollectorTestCase extends GitTestCase {
 
-	protected DataCollectorWrapper collector;
-	protected CommitFinder finder;
+        protected DataCollectorWrapper collector;
+        protected CommitFinder finder;
 
-	public void initTest(DataCollector collectorUnderTest) {
-		collector = new DataCollectorWrapper(collectorUnderTest);
-		try {
-			((CommitFilter)collectorUnderTest).setRepository(Git.open(testRepo).getRepository());
-		} catch (IOException e) {
-		}
-		finder = new CommitFinder(testRepo);
-		finder.setFilter(collector);
-	}
+        public void initTest(DataCollector collectorUnderTest) {
+                collector = new DataCollectorWrapper(collectorUnderTest);
+                try {
+                        ((CommitFilter)collectorUnderTest).setRepository(Git.open(testRepo).getRepository());
+                } catch (IOException e) {
+                }
+                finder = new CommitFinder(testRepo);
+                finder.setFilter(collector);
+        }
 
 }
