@@ -1,5 +1,6 @@
 package edu.illinois.gitsvn.infra.collectors;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +23,16 @@ import edu.illinois.gitsvn.infra.util.CSVWriter;
 public class CSVCommitPrinter extends AnalysisFilter {
 	
 	public static final String PROJ_NAME_PROP = "ProjectName";
+	public static final String RESULTS_PATH_PROP = "ResultsPath";
 
 	private CSVWriter csv;
 	private List<DataCollector> allCollectors;
+
+	private static final String defaultResultsPath = "../../results";
 	
 	public CSVCommitPrinter(PipelineCommitFilter filter) {
 		super(filter);
+		
 	}
 	
 	@Override
@@ -45,11 +50,23 @@ public class CSVCommitPrinter extends AnalysisFilter {
 	@Override
 	public void end() {
 		String projectName = MetadataService.getService().getInfo(PROJ_NAME_PROP);
+		String resultsPath = getResultsPath();
 		try {
-			csv.dumpToFile("../../results/" + projectName + ".csv");
+			csv.dumpToFile(resultsPath + File.pathSeparator + projectName + ".csv");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	private String getResultsPath() {
+		String path = MetadataService.getService().getInfo(RESULTS_PATH_PROP);
+		
+		if (path == null){
+			return defaultResultsPath;
+		}
+		else{
+			return path;
 		}
 	}
 
