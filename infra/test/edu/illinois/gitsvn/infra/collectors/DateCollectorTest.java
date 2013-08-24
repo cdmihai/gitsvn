@@ -1,4 +1,4 @@
-package edu.illinois.gitsvn.infra;
+package edu.illinois.gitsvn.infra.collectors;
 
 import org.junit.Before;
 import org.junit.Test;

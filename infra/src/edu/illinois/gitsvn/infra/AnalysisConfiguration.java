@@ -1,6 +1,19 @@
 package edu.illinois.gitsvn.infra;
 
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.eclipse.jgit.api.CheckoutCommand;
+import org.eclipse.jgit.api.CreateBranchCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.CheckoutConflictException;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.InvalidRefNameException;
+import org.eclipse.jgit.api.errors.RefAlreadyExistsException;
+import org.eclipse.jgit.api.errors.RefNotFoundException;
+import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.lib.Repository;
 
 import edu.illinois.gitsvn.infra.collectors.AuthorCollector;
 import edu.illinois.gitsvn.infra.collectors.BranchCollector;
@@ -33,6 +46,7 @@ public abstract class AnalysisConfiguration {
 		RepositoryCrawler crawler = new RepositoryCrawler();
 		PipelineCommitFilter pipeline = configurePipelineAnalysis();
 		Git repo = getGitRepo();
+		//branchesCheckout(repo);
 
 		System.out.println("Running for: " + getProjectName());
 		crawler.crawlRepo(repo, pipeline);
@@ -98,5 +112,48 @@ public abstract class AnalysisConfiguration {
 		AnalysisFilter agregator = new CSVCommitPrinter(pipeLineFilter);
 		pipeLineFilter.setDataAgregator(agregator);
 		return pipeLineFilter;
+	}
+
+	public void branchesCheckout(Git git) {
+		Repository repository = git.getRepository();
+		String branchName = "";
+		Set<Entry<String, Ref>> refs = repository.getAllRefs().entrySet();
+		for (Entry<String, Ref> ref : refs) {
+			if (ref.getKey().startsWith(Constants.R_REMOTES) && !ref.getKey().contains(Constants.HEAD)) {
+				branchName = ref.getValue().getName().split(Constants.R_REMOTES)[1];
+				// TODO: replace with logging
+				System.out.println("Trying to checkout branch: " + branchName + " (" + branchName.split("origin/")[1]
+						+ ")");
+				CheckoutCommand checkoutCommand = git.checkout();
+				checkoutCommand.setForce(true);
+				checkoutCommand.setCreateBranch(true);
+				checkoutCommand.setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.TRACK);
+				checkoutCommand.setName(branchName.split("origin/")[1]);
+				checkoutCommand.setStartPoint(branchName);
+				try {
+					checkoutCommand.call();
+					// TODO: replace with logging
+					// println "Successfully checked out branch " + branchName;
+				} catch (RefAlreadyExistsException e) {
+					// TODO: replace with logging
+					// println "Skipping branch (already exists): " +
+					// branchName;
+				} catch (CheckoutConflictException e) {
+					// TODO: replace with logging
+					// println
+					// "There were conflicts on ${branchName} branch checkout: "
+					// + e.getMessage()
+				} catch (RefNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidRefNameException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (GitAPIException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }

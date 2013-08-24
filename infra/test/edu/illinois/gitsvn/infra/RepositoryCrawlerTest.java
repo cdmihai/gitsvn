@@ -32,8 +32,5 @@ public class RepositoryCrawlerTest extends GitTestCase{
 		CSVCommitPrinter agregator = (CSVCommitPrinter) pipeline.getAgregator();
 		List<List<String>> rows = agregator.getCSVWriter().getRows();
 		assertEquals(3,rows.size());
-		
-		File file = new File("mumu.csv");
-		assertTrue(file.exists());
 	}
 }
