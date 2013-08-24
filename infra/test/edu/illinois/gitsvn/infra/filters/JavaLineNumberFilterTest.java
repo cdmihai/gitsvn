@@ -1,4 +1,4 @@
-package edu.illinois.gitsvn.infra;
+package edu.illinois.gitsvn.infra.filters;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,17 +6,18 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.illinois.gitsvn.infra.collectors.diff.AllLineNumberFilter;
+import edu.illinois.gitsvn.infra.collectors.DataCollectorTestCase;
+import edu.illinois.gitsvn.infra.collectors.diff.JavaLineNumberFilter;
 
 //TODO test more line diff cases. Just to be sure.
 //TODO test how it handles renames
 
-public class LineNumberFilterTest extends DataCollectorTestCase {
+public class JavaLineNumberFilterTest extends DataCollectorTestCase {
 
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		initTest(new AllLineNumberFilter());
+		initTest(new JavaLineNumberFilter());
 	}
 
 	@Test
@@ -95,7 +96,7 @@ public class LineNumberFilterTest extends DataCollectorTestCase {
 		finder.find();
 		String actual = collector.data;
 
-		assertEquals("6; 12; ", actual);
+		assertEquals("4; 8; ", actual);
 
 	}
 }
