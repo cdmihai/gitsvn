@@ -28,7 +28,7 @@ public class JavaLineNumberFilter extends DiffCountFilter implements
 
 		TreeFilter previousFilter = walk.getFilter();
 		TreeFilter newFilter = AndTreeFilter.create(
-				new NonSourceCodeFileExtensionBlacklister(), previousFilter);
+				new NonSourceCodeFileExtensionBlacklister(NonSourceCodeFileExtensionBlacklister.JAVA_EXTENSIONS), previousFilter);
 		walk.setFilter(newFilter);
 
 		return walk;

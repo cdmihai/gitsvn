@@ -16,7 +16,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class NonJavaFileExtensionBlacklisterTest extends GitTestCase {
+public class NonSourceFileExtensionBlacklisterTest extends GitTestCase {
 
 	private List<String> paths;
 	private List<String> contents;
@@ -65,7 +65,8 @@ public class NonJavaFileExtensionBlacklisterTest extends GitTestCase {
 
 	
 	static class BlacklistCounter extends BaseTreeFilter{
-		NonSourceCodeFileExtensionBlacklister extensionBlackLister = new NonSourceCodeFileExtensionBlacklister();
+		NonSourceCodeFileExtensionBlacklister extensionBlackLister = 
+				new NonSourceCodeFileExtensionBlacklister(NonSourceCodeFileExtensionBlacklister.ALL_SOURCE_EXTENSIONS);
 		TypeCountFilter counter = TypeCountFilter.file();
 		
 		@Override
