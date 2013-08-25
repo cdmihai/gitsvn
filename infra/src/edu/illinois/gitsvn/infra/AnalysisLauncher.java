@@ -12,7 +12,13 @@ import java.util.concurrent.ForkJoinPool;
  *
  */
 public abstract class AnalysisLauncher {
+	
+	private String path;
 
+	public void setResultsPath(String path){
+		this.path = path;
+	}
+	
 	/**
 	 * Starts the analysis. 
 	 * @throws Exception
@@ -21,6 +27,10 @@ public abstract class AnalysisLauncher {
 		List<AnalysisConfiguration> configurations = new ArrayList<AnalysisConfiguration>();
 		
 		populateWithConfigurations(configurations);
+		
+		for (AnalysisConfiguration configuration : configurations) {
+			configuration.setResultsPath(path);
+		}
 		
 		long before = System.nanoTime();
 		runParallel(configurations);

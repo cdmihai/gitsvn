@@ -49,10 +49,16 @@ public class CSVCommitPrinter extends AnalysisFilter {
 
 	@Override
 	public void end() {
+		
 		String projectName = MetadataService.getService().getInfo(PROJ_NAME_PROP);
 		String resultsPath = getResultsPath();
+		
+		String filePath = resultsPath + File.separator + projectName + ".csv";
+		
+		//System.err.println("wrote to " + filePath);
+		
 		try {
-			csv.dumpToFile(resultsPath + File.pathSeparator + projectName + ".csv");
+			csv.dumpToFile(filePath);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

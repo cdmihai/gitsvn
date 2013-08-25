@@ -42,6 +42,12 @@ import edu.illinois.gitsvn.infra.filters.blacklister.MultipleParentCommitBlackli
  */
 public abstract class AnalysisConfiguration {
 
+	private String path;
+
+	public void setResultsPath(String path){
+		this.path = path;
+	}
+	
 	public void run() {
 		RepositoryCrawler crawler = new RepositoryCrawler();
 		PipelineCommitFilter pipeline = configurePipelineAnalysis();
@@ -90,6 +96,7 @@ public abstract class AnalysisConfiguration {
 	 */
 	protected PipelineCommitFilter configurePipelineAnalysis() {
 		MetadataService.getService().pushInfo(CSVCommitPrinter.PROJ_NAME_PROP, getProjectName());
+		MetadataService.getService().pushInfo(CSVCommitPrinter.RESULTS_PATH_PROP, path);
 		PipelineCommitFilter pipeLineFilter = new PipelineCommitFilter();
 
 		pipeLineFilter.addFilter(FileOperationBlacklister.getAddDiffFilter());
