@@ -52,6 +52,8 @@ public class SvnToGitRepoAnalysisLauncher extends AnalysisLauncher {
 	}
 
 	public static void main(String[] args) throws Exception {
-		new SvnToGitRepoAnalysisLauncher().run();
+		SvnToGitRepoAnalysisLauncher launcher = new SvnToGitRepoAnalysisLauncher();
+		launcher.setResultsPath("../../svnToGitResults");
+		launcher.run();
 	}
 }
