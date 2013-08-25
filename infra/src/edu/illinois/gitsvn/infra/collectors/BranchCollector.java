@@ -83,7 +83,7 @@ public class BranchCollector extends CommitFilter implements DataCollector {
 			if(ref.getKey().startsWith(Constants.R_REMOTES) && !ref.getKey().contains(Constants.HEAD)) {
 				branchName = ref.getValue().getName().split(Constants.R_REMOTES)[1];
 				truncatedBranchName = this.truncateBranchName(branchName);
-				System.out.println("Trying to checkout branch: " + branchName + " (" + truncatedBranchName + ")");
+				//System.out.println("Trying to checkout branch: " + branchName + " (" + truncatedBranchName + ")");
 				CheckoutCommand checkoutCommand = this.git.checkout();
 				checkoutCommand.setForce(true);
 				checkoutCommand.setCreateBranch(true);
