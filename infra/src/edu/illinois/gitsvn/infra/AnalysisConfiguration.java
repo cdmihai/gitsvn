@@ -110,7 +110,7 @@ public abstract class AnalysisConfiguration {
 		pipeLineFilter.addDataCollector(new SHACollector());
 		pipeLineFilter.addDataCollector(new DateCollector());
 		pipeLineFilter.addDataCollector(new AuthorCollector());
-		pipeLineFilter.addDataCollector(new ModifyFileAllLineNumberFilter(ModifyDiffCountFilter.getCommentEditFilter(), ModifyDiffCountFilter.getFormatEditFilter()));
+		//pipeLineFilter.addDataCollector(new ModifyFileAllLineNumberFilter(ModifyDiffCountFilter.getCommentEditFilter(), ModifyDiffCountFilter.getFormatEditFilter()));
 		pipeLineFilter.addDataCollector(new ModifyFileJavaLineNumberFilter(ModifyDiffCountFilter.getCommentEditFilter(), ModifyDiffCountFilter.getFormatEditFilter()));
 		pipeLineFilter.addDataCollector(new IssuesCollector());
 		pipeLineFilter.addDataCollector(new FilesCollector());
