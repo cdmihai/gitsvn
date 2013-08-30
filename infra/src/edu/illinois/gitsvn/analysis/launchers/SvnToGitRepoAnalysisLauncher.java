@@ -40,7 +40,7 @@ public class SvnToGitRepoAnalysisLauncher extends AnalysisLauncher {
 
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/cassandra", "cassandra"));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/Essentials", "Essentials"));
-		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/k-9", "k-9"));
+		configurations.add(new CutoffGenericAnalysis("../../svnToGitRepos/k-9", "k-9", 1296960339));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/liferay-plugins", "liferay-plugins"));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/liferay-portal", "liferay-portal"));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/twitter4j", "twitter4j"));
