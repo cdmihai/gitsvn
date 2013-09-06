@@ -22,6 +22,7 @@ import edu.illinois.gitsvn.infra.collectors.DateCollector;
 import edu.illinois.gitsvn.infra.collectors.FilesCollector;
 import edu.illinois.gitsvn.infra.collectors.IssuesCollector;
 import edu.illinois.gitsvn.infra.collectors.SHACollector;
+import edu.illinois.gitsvn.infra.collectors.diff.JavaLineNumberFilter;
 import edu.illinois.gitsvn.infra.collectors.diff.ModifyDiffCountFilter;
 import edu.illinois.gitsvn.infra.collectors.diff.ModifyFileAllLineNumberFilter;
 import edu.illinois.gitsvn.infra.collectors.diff.ModifyFileJavaLineNumberFilter;
@@ -99,22 +100,23 @@ public abstract class AnalysisConfiguration {
 		MetadataService.getService().pushInfo(CSVCommitPrinter.RESULTS_PATH_PROP, path);
 		PipelineCommitFilter pipeLineFilter = new PipelineCommitFilter();
 
-		pipeLineFilter.addFilter(FileOperationBlacklister.getAddDiffFilter());
-		pipeLineFilter.addFilter(FileOperationBlacklister.getDeleteDiffFilter());
-		pipeLineFilter.addFilter(FileOperationBlacklister.getRenameDiffFilter());
-		pipeLineFilter.addFilter(new MergeMessageCommitBlackLister());
-		pipeLineFilter.addFilter(new MultipleParentCommitBlacklister());
-		pipeLineFilter.addFilter(new CopyrightJavadocImportBlacklister());
-		pipeLineFilter.addFilter(new CVSManufacturedCommitBlacklister());
+//		pipeLineFilter.addFilter(FileOperationBlacklister.getAddDiffFilter());
+//		pipeLineFilter.addFilter(FileOperationBlacklister.getDeleteDiffFilter());
+//		pipeLineFilter.addFilter(FileOperationBlacklister.getRenameDiffFilter());
+//		pipeLineFilter.addFilter(new MergeMessageCommitBlackLister());
+//		pipeLineFilter.addFilter(new MultipleParentCommitBlacklister());
+//		pipeLineFilter.addFilter(new CopyrightJavadocImportBlacklister());
+//		pipeLineFilter.addFilter(new CVSManufacturedCommitBlacklister());
 
 		pipeLineFilter.addDataCollector(new SHACollector());
 		pipeLineFilter.addDataCollector(new DateCollector());
 		pipeLineFilter.addDataCollector(new AuthorCollector());
 		//pipeLineFilter.addDataCollector(new ModifyFileAllLineNumberFilter(ModifyDiffCountFilter.getCommentEditFilter(), ModifyDiffCountFilter.getFormatEditFilter()));
-		pipeLineFilter.addDataCollector(new ModifyFileJavaLineNumberFilter(ModifyDiffCountFilter.getCommentEditFilter(), ModifyDiffCountFilter.getFormatEditFilter()));
-		pipeLineFilter.addDataCollector(new IssuesCollector());
+//		pipeLineFilter.addDataCollector(new ModifyFileJavaLineNumberFilter(ModifyDiffCountFilter.getCommentEditFilter(), ModifyDiffCountFilter.getFormatEditFilter()));
+		pipeLineFilter.addDataCollector(new JavaLineNumberFilter());
+//		pipeLineFilter.addDataCollector(new IssuesCollector());
 		pipeLineFilter.addDataCollector(new FilesCollector());
-		pipeLineFilter.addDataCollector(new BranchCollector(getGitRepo().getRepository()));
+//		pipeLineFilter.addDataCollector(new BranchCollector(getGitRepo().getRepository()));
 
 		AnalysisFilter agregator = new CSVCommitPrinter(pipeLineFilter);
 		pipeLineFilter.setDataAgregator(agregator);
