@@ -38,3 +38,4 @@ git@github.com:wildfly/wildfly.git
 git@github.com:xetorthio/jedis.git
 https://github.com/square/dagger.git
 https://github.com/jhy/jsoup.git
+https://github.com/AsyncHttpClient/async-http-client.git
