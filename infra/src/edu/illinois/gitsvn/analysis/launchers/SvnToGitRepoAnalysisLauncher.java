@@ -50,6 +50,7 @@ public class SvnToGitRepoAnalysisLauncher extends AnalysisLauncher {
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/grails-core", "grails-core"));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/groovy-core", "groovy-core"));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/couchdb", "couchdb"));
+		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/wicket", "wicket"));
 	}
 
 	public static void main(String[] args) throws Exception {
