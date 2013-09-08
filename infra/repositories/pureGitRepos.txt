@@ -43,3 +43,4 @@ https://github.com/Graylog2/graylog2-server.git
 https://github.com/square/retrofit.git
 https://github.com/Netflix/RxJava.git
 https://github.com/square/okhttp.git
+https://github.com/rzwitserloot/lombok.git
