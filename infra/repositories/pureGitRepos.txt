@@ -41,3 +41,4 @@ https://github.com/jhy/jsoup.git
 https://github.com/AsyncHttpClient/async-http-client.git
 https://github.com/Graylog2/graylog2-server.git
 https://github.com/square/retrofit.git
+https://github.com/Netflix/RxJava.git
