@@ -39,3 +39,4 @@ git@github.com:xetorthio/jedis.git
 https://github.com/square/dagger.git
 https://github.com/jhy/jsoup.git
 https://github.com/AsyncHttpClient/async-http-client.git
+https://github.com/Graylog2/graylog2-server.git
