@@ -31,3 +31,5 @@ https://github.com/jiaqi/cyclopsgroup
 https://github.com/junit-team/junit.git
 https://github.com/thymeleaf/thymeleaf
 https://github.com/torvalds/linux
+git://git.apache.org/couchdb.git
+https://github.com/apache/wicket.git
