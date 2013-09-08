@@ -36,3 +36,11 @@ git@github.com:springside/springside4.git
 git@github.com:vert-x/vert.x.git
 git@github.com:wildfly/wildfly.git
 git@github.com:xetorthio/jedis.git
+https://github.com/square/dagger.git
+https://github.com/jhy/jsoup.git
+https://github.com/AsyncHttpClient/async-http-client.git
+https://github.com/Graylog2/graylog2-server.git
+https://github.com/square/retrofit.git
+https://github.com/Netflix/RxJava.git
+https://github.com/square/okhttp.git
+https://github.com/rzwitserloot/lombok.git
