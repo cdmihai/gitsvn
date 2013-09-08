@@ -32,3 +32,4 @@ git://github.com/grails/grails-core.git
 git://github.com/groovy/groovy-core.git
 git://github.com/yui/yuicompressor.git
 git://git.apache.org/couchdb.git
+https://github.com/apache/wicket.git
