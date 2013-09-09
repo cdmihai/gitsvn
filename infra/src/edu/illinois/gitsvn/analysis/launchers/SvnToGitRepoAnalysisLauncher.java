@@ -51,6 +51,8 @@ public class SvnToGitRepoAnalysisLauncher extends AnalysisLauncher {
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/groovy-core", "groovy-core"));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/couchdb", "couchdb"));
 		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/wicket", "wicket"));
+		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/legacy-jclouds", "legacy-jclouds"));
+		configurations.add(new GitSvnCutoffAnalysis("../../svnToGitRepos/joda-time", "joda-time"));
 	}
 
 	public static void main(String[] args) throws Exception {
