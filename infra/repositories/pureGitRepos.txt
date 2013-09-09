@@ -44,3 +44,9 @@ https://github.com/square/retrofit.git
 https://github.com/Netflix/RxJava.git
 https://github.com/square/okhttp.git
 https://github.com/rzwitserloot/lombok.git
+https://github.com/elasticsearch/elasticsearch.git
+https://github.com/mtotschnig/MyExpenses.git
+https://github.com/MovingBlocks/Terasology.git
+https://github.com/jankotek/MapDB.git
+https://github.com/Netflix/astyanax.git
+https://github.com/TooTallNate/Java-WebSocket.git
