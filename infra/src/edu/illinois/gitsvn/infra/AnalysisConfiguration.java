@@ -115,7 +115,7 @@ public abstract class AnalysisConfiguration {
 //		pipeLineFilter.addDataCollector(new ModifyFileJavaLineNumberFilter(ModifyDiffCountFilter.getCommentEditFilter(), ModifyDiffCountFilter.getFormatEditFilter()));
 		pipeLineFilter.addDataCollector(new JavaLineNumberFilter());
 //		pipeLineFilter.addDataCollector(new IssuesCollector());
-		pipeLineFilter.addDataCollector(new FilesCollector());
+//		pipeLineFilter.addDataCollector(new FilesCollector());
 //		pipeLineFilter.addDataCollector(new BranchCollector(getGitRepo().getRepository()));
 
 		AnalysisFilter agregator = new CSVCommitPrinter(pipeLineFilter);

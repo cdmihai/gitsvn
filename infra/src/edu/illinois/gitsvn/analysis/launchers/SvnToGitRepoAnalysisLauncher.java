@@ -53,7 +53,7 @@ public class SvnToGitRepoAnalysisLauncher extends AnalysisLauncher {
 
 	public static void main(String[] args) throws Exception {
 		SvnToGitRepoAnalysisLauncher launcher = new SvnToGitRepoAnalysisLauncher();
-		launcher.setResultsPath("../../svnToGitResults");
+		launcher.setResultsPath("../../hybridLoc");
 		launcher.run();
 	}
 }
